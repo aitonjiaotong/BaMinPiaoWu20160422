@@ -21,7 +21,7 @@
         android:layout_marginBottom="5dp"
         ViewPagerIndicator:indicatorCount="3"
         ViewPagerIndicator:layout_position="middle"
-        ViewPagerIndicator:radiusSize="5dp">
+        ViewPagerIndicator:radiusSize="4dp">
     </bamin.com.kepiao.customView.ViewPagerIndicator>
 
 </RelativeLayout>
