@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         setDialogCkeck("当前版本不可用，请去应用商店下载最新版本","确认");
                     }else {
                         checkUpGrade();
-                        //        检查是否在其他设备上登陆
+                        //        检查是否在其他设备上登录
                         checkIsLoginOnOtherDevice();
                     }
                 }else {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         UpgradeUtils.checkUpgrade(MainActivity.this, ConstantTicket.URL.UP_GRADE);
     }
     /**
-     * 检查是否在其他设备上登陆
+     * 检查是否在其他设备上登录
      */
     private void checkIsLoginOnOtherDevice() {
         if (!"".equals(mDeviceId)) {

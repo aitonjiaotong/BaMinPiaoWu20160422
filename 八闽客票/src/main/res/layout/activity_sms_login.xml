@@ -25,7 +25,7 @@
             style="@style/title_bar_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="短信登陆"
+            android:text="短信登录"
             android:id="@+id/textView13"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>

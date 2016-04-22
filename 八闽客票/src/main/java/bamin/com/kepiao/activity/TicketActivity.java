@@ -703,7 +703,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * 检查是否在其他设备上登陆
+     * 检查是否在其他设备上登录
      */
     private void checkIsLoginOnOtherDevice(final TicketInfo ticketInfo) {
         if (!"".equals(mDeviceId)) {
