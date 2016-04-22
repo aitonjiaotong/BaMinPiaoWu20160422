@@ -37,7 +37,8 @@ public class GuideActivity extends FragmentActivity
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
         {
-            mViewPagerIndicator.move(positionOffset, position);
+//            mViewPagerIndicator.move(positionOffset, position);
+            mViewPagerIndicator.move( position);
         }
 
         @Override

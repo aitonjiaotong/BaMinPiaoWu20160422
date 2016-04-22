@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:ViewPagerIndicator="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="bamin.com.kepiao.activity.GuideActivity">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/myPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/myPager">
+        android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
 
     <bamin.com.kepiao.customView.ViewPagerIndicator
+        android:id="@+id/ViewPagerIndicator"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:id="@+id/ViewPagerIndicator"
-        ViewPagerIndicator:indicatorCount="3"
-        ViewPagerIndicator:radiusSize="10dp"
-        ViewPagerIndicator:layout_position="middle"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp">
+        android:layout_marginBottom="5dp"
+        ViewPagerIndicator:indicatorCount="3"
+        ViewPagerIndicator:layout_position="middle"
+        ViewPagerIndicator:radiusSize="5dp">
     </bamin.com.kepiao.customView.ViewPagerIndicator>
 
 </RelativeLayout>
