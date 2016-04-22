@@ -145,7 +145,6 @@ public class Fragment01 extends Fragment implements View.OnClickListener
         mChooseTime.setOnClickListener(this);
         mIv_Exchange.setOnClickListener(this);
         mBtn_query.setOnClickListener(this);
-        mLayout.findViewById(R.id.iv_back).setOnClickListener(this);
     }
 
     /**
@@ -169,10 +168,6 @@ public class Fragment01 extends Fragment implements View.OnClickListener
         Intent intent = new Intent();
         switch (v.getId())
         {
-            case R.id.iv_back:
-                getActivity().finish();
-                animFromBigToSmallOUT();
-                break;
             case R.id.ll_time:
                 //跳转日期选择器
                 showDatePickerDialog();

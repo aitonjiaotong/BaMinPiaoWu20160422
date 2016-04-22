@@ -25,4 +25,7 @@
     <string name="title_activity_welcome">长途客运</string>
     <string name="title_activity_guide">GuideActivity</string>
     <string name="title_activity_everyting">八闽出行</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
