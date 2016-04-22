@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                tools:context="com.aiton.bamin.changtukepiao.SelectStationSetOutActivity">
+
+
+    <LinearLayout
+        android:id="@+id/ll_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/title_bar"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@mipmap/ic_header_back"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="选择目的地"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@mipmap/ic_header_back"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title_bar"
+        android:background="@color/title_bar"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_search_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_cardview"
+                android:drawableLeft="@mipmap/ic_city_search"
+                android:drawablePadding="12dp"
+                android:hint="@string/search_hint"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColorHint="@color/gray"
+                android:textSize="12dp"/>
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/et_search_city"
+                android:layout_alignRight="@+id/et_search_city"
+                android:layout_alignTop="@+id/et_search_city"
+                android:padding="8dp"
+                android:src="@mipmap/ic_clear_enabled"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_address_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_search"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_btn_comm_used_addr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/tabs_select"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="常用地址"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <TextView
+            android:id="@+id/tv_btn_arrive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="到达城市"
+            android:textColor="@color/fillin_order_pay_gray_bg"
+            android:textSize="@dimen/normalTextSize"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_address_type">
+
+        <ListView
+            android:id="@+id/lv_commonly_used_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+        </ListView>
+
+        <ListView
+            android:id="@+id/arrive_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/xianshi_rela"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <GridView
+                android:id="@+id/gridView_xianshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/back_to_shengshi"
+                android:layout_gravity="center"
+                android:layout_margin="12dp"
+                android:horizontalSpacing="6dp"
+                android:numColumns="3"
+                android:verticalSpacing="6dp"/>
+
+            <TextView
+                android:id="@+id/back_to_shengshi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="12dp"
+                android:background="@color/title_bar"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="返回"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normalTextSize"/>
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_for_search_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/lv_search_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp">
+        </ListView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_for_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/refreash_arrive"
+            android:indeterminateDrawable="@drawable/progressbar_animated_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="数据加载中…"
+            android:textSize="@dimen/normalTextSize"/>
+    </LinearLayout>
+
+</RelativeLayout>

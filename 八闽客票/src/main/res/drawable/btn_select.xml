@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true">
+        <shape>
+            <!-- 填充颜色 -->
+            <solid android:color="#ffcf17"></solid>
+            <!-- 矩形的圆角半径 -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape>
+            <!-- 填充颜色 -->
+            <solid android:color="#ffbf2a"></solid>
+            <!-- 矩形的圆角半径 -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <!-- 填充颜色 -->
+            <solid android:color="@color/title_bar"></solid>
+            <!-- 矩形的圆角半径 -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</selector>
+
+

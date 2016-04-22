@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="bamin.com.kepiao">
+    <!-- 短信验证 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 短信验证 -->
+
+    <!-- 微信支付相关权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 微信支付相关权限 -->
+
+    <application
+        android:name=".application.App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 支付宝相关activity -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+
+        <!-- 支付宝相关activity -->
+        <activity
+            android:name=".activity.SmsLoginActivity"
+            android:label="@string/title_activity_sms_login">
+        </activity>
+        <activity
+            android:name=".activity.AddFetcherActivity"
+            android:label="@string/title_activity_add_fetcher">
+        </activity>
+        <activity
+            android:name=".activity.CouponInfoActivity"
+            android:label="@string/title_activity_coupon_info">
+        </activity>
+        <activity
+            android:name=".activity.FillinOrderActivity"
+            android:label="@string/title_activity_fillin_order"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.OrderDeatilActivity"
+            android:label="@string/title_activity_order_deatil">
+        </activity>
+        <activity
+            android:name=".activity.PayActivity"
+            android:exported="true"
+            android:label="@string/title_activity_pay"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="wxa67cb8a1e90e486a"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RegisterActivity">
+        </activity>
+        <activity
+            android:name=".activity.SelectStationArriveActivity"
+            android:label="@string/title_activity_select_station_arrive"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
+        <activity
+            android:name=".activity.SelectStationSetOutActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".activity.SoftInfo"
+            android:label="@string/title_activity_soft_info">
+        </activity>
+        <activity android:name=".activity.TicketActivity"/>
+        <activity
+            android:name=".activity.TicketNotice"
+            android:label="@string/title_activity_ticket_notice">
+        </activity>
+        <activity android:name=".activity.UpdatePasswordActivity">
+        </activity>
+        <activity
+            android:name=".activity.UsedContact"
+            android:label="@string/title_activity_used_contact">
+        </activity>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+        </activity>
+
+    </application>
+</manifest>

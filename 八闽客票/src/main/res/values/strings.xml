@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">八闽客票</string>
+    <string name="title_bar_search">长途客运</string>
+    <string name="set_out">出发</string>
+    <string name="arrive">到达</string>
+    <string name="set_out_time">出发时间</string>
+    <string name="choose_point_start">请选择出发地</string>
+    <string name="choose_point_end">请选择目的地</string>
+    <string name="search">查询</string>
+    <string name="search_hint">请输入到达站点/支持字母首拼音检索</string>
+
+    <string name="title_bar_ticket">票务查询</string>
+    <string name="title_activity_sms_login">SmsLoginActivity</string>
+    <string name="title_activity_fillin_order">FillinOrderActivity</string>
+    <string name="title_bar_fillin_order">填写订单</string>
+    <string name="title_activity_add_fetcher">AddFetcherActivity</string>
+    <string name="title_bar_add_fetcher">添加乘客</string>
+    <string name="title_activity_used_contact">UsedContact</string>
+    <string name="title_activity_ticket_notice">TicketNotice</string>
+    <string name="title_activity_soft_info">SoftInfo</string>
+    <string name="title_activity_select_station_arrive">SelectStationArriveActivity</string>
+    <string name="title_activity_pay">PayActivity</string>
+    <string name="title_activity_order_deatil">OrderDeatilActivity</string>
+    <string name="title_activity_coupon_info">CouponInfoActivity</string>
+    <string name="title_activity_welcome">长途客运</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_everyting">八闽出行</string>
+</resources>

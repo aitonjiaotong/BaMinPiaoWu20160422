@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".fragment.Fragment02">
+
+    <RelativeLayout
+
+        android:background="@color/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单"
+            style="@style/title_bar_text_style"
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <!--<jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/main_swipe"-->
+        <!--android:layout_below="@+id/relativeLayout">-->
+    <!--<ListView-->
+        <!--android:layoutAnimation="@anim/list_view_animtion"-->
+        <!--android:divider="@null"-->
+        <!--android:background="@color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/order_listView"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@+id/relativeLayout"/>-->
+    <!--</jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>-->
+
+    <TextView
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无订单信息！下拉刷新试试"
+        android:id="@+id/noneOrder"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"/>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rela_unclick"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@+id/relativeLayout">-->
+    <!--</RelativeLayout>-->
+    <com.andview.refreshview.XRefreshView
+        android:id="@+id/custom_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout">
+        <ListView
+            android:divider="@null"
+            android:id="@+id/order_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </com.andview.refreshview.XRefreshView>
+</RelativeLayout>

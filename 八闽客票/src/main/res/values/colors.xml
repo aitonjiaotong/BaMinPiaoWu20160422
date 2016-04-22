@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#dedede</color>
+    <color name="system_gray">#eeeeee</color>
+    <color name="title_bar">#ff7d27</color>
+    <color name="title_bar_deep">#FFFF5218</color>
+    <color name="title_bar_light">#ff7d27</color>
+    <color name="tabs_select">#faa834</color>
+    <color name="tabs_unselect">#181818</color>
+    <color name="line_gray">#d0d0d0</color>
+
+    <color name="fillin_order_head_bg">#faf0e4</color>
+    <color name="fillin_order_pay_gray_bg">#4e4e4e</color>
+    <color name="black">#000000</color>
+    <color name="aiton_basic_color">#ff7d27</color>
+    <color name="red">#FF0000</color>
+    <color name="bule_light">#ff7d27</color>
+    <color name="hint_gray">#c3c3c3</color>
+    <color name="bg_red">#f85959</color>
+    <color name="deep_gray">#c0c0c0</color>
+    <color name="tv_black_normal">#000000</color>
+</resources>

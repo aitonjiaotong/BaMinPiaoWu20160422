@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="@dimen/normalTextSize"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="一级item"
+        android:id="@+id/listTv"/>
+
+    <LinearLayout
+        android:id="@+id/shi_linear"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@color/line_gray"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_width">
+        </LinearLayout>
+
+        <bamin.com.kepiao.customView.MyGridView
+            android:layoutAnimation="@anim/list_view_animtion"
+            android:layout_margin="12dp"
+            android:horizontalSpacing="6dp"
+            android:verticalSpacing="6dp"
+            android:numColumns="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shi_gridView"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+</LinearLayout>

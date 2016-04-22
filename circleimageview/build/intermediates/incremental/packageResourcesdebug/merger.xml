@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="G:\AndroidProject\AiTon_BaMin_Everything_2016-3-1\circleimageview\src\main\res"><file path="G:\AndroidProject\AiTon_BaMin_Everything_2016-3-1\circleimageview\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="CircleImageView">
+        <attr format="dimension" name="civ_border_width"/>
+        <attr format="color" name="civ_border_color"/>
+        <attr format="boolean" name="civ_border_overlay"/>
+        <attr format="color" name="civ_fill_color"/>
+    </declare-styleable></file></source><source path="G:\AndroidProject\AiTon_BaMin_Everything_2016-3-1\circleimageview\build\generated\res\rs\debug"/><source path="G:\AndroidProject\AiTon_BaMin_Everything_2016-3-1\circleimageview\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug"><source path="G:\AndroidProject\AiTon_BaMin_Everything_2016-3-1\circleimageview\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="CircleImageView"><attr format="dimension" name="civ_border_width"/><attr format="color" name="civ_border_color"/><attr format="boolean" name="civ_border_overlay"/><attr format="color" name="civ_fill_color"/></declare-styleable></configuration></mergedItems></merger>

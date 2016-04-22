@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:id="@+id/commit_dialog_view"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除联系人"
+            android:id="@+id/message"
+            />
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:textSize="@dimen/normalTextSize"
+                android:layout_weight="1"
+                android:background="@color/aiton_basic_color"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:id="@+id/ISee"/>
+
+            <Button
+                android:textSize="@dimen/normalTextSize"
+                android:layout_weight="1"
+                android:background="@color/aiton_basic_color"
+                android:textColor="@color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:id="@+id/button_cancle"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aiton.bamin.changtukepiao.Bchangtukepiao.activity.TicketActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/title_bar"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@mipmap/ic_header_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/title_bar_ticket" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@mipmap/ic_header_back"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_time"
+        android:layout_below="@+id/ll_title_bar"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:focusable="false"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:id="@+id/tv_yesterday"
+            android:layout_width="wrap_content"
+            android:background="@drawable/btn_datepicket_select"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:text="前一天"/>
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:id="@+id/tv_today"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:textColor="@color/white"
+            android:background="@color/title_bar_deep"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:id="@+id/tv_tomorrow"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_datepicket_select"
+            android:layout_height="wrap_content"
+            android:text="后一天"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_ticket"
+        android:layout_below="@+id/ll_time"
+        android:layout_width="match_parent"
+        android:divider="#00000000"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout8">
+    </ListView>
+
+    <TextView
+        android:textSize="@dimen/normalTextSize"
+        android:id="@+id/tv_order_logout"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:drawableTop="@mipmap/ic_order_logout"
+        android:drawablePadding="24dp"
+        android:visibility="gone"
+        android:text="抱歉，今天没有汽车票！"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progressbar_animated_rotate"
+        android:id="@+id/refrash"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout8">
+
+        <LinearLayout
+            android:id="@+id/time_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView76"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="出发时段"
+                android:id="@+id/textView_checkTime01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全天"
+                android:id="@+id/textView_checkTime02"/>
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/line_background"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView79"/>
+
+        <LinearLayout
+            android:id="@+id/start_station_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView77"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="出发汽车站"
+                android:id="@+id/textView_checkStartStation01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全部车站"
+                android:id="@+id/textView_checkStartStation02"/>
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/line_background"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView80"/>
+
+        <LinearLayout
+            android:id="@+id/end_station_check"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:background="@color/line_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_width"
+                android:id="@+id/textView78"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="到达汽车站"
+                android:id="@+id/textView_checkEndStartStation01"/>
+
+            <TextView
+                android:textColor="@color/title_bar"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="全部车站"
+                android:id="@+id/textView_checkEndStartStation02"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="#22000000"
+        android:id="@+id/rela_dismiss"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout8"
+        android:layout_alignTop="@+id/ll_time">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:gravity="bottom"
+        android:id="@+id/rela_check"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout8"
+        android:layout_alignTop="@+id/ll_time">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView_check"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+</RelativeLayout>

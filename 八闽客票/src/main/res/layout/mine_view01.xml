@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_marginTop="10dp"
+              android:background="@color/white"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/used_contact"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:src="@mipmap/ic_me_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="22dp"/>
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="乘客信息"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="25dp"/>
+
+        <ImageView
+            android:src="@mipmap/ic_me_arrow_right_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="27dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="60dp"
+        android:background="@color/line_gray"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width">
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/couponInfo_rela"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:src="@mipmap/ic_market00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView10"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="22dp"/>
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优惠券信息"
+            android:id="@+id/textView4"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView10"
+            android:layout_toEndOf="@+id/imageView10"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="25dp"/>
+
+        <ImageView
+            android:src="@mipmap/ic_me_arrow_right_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView11"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="27dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="60dp"
+        android:background="@color/line_gray"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"/>
+
+    <RelativeLayout
+        android:id="@+id/Discount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:src="@mipmap/ic_market01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="22dp"/>
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购票须知"
+            android:id="@+id/textView9"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView5"
+            android:layout_toEndOf="@+id/imageView5"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="25dp"/>
+
+        <ImageView
+            android:src="@mipmap/ic_me_arrow_right_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView6"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="27dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

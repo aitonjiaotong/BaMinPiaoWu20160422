@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\year_label_text_view.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\year_label_text_view.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_header_view.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\date_picker_header_view.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_selected_date.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\date_picker_selected_date.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_view_animator.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\date_picker_view_animator.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_view_animator.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\date_picker_view_animator.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_done_button.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\date_picker_done_button.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_dialog.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\date_picker_dialog.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\time_header_label.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\time_header_label.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_done_button.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\date_picker_done_button.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\time_header_label.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\time_header_label.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_header_view.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\date_picker_header_view.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\time_picker_dialog.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\time_picker_dialog.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_selected_date.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\date_picker_selected_date.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\year_label_text_view.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\year_label_text_view.xml"
+    },
+    {
+        "merged": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\time_picker_dialog.xml",
+        "source": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\layout\\time_picker_dialog.xml"
+    },
+    {
+        "merged": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\layout\\date_picker_dialog.xml",
+        "source": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\layout\\date_picker_dialog.xml"
+    }
+]

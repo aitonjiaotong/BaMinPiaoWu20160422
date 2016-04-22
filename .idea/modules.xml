@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaMinPiaoWu.iml" filepath="$PROJECT_DIR$/BaMinPiaoWu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CheckBox/CheckBox.iml" filepath="$PROJECT_DIR$/CheckBox/CheckBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SMSSDK/SMSSDK.iml" filepath="$PROJECT_DIR$/SMSSDK/SMSSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circleimageview/circleimageview.iml" filepath="$PROJECT_DIR$/circleimageview/circleimageview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_shane/lib_shane.iml" filepath="$PROJECT_DIR$/lib_shane/lib_shane.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library_refreash/library_refreash.iml" filepath="$PROJECT_DIR$/library_refreash/library_refreash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/下拉放大图片/下拉放大图片.iml" filepath="$PROJECT_DIR$/下拉放大图片/下拉放大图片.iml" />
+      <module fileurl="file://$PROJECT_DIR$/八闽客票/八闽客票.iml" filepath="$PROJECT_DIR$/八闽客票/八闽客票.iml" />
+    </modules>
+  </component>
+</project>

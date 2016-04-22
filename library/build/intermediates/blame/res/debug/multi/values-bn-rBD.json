@@ -1,0 +1,430 @@
+[
+    {
+        "outputFile": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\debug\\values-bn-rBD\\values-bn-rBD.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 109,
+                    "endOffset": 210
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1339,
+                        "endColumn": 109,
+                        "endOffset": 1444
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 215,
+                    "endColumn": 115,
+                    "endOffset": 326
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1861,
+                        "endColumn": 119,
+                        "endOffset": 1976
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 331,
+                    "endColumn": 83,
+                    "endOffset": 410
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 83,
+                        "endOffset": 907
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 415,
+                    "endColumn": 117,
+                    "endOffset": 528
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 913,
+                        "endColumn": 117,
+                        "endOffset": 1026
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 533,
+                    "endColumn": 124,
+                    "endOffset": 653
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1731,
+                        "endColumn": 128,
+                        "endOffset": 1855
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 658,
+                    "endColumn": 119,
+                    "endOffset": 773
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1032,
+                        "endColumn": 119,
+                        "endOffset": 1147
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 778,
+                    "endColumn": 94,
+                    "endOffset": 868
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1546,
+                        "endColumn": 94,
+                        "endOffset": 1636
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 873,
+                    "endColumn": 90,
+                    "endOffset": 959
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1153,
+                        "endColumn": 90,
+                        "endOffset": 1239
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 964,
+                    "endColumn": 92,
+                    "endOffset": 1052
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1245,
+                        "endColumn": 92,
+                        "endOffset": 1333
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1057,
+                    "endColumn": 87,
+                    "endOffset": 1140
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1642,
+                        "endColumn": 87,
+                        "endOffset": 1725
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1145,
+                    "endColumn": 94,
+                    "endOffset": 1235
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1450,
+                        "endColumn": 94,
+                        "endOffset": 1540
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\debug\\values-bn-rBD\\values-bn-rBD.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 109,
+                    "endOffset": 210
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1339,
+                        "endColumn": 109,
+                        "endOffset": 1444
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 215,
+                    "endColumn": 115,
+                    "endOffset": 326
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1861,
+                        "endColumn": 119,
+                        "endOffset": 1976
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 331,
+                    "endColumn": 83,
+                    "endOffset": 410
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 83,
+                        "endOffset": 907
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 415,
+                    "endColumn": 117,
+                    "endOffset": 528
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 913,
+                        "endColumn": 117,
+                        "endOffset": 1026
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 533,
+                    "endColumn": 124,
+                    "endOffset": 653
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1731,
+                        "endColumn": 128,
+                        "endOffset": 1855
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 658,
+                    "endColumn": 119,
+                    "endOffset": 773
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1032,
+                        "endColumn": 119,
+                        "endOffset": 1147
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 778,
+                    "endColumn": 94,
+                    "endOffset": 868
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1546,
+                        "endColumn": 94,
+                        "endOffset": 1636
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 873,
+                    "endColumn": 90,
+                    "endOffset": 959
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1153,
+                        "endColumn": 90,
+                        "endOffset": 1239
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 964,
+                    "endColumn": 92,
+                    "endOffset": 1052
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1245,
+                        "endColumn": 92,
+                        "endOffset": 1333
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1057,
+                    "endColumn": 87,
+                    "endOffset": 1140
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1642,
+                        "endColumn": 87,
+                        "endOffset": 1725
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1145,
+                    "endColumn": 94,
+                    "endOffset": 1235
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-bn-rBD\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1450,
+                        "endColumn": 94,
+                        "endOffset": 1540
+                    }
+                }
+            }
+        ]
+    }
+]

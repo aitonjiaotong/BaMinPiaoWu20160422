@@ -1,0 +1,430 @@
+[
+    {
+        "outputFile": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\values-ta-rIN\\values-ta-rIN.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 103,
+                    "endOffset": 204
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1340,
+                        "endColumn": 103,
+                        "endOffset": 1439
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 209,
+                    "endColumn": 112,
+                    "endOffset": 317
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1883,
+                        "endColumn": 116,
+                        "endOffset": 1995
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 322,
+                    "endColumn": 78,
+                    "endOffset": 396
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 78,
+                        "endOffset": 902
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 401,
+                    "endColumn": 106,
+                    "endOffset": 503
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 908,
+                        "endColumn": 106,
+                        "endOffset": 1010
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 508,
+                    "endColumn": 126,
+                    "endOffset": 630
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1751,
+                        "endColumn": 130,
+                        "endOffset": 1877
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 635,
+                    "endColumn": 115,
+                    "endOffset": 746
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1016,
+                        "endColumn": 115,
+                        "endOffset": 1127
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 751,
+                    "endColumn": 109,
+                    "endOffset": 856
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1543,
+                        "endColumn": 109,
+                        "endOffset": 1648
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 861,
+                    "endColumn": 101,
+                    "endOffset": 958
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1133,
+                        "endColumn": 101,
+                        "endOffset": 1230
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 963,
+                    "endColumn": 102,
+                    "endOffset": 1061
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1236,
+                        "endColumn": 102,
+                        "endOffset": 1334
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1066,
+                    "endColumn": 95,
+                    "endOffset": 1157
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1654,
+                        "endColumn": 95,
+                        "endOffset": 1745
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1162,
+                    "endColumn": 96,
+                    "endOffset": 1254
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1445,
+                        "endColumn": 96,
+                        "endOffset": 1537
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\values-ta-rIN\\values-ta-rIN.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 103,
+                    "endOffset": 204
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1340,
+                        "endColumn": 103,
+                        "endOffset": 1439
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 209,
+                    "endColumn": 112,
+                    "endOffset": 317
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1883,
+                        "endColumn": 116,
+                        "endOffset": 1995
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 322,
+                    "endColumn": 78,
+                    "endOffset": 396
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 78,
+                        "endOffset": 902
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 401,
+                    "endColumn": 106,
+                    "endOffset": 503
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 908,
+                        "endColumn": 106,
+                        "endOffset": 1010
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 508,
+                    "endColumn": 126,
+                    "endOffset": 630
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1751,
+                        "endColumn": 130,
+                        "endOffset": 1877
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 635,
+                    "endColumn": 115,
+                    "endOffset": 746
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1016,
+                        "endColumn": 115,
+                        "endOffset": 1127
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 751,
+                    "endColumn": 109,
+                    "endOffset": 856
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1543,
+                        "endColumn": 109,
+                        "endOffset": 1648
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 861,
+                    "endColumn": 101,
+                    "endOffset": 958
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1133,
+                        "endColumn": 101,
+                        "endOffset": 1230
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 963,
+                    "endColumn": 102,
+                    "endOffset": 1061
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 1236,
+                        "endColumn": 102,
+                        "endOffset": 1334
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1066,
+                    "endColumn": 95,
+                    "endOffset": 1157
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 1654,
+                        "endColumn": 95,
+                        "endOffset": 1745
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1162,
+                    "endColumn": 96,
+                    "endOffset": 1254
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-ta-rIN\\strings.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 1445,
+                        "endColumn": 96,
+                        "endOffset": 1537
+                    }
+                }
+            }
+        ]
+    }
+]

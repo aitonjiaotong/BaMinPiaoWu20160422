@@ -1,0 +1,164 @@
+[
+    {
+        "outputFile": "G:\\AndroidProject\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\values-w270dp-h560dp-v13\\values-w270dp-h560dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 63,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 824,
+                        "endColumn": 63,
+                        "endOffset": 883
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 119,
+                    "endColumn": 54,
+                    "endOffset": 169
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 945,
+                        "endColumn": 54,
+                        "endOffset": 995
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 174,
+                    "endColumn": 55,
+                    "endOffset": 225
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1001,
+                        "endColumn": 55,
+                        "endOffset": 1052
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 230,
+                    "endColumn": 54,
+                    "endOffset": 280
+                },
+                "from": {
+                    "file": "G:\\AndroidProject\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 889,
+                        "endColumn": 54,
+                        "endOffset": 939
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\build\\intermediates\\res\\merged\\release\\values-w270dp-h560dp-v13\\values-w270dp-h560dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 63,
+                    "endOffset": 114
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 824,
+                        "endColumn": 63,
+                        "endOffset": 883
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 119,
+                    "endColumn": 54,
+                    "endOffset": 169
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 945,
+                        "endColumn": 54,
+                        "endOffset": 995
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 174,
+                    "endColumn": 55,
+                    "endOffset": 225
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1001,
+                        "endColumn": 55,
+                        "endOffset": 1052
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 230,
+                    "endColumn": 54,
+                    "endOffset": 280
+                },
+                "from": {
+                    "file": "E:\\AndroidStudioProjects_BaMin_From_oschina\\BaMinPiaoWu\\library\\res\\values-w270dp-h560dp\\dimens.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 889,
+                        "endColumn": 54,
+                        "endOffset": 939
+                    }
+                }
+            }
+        ]
+    }
+]

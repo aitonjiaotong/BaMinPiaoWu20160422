@@ -1,0 +1,371 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.aiton.bamin.changtukepiao.Bchangtukepiao.activity.FillinOrderActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/title_bar"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@mipmap/ic_header_back"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/title_bar_fillin_order"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@mipmap/ic_header_back"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ll_title_bar"
+        android:layout_above="@+id/ll_pay"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/fillin_order_head_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:id="@+id/ticket_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="01月18日 星期一 (今天)"/>
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:id="@+id/coachGradeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="中型中级"/>
+
+                <TextView
+                    android:textSize="@dimen/normalTextSize"
+                    android:padding="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="座位数:37"
+                    android:id="@+id/seatNum"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/fillin_order_head_bg"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/ic_schedule_summary_bg2"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/start_xianshi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="4dp"
+                                android:text="厦门市"
+                                android:textSize="20dp"/>
+
+                            <TextView
+                                android:id="@+id/start_station"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="湖滨长途汽车站"
+                                android:textColor="@color/title_bar"
+                                android:textSize="10dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                android:textSize="20dp"
+                                android:background="@mipmap/ic_schedule_start_time_bg"
+                                android:id="@+id/setoutTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="11:48"
+                                android:textColor="@color/white"/>
+                            </RelativeLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:textSize="@dimen/normalTextSize"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="票价:"/>
+
+                                <TextView
+                                    android:textSize="@dimen/normalTextSize"
+                                    android:id="@+id/ticket_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="￥21"
+                                    android:textColor="@color/tabs_select"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/end_xianshi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="4dp"
+                                android:text="漳州市"
+                                android:textSize="20dp"/>
+
+                            <TextView
+                                android:id="@+id/end_station"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="4dp"
+                                android:text="漳州"
+                                android:textColor="@color/title_bar"
+                                android:textSize="10dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <include layout="@layout/divider"></include>
+
+            <include layout="@layout/tickets_person_information"></include>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:src="@mipmap/ic_passenger"/>
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="携带儿童"/>
+
+                    <ImageView
+                        android:layout_margin="10dp"
+                        android:src="@mipmap/ic_ticket_count_minus_normal01"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/child_delete"/>
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/child_num"/>
+
+                    <ImageView
+                        android:layout_margin="10dp"
+                        android:src="@mipmap/ic_ticket_count_add_normal01"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/child_add"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/divider"></include>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="6dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_ticket_note"/>
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="提示:请预留充足时间至出发车站取票"
+                        android:textColor="@color/title_bar"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/ll_pay"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@color/fillin_order_pay_gray_bg"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="13dp"
+                android:id="@+id/passager_Count_real"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共1人乘车"
+                android:layout_weight="1"
+                android:textColor="@color/white"/>
+
+            <CheckBox
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkboxbutton"
+                android:id="@+id/checkBox_baoxian"/>
+
+            <TextView
+                android:textSize="8dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="乘意险"
+                android:id="@+id/textView_insure"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总价:"
+                android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥9"
+                android:textSize="18dp"
+                android:textColor="@color/tabs_select"/>
+        </LinearLayout>
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:id="@+id/order_commmit"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:text="提交订单"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/btn_datepicket_select"
+            android:gravity="center"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</RelativeLayout>

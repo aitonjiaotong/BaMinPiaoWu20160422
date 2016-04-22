@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aiton.bamin.changtukepiao.Zeverything.RegisterActivity">
+
+    <RelativeLayout
+        android:background="@color/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/relativeLayout15"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/imageView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@mipmap/ic_header_back"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:id="@+id/textView97"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/relativeLayout15"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/linearLayout16">
+
+        <TextView
+            android:textColor="@color/title_bar"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="1.输入手机号>"
+            android:id="@+id/textView_inputPhoneNum"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="2.输入验证码>"
+            android:id="@+id/textView_inputSMS"/>
+
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="3.设置密码"
+            android:id="@+id/textView_inputPassword"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/ll_sendSMS"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout16">
+
+        <EditText
+            android:textSize="@dimen/normalEditTextSize"
+            android:hint="请输入手机号"
+            android:paddingLeft="20dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/editText_phoneNum"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:enabled="false"
+            android:textColor="@color/white"
+            android:background="@drawable/sms_btn_selector"
+            android:layout_margin="20dp"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发送验证码"
+            android:id="@+id/button_sendSMS"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_editSMS"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout16"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:hint="请输入短信验证码"
+                android:paddingLeft="20dp"
+                android:textSize="@dimen/normalTextSize"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/editText_SMS"
+                android:layout_weight="1"/>
+
+            <Button
+                android:enabled="false"
+                android:background="@drawable/sms_btn_selector"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normalTextSize"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="60秒后重发"
+                android:id="@+id/button_reSend"/>
+        </LinearLayout>
+
+        <Button
+            android:enabled="false"
+            android:textColor="@color/white"
+            android:background="@drawable/sms_btn_selector"
+            android:layout_margin="20dp"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提交验证码"
+            android:id="@+id/button_commitSms"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_register"
+        android:visibility="gone"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout16"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:textSize="@dimen/normalEditTextSize"
+            android:hint="设置密码"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/editText_password01"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:background="@color/line_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_width"
+            android:id="@+id/textView110"/>
+
+        <EditText
+            android:textSize="@dimen/normalEditTextSize"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/editText_password02"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:textColor="@color/white"
+            android:background="@drawable/sms_btn_selector"
+            android:layout_margin="20dp"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:id="@+id/button_zuce"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</RelativeLayout>

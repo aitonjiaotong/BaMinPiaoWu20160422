@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.aiton.bamin.changtukepiao.Bchangtukepiao.activity.AddFetcherActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/title_bar"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="取消"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/title_bar_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/title_bar_add_fetcher"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:id="@+id/tv_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="保存"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="姓    名"
+                android:textSize="16dp"/>
+
+            <EditText
+                android:id="@+id/passager_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="请填写取票人/乘车人姓名"
+                android:padding="12dp"
+                android:src="@mipmap/ic_arrow_right"
+                android:textColorHint="@color/line_gray"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+        <include layout="@layout/divider"></include>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="身份证"
+                android:textSize="16dp"/>
+
+            <EditText
+                android:id="@+id/person_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="请如实填写取票人的身份证号码"
+                android:padding="12dp"
+                android:src="@mipmap/ic_arrow_right"
+                android:textColorHint="@color/line_gray"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+        <include layout="@layout/divider"></include>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="手机号"
+                android:textSize="16dp"/>
+
+            <EditText
+                android:id="@+id/passager_phoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="方便您接收取票信息"
+                android:padding="12dp"
+                android:src="@mipmap/ic_arrow_right"
+                android:textColorHint="@color/line_gray"
+                android:textSize="14dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

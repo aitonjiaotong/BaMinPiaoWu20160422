@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.aiton.bamin.changtukepiao.Bchangtukepiao.fragment.MoreFragment">
+    <RelativeLayout
+        android:background="@color/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/relativeLayout6"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            style="@style/title_bar_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的页面"
+            android:id="@+id/textView8"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView5"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout6">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/mine_view01"></include>
+            <include layout="@layout/setting_activity"></include>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
