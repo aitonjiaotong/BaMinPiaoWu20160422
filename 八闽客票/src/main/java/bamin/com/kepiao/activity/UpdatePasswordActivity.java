@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
 import com.android.volley.VolleyError;
 import com.umeng.analytics.MobclickAgent;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +30,7 @@ import bamin.com.kepiao.constant.EverythingConstant;
 import bamin.com.kepiao.models.User;
 import bamin.com.kepiao.utils.Installation;
 import bamin.com.kepiao.utils.IsMobileNOorPassword;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
+
 
 public class UpdatePasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,7 +41,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     private Button mButton_sendSMS;
     private int mDeep_gray;
     private int mTitle_bar;
-    private EventHandler mEh;
+//    private EventHandler mEh;
     private String mPhoneNum;
     private int[] mI;
     private Runnable mR;
@@ -56,7 +58,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     private User mUser;
     private String mFindBackPassword;
     private TextView mTextView_title;
-
+    private String mSuijiMath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         initColor();
         initUI();
         setListener();
-        sms();
+//        sms();
     }
 
     private void initIntent() {
@@ -74,45 +76,45 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         mFindBackPassword = intent.getStringExtra("findBackPassword");
     }
 
-    private void sms() {
-        mEh = new EventHandler() {
-            @Override
-            public void afterEvent(int event, int result, Object data) {
-                switch (event) {
-                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-                            toast("短信验证成功");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mLl_editSMS.setVisibility(View.GONE);
-                                    mLl_register.setVisibility(View.VISIBLE);
-                                    mTextView_inputSMS.setTextColor(mBlack);
-                                    mTextView_inputPassword.setTextColor(mTitle_bar);
-                                }
-                            });
-                        } else {
-                            toast("短信验证失败");
-                        }
-                        break;
-                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-                            toast("获取验证码成功");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mButton_commitSms.setEnabled(true);
-                                }
-                            });
-                        } else {
-                            toast("获取验证码失败" + "登录过于频繁，12小时候再试");
-                        }
-                        break;
-                }
-            }
-        };
-        SMSSDK.registerEventHandler(mEh);
-    }
+//    private void sms() {
+//        mEh = new EventHandler() {
+//            @Override
+//            public void afterEvent(int event, int result, Object data) {
+//                switch (event) {
+//                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
+//                        if (result == SMSSDK.RESULT_COMPLETE) {
+//                            toast("短信验证成功");
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    mLl_editSMS.setVisibility(View.GONE);
+//                                    mLl_register.setVisibility(View.VISIBLE);
+//                                    mTextView_inputSMS.setTextColor(mBlack);
+//                                    mTextView_inputPassword.setTextColor(mTitle_bar);
+//                                }
+//                            });
+//                        } else {
+//                            toast("短信验证失败");
+//                        }
+//                        break;
+//                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
+//                        if (result == SMSSDK.RESULT_COMPLETE) {
+//                            toast("获取验证码成功");
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    mButton_commitSms.setEnabled(true);
+//                                }
+//                            });
+//                        } else {
+//                            toast("获取验证码失败" + "登录过于频繁，12小时候再试");
+//                        }
+//                        break;
+//                }
+//            }
+//        };
+//        SMSSDK.registerEventHandler(mEh);
+//    }
 
     private void toast(final String str) {
         runOnUiThread(new Runnable() {
@@ -180,7 +182,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                         map.put("phone", mPhoneNum);
                         map.put("login_id", DeviceId);
                         map.put("password", password01);
-                        map.put("flag","1");//长途客票对应1
                         HTTPUtils.post(UpdatePasswordActivity.this, url, map, new VolleyListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
@@ -222,7 +223,35 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.button_commitSms:
-                SMSSDK.submitVerificationCode("+86", mPhoneNum, mEditText_sms.getText().toString().trim());
+//                SMSSDK.submitVerificationCode("+86", mPhoneNum, mEditText_sms.getText().toString().trim());
+                if (mSuijiMath.equals(mEditText_sms.getText().toString().trim())){
+                    toast("短信验证成功");
+                    //每次存储唯一标识
+                    final String DeviceId = Installation.id(UpdatePasswordActivity.this);
+                    //向后台服务推送用户短信验证成功，发送手机号----start----//
+                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId;
+                    HTTPUtils.get(UpdatePasswordActivity.this, url, new VolleyListener() {
+                        public void onErrorResponse(VolleyError volleyError) {
+                        }
+
+                        public void onResponse(String s) {
+                            mUser = GsonUtils.parseJSON(s, User.class);
+                            //存储手机号和用户id到本地
+                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
+                            SharedPreferences.Editor edit = sp.edit();
+                            edit.putString("phoneNum", mPhoneNum);
+                            edit.putString("id", mUser.getId() + "");
+                            edit.putString("DeviceId", DeviceId);
+                            edit.commit();
+                            //友盟统计
+                            MobclickAgent.onProfileSignIn(mPhoneNum);
+                            finish();
+                        }
+                    });
+                    //向后台服务推送用户短信验证成功，发送手机号----end----//
+                }else {
+                    toast("短信验证失败");
+                }
                 break;
             case R.id.button_sendSMS:
                 mPhoneNum = mEditText_phoneNum.getText().toString().trim();
@@ -241,7 +270,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void sendSMS() {
-        SMSSDK.getVerificationCode("+86", mPhoneNum);
+//        SMSSDK.getVerificationCode("+86", mPhoneNum);
         mI = new int[]{60};
         mLl_sendSMS.setVisibility(View.GONE);
         mLl_editSMS.setVisibility(View.VISIBLE);
@@ -265,8 +294,52 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         };
         mButton_reSend.postDelayed(mR, 0);
         mButton_commitSms.setEnabled(true);
+        getSms();
     }
+    private void getSms() {
+        mSuijiMath = (int) (Math.random() * 9000 + 1000)+"";
+        String url = null;
+        try {
+            url = "http://221.179.180.158:9007/QxtSms/QxtFirewall?OperID=gaosukeyun&OperPass=EEf70kad&SendTime=&ValidTime=&AppendID=1234&DesMobile="+mPhoneNum+"&Content="+ URLEncoder.encode("【八闽集团】验证码是", "gbk")+ mSuijiMath +  URLEncoder.encode(".（切勿告知他人，验证码5分钟内有效）","gbk");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        HTTPUtils.get(UpdatePasswordActivity.this, url, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
 
+            }
+
+            @Override
+            public void onResponse(String s) {
+                String substring = s.substring(17, 19);
+                Log.e("onResponse", "" + substring);
+                if ("03".equals(substring) || "0\"".equals(substring)) {
+                    toast("获取验证码成功");
+                } else if ("02".equals(substring)) {
+                    toast("IP限制");
+                } else if ("04".equals(substring)) {
+                    toast("用户名错误");
+                } else if ("05".equals(substring)) {
+                    toast("密码错误");
+                } else if ("07".equals(substring)) {
+                    toast("发送时间错误");
+                } else if ("08".equals(substring)) {
+                    toast("信息内容为黑内容");
+                } else if ("09".equals(substring)) {
+                    toast("该用户的该内容 受同天内，内容不能重复发 限制");
+                } else if ("10".equals(substring)) {
+                    toast("扩展号错误");
+                } else if ("97".equals(substring)) {
+                    toast("短信参数有误");
+                } else if ("11".equals(substring)) {
+                    toast("余额不足");
+                } else if ("-1".equals(substring)) {
+                    toast("程序异常");
+                }
+            }
+        });
+    }
     class PhoneNumTextWatcher implements TextWatcher {
 
         @Override
@@ -292,6 +365,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterEventHandler(mEh);
+//        SMSSDK.unregisterEventHandler(mEh);
     }
 }
