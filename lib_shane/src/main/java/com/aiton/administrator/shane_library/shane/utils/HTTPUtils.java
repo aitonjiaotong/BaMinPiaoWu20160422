@@ -17,8 +17,11 @@ package com.aiton.administrator.shane_library.shane.utils;
  */
 
 import android.content.Context;
+import android.util.Log;
 
+import com.aiton.administrator.shane_library.github.volley.UTFStringRequest;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,15 +29,15 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.aiton.administrator.shane_library.github.volley.UTFStringRequest;
+
 import java.util.Map;
 
 /**
  * Helper class that is used to provide references to initialized
  * RequestQueue(s) and ImageLoader(s)
- * 
+ *
  * @author Ognyan Bankov
- * 
+ *
  */
 public class HTTPUtils {
 	private static RequestQueue mRequestQueue;
@@ -48,17 +51,18 @@ public class HTTPUtils {
 	}
 
 	public static void post(Context context, String url,
-			final Map<String, String> params, final VolleyListener listener) {
+							final Map<String, String> params, final VolleyListener listener) {
 		StringRequest myReq = new UTFStringRequest(Method.POST, url,
 				new Listener<String>() {
 					public void onResponse(String response) {
 						listener.onResponse(response);
 					}
 				}, new Response.ErrorListener() {
-					public void onErrorResponse(VolleyError error) {
-						listener.onErrorResponse(error);
-					}
-				}) {
+			public void onErrorResponse(VolleyError error) {
+				Log.e("onErrorResponse", "超时时间"+error.getNetworkTimeMs());
+				listener.onErrorResponse(error);
+			}
+		}) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 
@@ -72,25 +76,32 @@ public class HTTPUtils {
 		// 请用缓存
 		myReq.setShouldCache(true);
 		// 设置缓存时间10分钟
-		// myReq.setCacheTime(10*60);
+//		 myReq.setCacheTime(10*60);
+		myReq.setRetryPolicy(new DefaultRetryPolicy(60*1000,3,1.0f));
 		mRequestQueue.add(myReq);
 	}
 
 	public static void get(Context context, String url,
-			final VolleyListener listener) {
+						   final VolleyListener listener) {
 		StringRequest myReq = new UTFStringRequest(Method.GET, url,
 				new Listener<String>() {
 					public void onResponse(String response) {
 						listener.onResponse(response);
 					}
 				}, new Response.ErrorListener() {
-					public void onErrorResponse(VolleyError error) {
-						listener.onErrorResponse(error);
-					}
-				});
+			public void onErrorResponse(VolleyError error) {
+				Log.e("onErrorResponse", "超时时间"+error.getNetworkTimeMs());
+				listener.onErrorResponse(error);
+			}
+		});
 		if (mRequestQueue == null) {
 			init(context);
 		}
+		// 请用缓存
+		myReq.setShouldCache(true);
+		// 设置缓存时间10分钟
+//		 myReq.setCacheTime(10*60);
+		myReq.setRetryPolicy(new DefaultRetryPolicy(60*1000,3,1.0f));
 		mRequestQueue.add(myReq);
 	}
 
@@ -101,18 +112,18 @@ public class HTTPUtils {
 			throw new IllegalStateException("RequestQueue not initialized");
 		}
 	}
-	
+
 	public static  void cancelAll(Context context) {
 		if (mRequestQueue != null) {
 			mRequestQueue.cancelAll(context);
-		} 
+		}
 	}
 
 	/**
 	 * Returns instance of ImageLoader initialized with {@see FakeImageCache}
 	 * which effectively means that no memory caching is used. This is useful
 	 * for images that you know that will be show only once.
-	 * 
+	 *
 	 * @return
 	 */
 	// public static ImageLoader getImageLoader() {
