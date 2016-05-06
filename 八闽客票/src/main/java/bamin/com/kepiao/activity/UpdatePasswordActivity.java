@@ -182,6 +182,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                         map.put("phone", mPhoneNum);
                         map.put("login_id", DeviceId);
                         map.put("password", password01);
+                        map.put("flag", "1");
                         HTTPUtils.post(UpdatePasswordActivity.this, url, map, new VolleyListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
@@ -229,20 +230,20 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                     //每次存储唯一标识
                     final String DeviceId = Installation.id(UpdatePasswordActivity.this);
                     //向后台服务推送用户短信验证成功，发送手机号----start----//
-                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId;
+                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId + "&flag=" + "1";
                     HTTPUtils.get(UpdatePasswordActivity.this, url, new VolleyListener() {
                         public void onErrorResponse(VolleyError volleyError) {
                         }
 
                         public void onResponse(String s) {
                             mUser = GsonUtils.parseJSON(s, User.class);
-                            //存储手机号和用户id到本地
-                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-                            SharedPreferences.Editor edit = sp.edit();
-                            edit.putString("phoneNum", mPhoneNum);
-                            edit.putString("id", mUser.getId() + "");
-                            edit.putString("DeviceId", DeviceId);
-                            edit.commit();
+//                            //存储手机号和用户id到本地
+//                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
+//                            SharedPreferences.Editor edit = sp.edit();
+//                            edit.putString("phoneNum", mPhoneNum);
+//                            edit.putString("id", mUser.getId() + "");
+//                            edit.putString("DeviceId", DeviceId);
+//                            edit.commit();
                             //友盟统计
                             MobclickAgent.onProfileSignIn(mPhoneNum);
                             finish();
