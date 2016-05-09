@@ -1,39 +1,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/frag"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".fragment.Fragment01">
 
     <LinearLayout
         android:id="@+id/ll_title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/title_bar"
-        >
+        android:background="@color/title_bar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-                android:layout_gravity="center"
                 style="@style/title_bar_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_bar_search"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_gravity="center"
+                android:text="@string/title_bar_search"/>
+
+            <ImageView
+                android:id="@+id/iv_cliscan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="6dp"
+                android:src="@mipmap/actionbar_icon_scan"/>
+
         </RelativeLayout>
 
 
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/ll_title_bar"
         android:id="@+id/rela_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="160dp"
+        android:layout_below="@+id/ll_title_bar">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_headerview_pager"
@@ -42,16 +52,16 @@
             ></android.support.v4.view.ViewPager>
 
         <bamin.com.kepiao.customView.ViewPagerIndicator
+            android:id="@+id/ViewPagerIndicator"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:id="@+id/ViewPagerIndicator"
-            app:radiusSize="5dp"
-            app:indicatorCount="3"
-            app:layout_position="middle"
-            android:layout_marginBottom="10dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            app:indicatorCount="3"
+            app:layout_position="middle"
+            app:radiusSize="5dp"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -71,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
-            android:src="@mipmap/ic_exchange" />
+            android:src="@mipmap/ic_exchange"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,10 +98,10 @@
                 android:padding="12dp">
 
                 <TextView
-                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_out" />
+                    android:text="@string/set_out"
+                    android:textSize="@dimen/normalTextSize"/>
 
                 <TextView
                     android:id="@+id/tv_set_out"
@@ -100,14 +110,14 @@
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
                     android:gravity="right|center"
+                    android:padding="6dp"
                     android:text="@string/choose_point_start"
-                    android:textSize="@dimen/myPagerTextSize"
-                    android:padding="6dp" />
+                    android:textSize="@dimen/myPagerTextSize"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_arrow_right" />
+                    android:src="@mipmap/ic_arrow_right"/>
             </LinearLayout>
 
             <TextView
@@ -126,10 +136,10 @@
                 android:padding="12dp">
 
                 <TextView
-                    android:textSize="@dimen/normalTextSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/arrive" />
+                    android:text="@string/arrive"
+                    android:textSize="@dimen/normalTextSize"/>
 
                 <TextView
                     android:id="@+id/tv_arrive"
@@ -138,14 +148,14 @@
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
                     android:gravity="right|center"
-                    android:textSize="@dimen/myPagerTextSize"
+                    android:padding="6dp"
                     android:text="@string/choose_point_end"
-                    android:padding="6dp" />
+                    android:textSize="@dimen/myPagerTextSize"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_arrow_right" />
+                    android:src="@mipmap/ic_arrow_right"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -156,12 +166,12 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_choose"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:scaleType="fitXY"
         android:background="@color/white"
-        android:layout_below="@+id/ll_choose"
-        android:src="@mipmap/ic_line" />
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_line"/>
 
     <LinearLayout
         android:id="@+id/ll_time"
@@ -170,19 +180,22 @@
         android:layout_below="@+id/line"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:gravity="center"
         android:background="@drawable/bg_cardview"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
             android:src="@mipmap/ic_home_calendar"/>
+
         <TextView
-            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/set_out_time" />
+            android:text="@string/set_out_time"
+            android:textSize="@dimen/normalTextSize"/>
+
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
@@ -190,22 +203,21 @@
             android:layout_weight="1"
             android:gravity="right"
             android:padding="6dp"
-            android:textSize="16dp"
-            android:text="01月17日（明天）" />
+            android:text="01月17日（明天）"
+            android:textSize="16dp"/>
     </LinearLayout>
 
     <Button
-        android:textSize="@dimen/normalTextSize"
         android:id="@+id/btn_query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_time"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/btn_select"
         android:text="@string/search"
         android:textColor="@color/white"
-        android:background="@drawable/btn_select"
-        android:layout_below="@+id/ll_time"/>
-
+        android:textSize="@dimen/normalTextSize"/>
 
 </RelativeLayout>

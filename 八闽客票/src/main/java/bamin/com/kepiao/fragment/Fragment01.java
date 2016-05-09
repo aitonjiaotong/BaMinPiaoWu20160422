@@ -3,22 +3,27 @@ package bamin.com.kepiao.fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiton.administrator.shane_library.shane.utils.GsonUtils;
 import com.aiton.administrator.shane_library.shane.utils.HTTPUtils;
+import com.aiton.administrator.shane_library.shane.utils.UILUtils;
 import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.volley.VolleyError;
@@ -67,6 +72,11 @@ public class Fragment01 extends Fragment implements View.OnClickListener
     private String mPhoneNum;
     private AlertDialog mAlertDialog;
     private ViewPagerIndicator mViewPagerIndicator;
+    private ImageView mIv_cliscan;
+    private LinearLayout mLl_title_bar;
+    private ImageView mIv_cliscan_close;
+    private PopupWindow mPopupWindow;
+    private ImageView mIv_cli_scan_show;
 
     public Fragment01()
     {
@@ -104,15 +114,19 @@ public class Fragment01 extends Fragment implements View.OnClickListener
 
     private void initBannerData()
     {
-        HTTPUtils.get(getActivity(), ConstantTicket.URL.GET_BANNER_IMG, new VolleyListener() {
+        HTTPUtils.get(getActivity(), ConstantTicket.URL.GET_BANNER_IMG, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
 
             }
 
             @Override
-            public void onResponse(String s) {
-                Type type = new TypeToken<ArrayList<BannerInfo>>() {
+            public void onResponse(String s)
+            {
+                Type type = new TypeToken<ArrayList<BannerInfo>>()
+                {
                 }.getType();
                 bannerData = GsonUtils.parseJSONArray(s, type);
                 mViewPager_banner.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
@@ -133,6 +147,8 @@ public class Fragment01 extends Fragment implements View.OnClickListener
         mTv_date.setText(mYear + "-" + mMonth + "-" + mDayOfMonth);
         mIv_Exchange = (ImageView) mLayout.findViewById(R.id.iv_exchange);
         mBtn_query = (Button) mLayout.findViewById(R.id.btn_query);
+        mIv_cliscan = (ImageView) mLayout.findViewById(R.id.iv_cliscan);
+        mLl_title_bar = (LinearLayout) mLayout.findViewById(R.id.ll_title_bar);
     }
 
     /**
@@ -145,6 +161,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener
         mChooseTime.setOnClickListener(this);
         mIv_Exchange.setOnClickListener(this);
         mBtn_query.setOnClickListener(this);
+        mIv_cliscan.setOnClickListener(this);
     }
 
     /**
@@ -223,8 +240,47 @@ public class Fragment01 extends Fragment implements View.OnClickListener
 //                }
 
                 break;
+            case R.id.iv_cliscan:
+                //弹出二维码
+                showPopCliScan();
+                break;
+            case R.id.iv_cliscan_close:
+                mPopupWindow.dismiss();
+                break;
         }
     }
+
+    private void showPopCliScan()
+    {
+        View inflate = getActivity().getLayoutInflater().inflate(R.layout.layout_pop_cli_scan_show, null);
+        mIv_cliscan_close = (ImageView) inflate.findViewById(R.id.iv_cliscan_close);
+        mIv_cliscan_close.setOnClickListener(this);
+        mIv_cli_scan_show = (ImageView) inflate.findViewById(R.id.iv_cli_scan_show);
+        UILUtils.displayImageNoAnim(ConstantTicket.URL.CLI_SCAN,mIv_cli_scan_show);
+        //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
+        mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        //设置外部点击无效
+        mPopupWindow.setOutsideTouchable(false);
+        //设置背景变暗
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.7f;
+        getActivity().getWindow().setAttributes(lp);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener()
+        {
+            @Override
+            public void onDismiss()
+            {
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        BitmapDrawable bitmapDrawable = new BitmapDrawable();
+        mPopupWindow.setBackgroundDrawable(bitmapDrawable);
+        mPopupWindow.showAtLocation(mLl_title_bar, Gravity.CENTER, 0, 0);
+    }
+
 
     /**
      * 从小到大打开动画
@@ -255,21 +311,27 @@ public class Fragment01 extends Fragment implements View.OnClickListener
 
     public void showDatePickerDialog()
     {
-        DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener()
+        {
             @Override
-            public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
-                try {
+            public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth)
+            {
+                try
+                {
                     mDateCompare = DateCompareUtil.DateCompare(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth, c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH));
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     e.printStackTrace();
                 }
-                if (mDateCompare) {
+                if (mDateCompare)
+                {
                     mYear = year;
                     mMonth = monthOfYear + 1;
                     mDayOfMonth = dayOfMonth;
                     mTv_date.setText(mYear + "-" + mMonth + "-" + mDayOfMonth);
 //                    mAlertDialog.cancel();
-                } else {
+                } else
+                {
                     Toast.makeText(getActivity(), "预售10天内的车票，请重新选择！", Toast.LENGTH_SHORT).show();
                     mTv_date.setText(mYear + "-" + mMonth + "-" + mDayOfMonth);
                 }
