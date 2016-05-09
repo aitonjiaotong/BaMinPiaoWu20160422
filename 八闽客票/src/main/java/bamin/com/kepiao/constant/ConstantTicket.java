@@ -36,7 +36,7 @@ public class ConstantTicket
         public static final String ONLINE_BUS_WEB_HTML = "http://bus.xmjdt.com/";
 
         //加载二维码图片地址
-        public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/call_car_passanger/cli_call_car_passenger_500px.png";
+        public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
 
     }
 
