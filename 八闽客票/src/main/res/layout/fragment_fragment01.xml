@@ -27,12 +27,12 @@
 
             <ImageView
                 android:id="@+id/iv_cliscan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="6dp"
-                android:src="@mipmap/actionbar_icon_scan"/>
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/scan"/>
 
         </RelativeLayout>
 
