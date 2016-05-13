@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +97,7 @@ public class Fragment0201 extends Fragment {
         super.onStart();
         SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
+        listGone();
     }
 
     @Override
@@ -200,7 +200,6 @@ public class Fragment0201 extends Fragment {
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
@@ -239,7 +238,7 @@ public class Fragment0201 extends Fragment {
                     } else if ("未确认".equals(state)) {
                         //0是正在出票1是出票成功
                         if (mAccountOrderEntityList.get(i).getStatus() == 0) {
-                            DialogShow.setDialog(getActivity(), "正在出票，请稍后下拉刷新试试", "确认");
+                            DialogShow.setDialog(getActivity(),"正在出票，请稍后下拉刷新试试","确认");
                         } else if (mAccountOrderEntityList.get(i).getStatus() == 1) {
 
                         }else if (mAccountOrderEntityList.get(i).getStatus() == 3){
@@ -250,7 +249,6 @@ public class Fragment0201 extends Fragment {
                             intent.putExtra("realPrice", mAccountOrderEntityList.get(i).getPrice());
                             intent.putExtra("OrderId", mAccountOrderEntityList.get(i).getId()+"");
                             intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
-                            Log.e("onResponse ", "订单列表的界面: "+mAccountOrderEntityList.get(i).getId());
                             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.setClass(getActivity(), PayActivity.class);
                             startActivity(intent);
@@ -265,7 +263,6 @@ public class Fragment0201 extends Fragment {
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
@@ -300,12 +297,24 @@ public class Fragment0201 extends Fragment {
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 } catch (IndexOutOfBoundsException e) {
-                    Log.e("onResponse ", "不要乱点" + "不要乱点");
                 }
             }
         });
     }
-
+    private void listGone() {
+        /**
+         * 防止刷新不一致崩掉
+         */
+        if (!orderStateList.contains("正在生成")&&!mQueryOrderList.contains(mQueryOrderNull)){
+//            isSure = true;
+//            mIsupdata = true;
+//            mCustom_view.stopRefresh();
+//            mCustom_view.stopLoadMore();
+//            mMyAdapter.notifyDataSetChanged();
+        }else{
+            mOrderListview.setVisibility(View.GONE);
+        }
+    }
     private void refreashSure() {
         /**
          * 防止刷新不一致崩掉
@@ -316,17 +325,8 @@ public class Fragment0201 extends Fragment {
             mCustom_view.stopRefresh();
             mCustom_view.stopLoadMore();
             mMyAdapter.notifyDataSetChanged();
+            mOrderListview.setVisibility(View.VISIBLE);
         }
-//        for (int i = 0; i < mAccountOrder.getOrders().size(); i++) {
-//            isSure = true;
-//            if (("正在生成".equals(orderStateList.get(i))) && orderStateList.get(i) != null && ("正在生成".equals(mQueryOrderList.get(i).getMyStateDesc())) && mQueryOrderList.get(i).getStartSiteName() != null) {
-//                isSure = false;
-//                break;
-//            }
-//        }
-//        if (isSure) {
-//
-//        }
     }
 
     private void initUI() {
@@ -374,7 +374,6 @@ public class Fragment0201 extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             isItemClickED = !isItemClickED;
-            Log.e("onItemClick ", "isItemClickED " + isItemClickED);
             if (isItemClickED) {
                 if (mAccountOrderEntityList.get(position).getFlag() == 1) {
                     DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
