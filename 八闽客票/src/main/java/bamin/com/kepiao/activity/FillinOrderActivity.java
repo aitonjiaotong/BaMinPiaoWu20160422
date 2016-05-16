@@ -358,6 +358,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         map.put("redEnvelope_id", "");
         map.put("insure",insurePrice+"");
         map.put("price",mRealPrice+"");
+        map.put("yuliu1","android");
         HTTPUtils.post(FillinOrderActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
