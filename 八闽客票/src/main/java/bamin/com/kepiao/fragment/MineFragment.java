@@ -33,8 +33,13 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.aiton.administrator.shane_library.shane.utils.UILUtils;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.ByteArrayOutputStream;
@@ -47,8 +52,7 @@ import bamin.com.kepiao.activity.SmsLoginActivity;
 import bamin.com.kepiao.activity.SoftInfo;
 import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
-import bamin.com.kepiao.models.User;
-
+import cz.msebera.android.httpclient.Header;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +73,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private PopupWindow mPopupWindow;
     private ScrollView mPullRootView;
     private String mId;
-    private User mUser;
     private Button mButton_zuxiao;
 
     public MineFragment() {
@@ -103,6 +106,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
         mId = sp.getString("id", "");
+        String image = sp.getString("image", "");
         if ("".equals(mPhoneNum)) {
             isLogined = false;
 
@@ -117,13 +121,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             mUnLoginInfo.setVisibility(View.INVISIBLE);
             mButton_zuxiao.setVisibility(View.VISIBLE);
             mName.setText(mPhoneNum);
-            String Path = "/upload/" + mPhoneNum + "upload.jpeg";
-            File pictureFile = new File(Environment.getExternalStorageDirectory(), Path);
-            if (pictureFile.exists()) {
-                Uri uri = Uri.fromFile(pictureFile);
-                Bitmap bitmap = decodeUriAsBitmap(uri);
-                mIc_avatar.setImageBitmap(bitmap);
+            if ("".equals(image)){
+                String Path = "/upload/" + mPhoneNum + "upload.jpeg";
+                File pictureFile = new File(Environment.getExternalStorageDirectory(), Path);
+                if (pictureFile.exists()) {
+                    Uri uri = Uri.fromFile(pictureFile);
+                    Bitmap bitmap = decodeUriAsBitmap(uri);
+                    mIc_avatar.setImageBitmap(bitmap);
+                }
+            }else{
+                UILUtils.displayImageNoAnim(image,mIc_avatar);
             }
+
         }
     }
 
@@ -173,7 +182,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 picFile.createNewFile();
             }
             photoUri = Uri.fromFile(picFile);
-
             if (type == PIC_FROM＿LOCALPHOTO) {
                 Intent intent = getCropImageIntent();
                 startActivityForResult(intent, PIC_FROM＿LOCALPHOTO);
@@ -187,6 +195,51 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             Log.i("HandlerPicError", "处理图片出现错误");
         }
     }
+
+    public void postFile(Uri uploadFile) {
+        String path = uploadFile.getPath();
+        Log.e("postFile", "path" + path);
+        File file = new File(path);
+        String actionUrl = "http://120.24.46.15:8080/bmpw/account/updateIcon";
+        if (file.exists() && file.length() > 0) {
+            RequestParams params = new RequestParams();
+            params.put("account_id", mId);
+            Log.e("postFile", "用户ID" + mId);
+            try {
+                params.put("data", file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+            asyncHttpClient.post(actionUrl,params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Log.e("onSuccess: ", "---> " + new String(responseBody));
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Log.e("onFailure", "失败");
+                }
+            });
+//            ImgUpLoad.post(actionUrl, params, new AsyncHttpResponseHandler() {
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                    Toast.makeText(getActivity(), "成功", Toast.LENGTH_LONG).show();
+//                    Log.e("onSuccess: ", "---> " + new String(responseBody));
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                    Toast.makeText(getActivity(), "功成", Toast.LENGTH_LONG).show();
+//                }
+//            });
+        } else {
+            Toast.makeText(getActivity(), "文件不存在", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 
     /**
      * 调用图片剪辑程序
@@ -240,6 +293,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (photoUri != null) {
                         Bitmap bitmap = decodeUriAsBitmap(photoUri);
                         mIc_avatar.setImageBitmap(bitmap);
+                        postFile(photoUri);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -346,7 +400,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     intent.setClass(getActivity(), SmsLoginActivity.class);
                     startActivityForResult(intent, 5);
                 } else {
-                        setPopupWindows();
+                    setPopupWindows();
                 }
                 break;
             case R.id.unlogin:
@@ -364,7 +418,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             0);
-                }else{
+                } else {
                     doHandlerPhoto(PIC_FROM＿LOCALPHOTO);// 从相册中去获取
                     mPopupWindow.dismiss();
                 }
@@ -375,7 +429,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
                             0);
-                }else{
+                } else {
                     doHandlerPhoto(PIC_FROM_CAMERA);// 用户点击了从照相机获取
                     mPopupWindow.dismiss();
                 }

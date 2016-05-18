@@ -201,6 +201,8 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                                     edit.putString("phoneNum", mPhoneNum);
                                     edit.putString("id", mUser.getId() + "");
                                     edit.putString("DeviceId", DeviceId);
+                                    edit.putString("image",mUser.getImage());
+                                    Log.e("onResponse", "图片地址" + mUser.getImage());
                                     edit.commit();
                                     if ("findBackPassword".equals(mFindBackPassword)) {
                                         toast("修改成功");

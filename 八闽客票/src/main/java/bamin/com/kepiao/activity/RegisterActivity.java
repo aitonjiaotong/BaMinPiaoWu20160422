@@ -190,6 +190,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     edit.putString("phoneNum", mPhoneNum);
                                     edit.putString("id", mUser.getId() + "");
                                     edit.putString("DeviceId", DeviceId);
+                                    edit.putString("image",mUser.getImage());
+                                    Log.e("onResponse", "图片地址" + mUser.getImage());
                                     edit.commit();
                                     toast("注册成功");
                                     //友盟统计

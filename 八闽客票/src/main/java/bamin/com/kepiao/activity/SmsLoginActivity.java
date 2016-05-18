@@ -329,6 +329,8 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 edit.putString("phoneNum", mPhoneNum);
                                 edit.putString("id", mUser.getId() + "");
                                 edit.putString("DeviceId", DeviceId);
+                                edit.putString("image",mUser.getImage());
+                                Log.e("onResponse", "图片地址" +mUser.getImage());
                                 edit.commit();
                                 //友盟统计
                                 MobclickAgent.onProfileSignIn(mPhoneNum);
@@ -368,6 +370,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 toast("用户名或密码错误");
                             } else
                             {
+                                Log.e("onResponse", "登录返回值"+s);
                                 mUser = GsonUtils.parseJSON(s, User.class);
                                 //存储手机号和用户id到本地
                                 SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
@@ -376,6 +379,8 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 edit.putString("id", mUser.getId() + "");
                                 edit.putString("DeviceId", DeviceId);
                                 Log.e("onResponse ", "DeviceId " + DeviceId);
+                                edit.putString("image",mUser.getImage());
+                                Log.e("onResponse", "图片地址" +mUser.getImage());
                                 edit.commit();
                                 toast("登录成功");
                                 //友盟统计
