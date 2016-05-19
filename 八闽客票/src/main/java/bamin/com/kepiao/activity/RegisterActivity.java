@@ -215,15 +215,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (mSuijiMath.equals(mEditText_sms.getText().toString().trim())){
                     toast("短信验证成功");
                     //每次存储唯一标识
-                    final String DeviceId = Installation.id(RegisterActivity.this);
-                    //向后台服务推送用户短信验证成功，发送手机号----start----//
-                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId +"&flag=" + "1";
-                    HTTPUtils.get(RegisterActivity.this, url, new VolleyListener() {
-                        public void onErrorResponse(VolleyError volleyError) {
-                        }
-
-                        public void onResponse(String s) {
-                            mUser = GsonUtils.parseJSON(s, User.class);
+//                    final String DeviceId = Installation.id(RegisterActivity.this);
+//                    //向后台服务推送用户短信验证成功，发送手机号----start----//
+//                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId +"&flag=" + "1";
+//                    HTTPUtils.get(RegisterActivity.this, url, new VolleyListener() {
+//                        public void onErrorResponse(VolleyError volleyError) {
+//                        }
+//
+//                        public void onResponse(String s) {
+//                            mUser = GsonUtils.parseJSON(s, User.class);
                             //存储手机号和用户id到本地
 //                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
 //                            SharedPreferences.Editor edit = sp.edit();
@@ -232,10 +232,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                            edit.putString("DeviceId", DeviceId);
 //                            edit.commit();
                             //友盟统计
-                            MobclickAgent.onProfileSignIn(mPhoneNum);
-                            finish();
-                        }
-                    });
+//                            MobclickAgent.onProfileSignIn(mPhoneNum);
+//                            finish();
+//                        }
+//                    });
                     //向后台服务推送用户短信验证成功，发送手机号----end----//
                 }else {
                     toast("短信验证失败");

@@ -5,8 +5,8 @@ package bamin.com.kepiao.constant;
  */
 public class EverythingConstant
 {
-    //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
-    public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
+        public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
+//    public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
     //        public static final String HOST = "http://192.168.1.100:8080";//本地服务器
     public static final int ABLEVERSION = 0;//可用版本号
 
