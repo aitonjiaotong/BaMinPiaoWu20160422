@@ -131,14 +131,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Uri uri = Uri.fromFile(pictureFile);
                     Bitmap bitmap = decodeUriAsBitmap(uri);
                     mIc_avatar.setImageBitmap(bitmap);
-                    Log.e("checkLogin", "22222222222");
                 }
             } else {
                 if (!isUpdateIcon){
-                    Log.e("checkLogin", "从服务器上加载头像" + mImage);
-                    Log.e("checkLogin", "333333333333");
                     UILUtils.displayImageNoAnimNoCache(mImage, mIc_avatar, false);
                 }
+                isUpdateIcon=true;
             }
 
         }
@@ -295,8 +293,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (photoUri != null) {
                         Bitmap bitmap = decodeUriAsBitmap(photoUri);
                         mIc_avatar.setImageBitmap(bitmap);
-                        Log.e("onActivityResult", "4444444444444444");
-                        isUpdateIcon = true;
                         postFile(photoUri);
                     }
                 } catch (Exception e) {
