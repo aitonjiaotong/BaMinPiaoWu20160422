@@ -76,45 +76,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         mFindBackPassword = intent.getStringExtra("findBackPassword");
     }
 
-//    private void sms() {
-//        mEh = new EventHandler() {
-//            @Override
-//            public void afterEvent(int event, int result, Object data) {
-//                switch (event) {
-//                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("短信验证成功");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mLl_editSMS.setVisibility(View.GONE);
-//                                    mLl_register.setVisibility(View.VISIBLE);
-//                                    mTextView_inputSMS.setTextColor(mBlack);
-//                                    mTextView_inputPassword.setTextColor(mTitle_bar);
-//                                }
-//                            });
-//                        } else {
-//                            toast("短信验证失败");
-//                        }
-//                        break;
-//                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("获取验证码成功");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mButton_commitSms.setEnabled(true);
-//                                }
-//                            });
-//                        } else {
-//                            toast("获取验证码失败" + "登录过于频繁，12小时候再试");
-//                        }
-//                        break;
-//                }
-//            }
-//        };
-//        SMSSDK.registerEventHandler(mEh);
-//    }
 
     private void toast(final String str) {
         runOnUiThread(new Runnable() {
