@@ -77,6 +77,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener
     private ImageView mIv_cliscan_close;
     private PopupWindow mPopupWindow;
     private ImageView mIv_cli_scan_show;
+    private ImageView mImageView_ceshi;
 
     public Fragment01()
     {
@@ -257,7 +258,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener
         mIv_cliscan_close = (ImageView) inflate.findViewById(R.id.iv_cliscan_close);
         mIv_cliscan_close.setOnClickListener(this);
         mIv_cli_scan_show = (ImageView) inflate.findViewById(R.id.iv_cli_scan_show);
-        UILUtils.displayImageNoAnim(ConstantTicket.URL.CLI_SCAN, mIv_cli_scan_show, false);
+        UILUtils.displayImageNoAnimNoCache(ConstantTicket.URL.CLI_SCAN, mIv_cli_scan_show, false);
         //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
         mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
         //设置外部点击无效

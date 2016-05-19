@@ -137,7 +137,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 if (!isUpdateIcon){
                     Log.e("checkLogin", "从服务器上加载头像" + mImage);
                     Log.e("checkLogin", "333333333333");
-                    UILUtils.displayImageNoAnim(mImage, mIc_avatar, false);
+                    UILUtils.displayImageNoAnimNoCache(mImage, mIc_avatar, false);
                 }
             }
 
