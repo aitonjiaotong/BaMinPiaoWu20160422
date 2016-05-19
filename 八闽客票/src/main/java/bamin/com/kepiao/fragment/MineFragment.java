@@ -18,7 +18,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aiton.administrator.shane_library.shane.utils.GsonUtils;
 import com.aiton.administrator.shane_library.shane.utils.UILUtils;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.loopj.android.http.AsyncHttpClient;
@@ -42,7 +42,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -52,6 +51,7 @@ import bamin.com.kepiao.activity.SmsLoginActivity;
 import bamin.com.kepiao.activity.SoftInfo;
 import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
+import bamin.com.kepiao.models.User;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -74,6 +74,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private ScrollView mPullRootView;
     private String mId;
     private Button mButton_zuxiao;
+    private String mImage;
+    private boolean isUpdateIcon = false;
 
     public MineFragment() {
     }
@@ -106,13 +108,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
         mId = sp.getString("id", "");
-        String image = sp.getString("image", "");
+        mImage = sp.getString("image", "");
         if ("".equals(mPhoneNum)) {
             isLogined = false;
 
             mInfo.setVisibility(View.INVISIBLE);
             mUnLoginInfo.setVisibility(View.VISIBLE);
             mIc_avatar.setImageResource(R.mipmap.ic_avatar);
+            Log.e("checkLogin", "11111111111");
             mName.setText("昵称");
             mButton_zuxiao.setVisibility(View.GONE);
         } else {
@@ -121,16 +124,21 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             mUnLoginInfo.setVisibility(View.INVISIBLE);
             mButton_zuxiao.setVisibility(View.VISIBLE);
             mName.setText(mPhoneNum);
-            if ("".equals(image)){
+            if ("".equals(mImage)) {
                 String Path = "/upload/" + mPhoneNum + "upload.jpeg";
                 File pictureFile = new File(Environment.getExternalStorageDirectory(), Path);
                 if (pictureFile.exists()) {
                     Uri uri = Uri.fromFile(pictureFile);
                     Bitmap bitmap = decodeUriAsBitmap(uri);
                     mIc_avatar.setImageBitmap(bitmap);
+                    Log.e("checkLogin", "22222222222");
                 }
-            }else{
-                UILUtils.displayImageNoAnim(image,mIc_avatar);
+            } else {
+                if (!isUpdateIcon){
+                    Log.e("checkLogin", "从服务器上加载头像" + mImage);
+                    Log.e("checkLogin", "333333333333");
+                    UILUtils.displayImageNoAnim(mImage, mIc_avatar, false);
+                }
             }
 
         }
@@ -211,10 +219,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-            asyncHttpClient.post(actionUrl,params, new AsyncHttpResponseHandler() {
+            asyncHttpClient.post(actionUrl, params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     Log.e("onSuccess: ", "---> " + new String(responseBody));
+                    User user = GsonUtils.parseJSON(new String(responseBody), User.class);
+                    SharedPreferences sp = getActivity().getSharedPreferences("isLogin", getActivity().MODE_PRIVATE);
+                    SharedPreferences.Editor edit = sp.edit();
+                    edit.putString("image", user.getImage());
+                    Log.e("onResponse", "图片地址" + user.getImage());
+                    edit.commit();
                 }
 
                 @Override
@@ -222,18 +236,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Log.e("onFailure", "失败");
                 }
             });
-//            ImgUpLoad.post(actionUrl, params, new AsyncHttpResponseHandler() {
-//                @Override
-//                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                    Toast.makeText(getActivity(), "成功", Toast.LENGTH_LONG).show();
-//                    Log.e("onSuccess: ", "---> " + new String(responseBody));
-//                }
-//
-//                @Override
-//                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                    Toast.makeText(getActivity(), "功成", Toast.LENGTH_LONG).show();
-//                }
-//            });
         } else {
             Toast.makeText(getActivity(), "文件不存在", Toast.LENGTH_LONG).show();
         }
@@ -293,6 +295,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (photoUri != null) {
                         Bitmap bitmap = decodeUriAsBitmap(photoUri);
                         mIc_avatar.setImageBitmap(bitmap);
+                        Log.e("onActivityResult", "4444444444444444");
+                        isUpdateIcon = true;
                         postFile(photoUri);
                     }
                 } catch (Exception e) {
@@ -350,6 +354,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         SharedPreferences.Editor edit = sp.edit();
                         edit.clear();
                         edit.commit();
+                        isUpdateIcon=false;
                         checkLogin();
                     }
                 });
@@ -476,44 +481,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         BitmapDrawable bitmapDrawable = new BitmapDrawable();
         mPopupWindow.setBackgroundDrawable(bitmapDrawable);
         mPopupWindow.showAtLocation(inflate, Gravity.BOTTOM, 0, 0);
-//        animFromLeftToRight();
     }
 
-    /**
-     * 图片转成string
-     *
-     * @param bitmap
-     * @return
-     */
-    public String convertIconToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] appicon = baos.toByteArray();// 转为byte数组
-        return Base64.encodeToString(appicon, Base64.DEFAULT);
-
-    }
-
-    /**
-     * string转成bitmap
-     *
-     * @param st
-     */
-    public Bitmap convertStringToIcon(String st) {
-        // OutputStream out;
-        Bitmap bitmap = null;
-        try {
-            // out = new FileOutputStream("/sdcard/aa.jpg");
-            byte[] bitmapArray;
-            bitmapArray = Base64.decode(st, Base64.DEFAULT);
-            bitmap =
-                    BitmapFactory.decodeByteArray(bitmapArray, 0,
-                            bitmapArray.length);
-            // bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            return bitmap;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public void onResume() {
         super.onResume();
