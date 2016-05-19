@@ -226,32 +226,17 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                 }
                 break;
             case R.id.button_commitSms:
-//                SMSSDK.submitVerificationCode("+86", mPhoneNum, mEditText_sms.getText().toString().trim());
                 if (mSuijiMath.equals(mEditText_sms.getText().toString().trim())){
                     toast("短信验证成功");
-                    //每次存储唯一标识
-//                    final String DeviceId = Installation.id(UpdatePasswordActivity.this);
-//                    //向后台服务推送用户短信验证成功，发送手机号----start----//
-//                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId + "&flag=" + "1";
-//                    HTTPUtils.get(UpdatePasswordActivity.this, url, new VolleyListener() {
-//                        public void onErrorResponse(VolleyError volleyError) {
-//                        }
-//
-//                        public void onResponse(String s) {
-//                            mUser = GsonUtils.parseJSON(s, User.class);
-//                            //存储手机号和用户id到本地
-//                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-//                            SharedPreferences.Editor edit = sp.edit();
-//                            edit.putString("phoneNum", mPhoneNum);
-//                            edit.putString("id", mUser.getId() + "");
-//                            edit.putString("DeviceId", DeviceId);
-//                            edit.commit();
-                            //友盟统计
-//                            MobclickAgent.onProfileSignIn(mPhoneNum);
-//                            finish();
-//                        }
-//                    });
-                    //向后台服务推送用户短信验证成功，发送手机号----end----//
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLl_editSMS.setVisibility(View.GONE);
+                            mLl_register.setVisibility(View.VISIBLE);
+                            mTextView_inputSMS.setTextColor(mBlack);
+                            mTextView_inputPassword.setTextColor(mTitle_bar);
+                        }
+                    });
                 }else {
                     toast("短信验证失败");
                 }
@@ -273,7 +258,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void sendSMS() {
-//        SMSSDK.getVerificationCode("+86", mPhoneNum);
         mI = new int[]{60};
         mLl_sendSMS.setVisibility(View.GONE);
         mLl_editSMS.setVisibility(View.VISIBLE);

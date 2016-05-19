@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button mButton_sendSMS;
     private int mDeep_gray;
     private int mTitle_bar;
-//    private EventHandler mEh;
+    //    private EventHandler mEh;
     private String mPhoneNum;
     private int[] mI;
     private Runnable mR;
@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mEditText_password02;
     private User mUser;
     private String mSuijiMath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,45 +69,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        sms();
     }
 
-//    private void sms() {
-//        mEh = new EventHandler() {
-//            @Override
-//            public void afterEvent(int event, int result, Object data) {
-//                switch (event) {
-//                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("短信验证成功");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mLl_editSMS.setVisibility(View.GONE);
-//                                    mLl_register.setVisibility(View.VISIBLE);
-//                                    mTextView_inputSMS.setTextColor(mBlack);
-//                                    mTextView_inputPassword.setTextColor(mTitle_bar);
-//                                }
-//                            });
-//                        } else {
-//                            toast("短信验证失败");
-//                        }
-//                        break;
-//                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("获取验证码    成功");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    mButton_commitSms.setEnabled(true);
-//                                }
-//                            });
-//                        } else {
-//                            toast("获取验证码失败" + "登录过于频繁，12小时候再试");
-//                        }
-//                        break;
-//                }
-//            }
-//        };
-//        SMSSDK.registerEventHandler(mEh);
-//    }
 
     private void toast(final String str) {
         runOnUiThread(new Runnable() {
@@ -190,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     edit.putString("phoneNum", mPhoneNum);
                                     edit.putString("id", mUser.getId() + "");
                                     edit.putString("DeviceId", DeviceId);
-                                    edit.putString("image",mUser.getImage());
+                                    edit.putString("image", mUser.getImage());
                                     Log.e("onResponse", "图片地址" + mUser.getImage());
                                     edit.commit();
                                     toast("注册成功");
@@ -211,33 +173,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.button_commitSms:
-//                SMSSDK.submitVerificationCode("+86", mPhoneNum, mEditText_sms.getText().toString().trim());
-                if (mSuijiMath.equals(mEditText_sms.getText().toString().trim())){
+                if (mSuijiMath.equals(mEditText_sms.getText().toString().trim())) {
                     toast("短信验证成功");
-                    //每次存储唯一标识
-//                    final String DeviceId = Installation.id(RegisterActivity.this);
-//                    //向后台服务推送用户短信验证成功，发送手机号----start----//
-//                    String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId +"&flag=" + "1";
-//                    HTTPUtils.get(RegisterActivity.this, url, new VolleyListener() {
-//                        public void onErrorResponse(VolleyError volleyError) {
-//                        }
-//
-//                        public void onResponse(String s) {
-//                            mUser = GsonUtils.parseJSON(s, User.class);
-                            //存储手机号和用户id到本地
-//                            SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-//                            SharedPreferences.Editor edit = sp.edit();
-//                            edit.putString("phoneNum", mPhoneNum);
-//                            edit.putString("id", mUser.getId() + "");
-//                            edit.putString("DeviceId", DeviceId);
-//                            edit.commit();
-                            //友盟统计
-//                            MobclickAgent.onProfileSignIn(mPhoneNum);
-//                            finish();
-//                        }
-//                    });
-                    //向后台服务推送用户短信验证成功，发送手机号----end----//
-                }else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLl_editSMS.setVisibility(View.GONE);
+                            mLl_register.setVisibility(View.VISIBLE);
+                            mTextView_inputSMS.setTextColor(mBlack);
+                            mTextView_inputPassword.setTextColor(mTitle_bar);
+                        }
+                    });
+                } else {
                     toast("短信验证失败");
                 }
                 break;
@@ -283,11 +230,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mButton_commitSms.setEnabled(true);
         getSms();
     }
+
     private void getSms() {
-        mSuijiMath = (int) (Math.random() * 9000 + 1000)+"";
+        mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
         String url = null;
         try {
-            url = "http://221.179.180.158:9007/QxtSms/QxtFirewall?OperID=gaosukeyun&OperPass=EEf70kad&SendTime=&ValidTime=&AppendID=1234&DesMobile="+mPhoneNum+"&Content="+ URLEncoder.encode("【八闽集团】验证码是", "gbk")+ mSuijiMath +  URLEncoder.encode(".（切勿告知他人，验证码5分钟内有效）","gbk");
+            url = "http://221.179.180.158:9007/QxtSms/QxtFirewall?OperID=gaosukeyun&OperPass=EEf70kad&SendTime=&ValidTime=&AppendID=1234&DesMobile=" + mPhoneNum + "&Content=" + URLEncoder.encode("【八闽集团】验证码是", "gbk") + mSuijiMath + URLEncoder.encode(".（切勿告知他人，验证码5分钟内有效）", "gbk");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -327,6 +275,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
     class PhoneNumTextWatcher implements TextWatcher {
 
         @Override
