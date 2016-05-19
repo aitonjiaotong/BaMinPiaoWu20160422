@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiton.administrator.shane_library.shane.upgrade.UpgradeUtils;
 import com.aiton.administrator.shane_library.shane.utils.GsonUtils;
@@ -175,14 +175,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            animFromBigToSmallOUT();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     /**
      * 从大到小结束动画
      */
@@ -207,5 +199,21 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    /**
+     * 双击退出应用
+     */
+    private long currentTime = 0;
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis()-currentTime>1000){
+            Toast toast = Toast.makeText(MainActivity.this, "双击退出应用", Toast.LENGTH_SHORT);
+            toast.show();
+            currentTime=System.currentTimeMillis();
+        }else{
+            finish();
+            animFromBigToSmallOUT();
+        }
     }
 }
