@@ -270,8 +270,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 400);
-        intent.putExtra("outputY", 400);
+        intent.putExtra("outputX", 200);
+        intent.putExtra("outputY", 200);
         intent.putExtra("noFaceDetection", true); // no face detection
         intent.putExtra("scale", true);
         intent.putExtra("return-data", false);
