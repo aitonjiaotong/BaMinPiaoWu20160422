@@ -527,31 +527,6 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
         }
     }
 
-
-//    /**
-//     * 加载所有站点
-//     */
-//    private void initSitesData()
-//    {
-//        HTTPUtils.get(SelectStationArriveActivity.this, ConstantTicket.URLFromAiTon.GET_SITE, new VolleyListener()
-//        {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError)
-//            {
-//            }
-//
-//            @Override
-//            public void onResponse(String s)
-//            {
-//                Type type = new TypeToken<ArrayList<Sites>>()
-//                {
-//                }.getType();
-//                mSitesData = GsonUtils.parseJSONArray(s, type);
-//                mLl_for_progress_bar.setVisibility(View.GONE);
-//            }
-//        });
-//    }
-
     /**
      * 将所有站点的Json数据文件放在本地打包
      */

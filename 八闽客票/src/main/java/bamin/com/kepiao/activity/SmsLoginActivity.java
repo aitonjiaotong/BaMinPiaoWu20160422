@@ -88,53 +88,6 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         this.getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, smsContent);
     }
 
-//    private void sms() {
-//        mEh = new EventHandler() {
-//            @Override
-//            public void afterEvent(int event, int result, Object data) {
-//                switch (event) {
-//                    case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("短信验证成功");
-//                            //每次存储唯一标识
-//                            final String DeviceId = Installation.id(SmsLoginActivity.this);
-//                            //向后台服务推送用户短信验证成功，发送手机号----start----//
-//                            String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId;
-//                            HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener() {
-//                                public void onErrorResponse(VolleyError volleyError) {
-//                                }
-//
-//                                public void onResponse(String s) {
-//                                    mUser = GsonUtils.parseJSON(s, User.class);
-//                                    //存储手机号和用户id到本地
-//                                    SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
-//                                    SharedPreferences.Editor edit = sp.edit();
-//                                    edit.putString("phoneNum", mPhoneNum);
-//                                    edit.putString("id", mUser.getId() + "");
-//                                    edit.putString("DeviceId", DeviceId);
-//                                    edit.commit();
-//                                    //友盟统计
-//                                    MobclickAgent.onProfileSignIn(mPhoneNum);
-//                                    finish();
-//                                }
-//                            });
-//                            //向后台服务推送用户短信验证成功，发送手机号----end----//
-//                        } else {
-//                            toast("短信验证失败");
-//                        }
-//                        break;
-//                    case SMSSDK.EVENT_GET_VERIFICATION_CODE:
-//                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            toast("获取验证码成功");
-//                        } else {
-//                            toast("获取验证码失败" + "登录过于频繁，12小时后再试");
-//                        }
-//                        break;
-//                }
-//            }
-//        };
-//        SMSSDK.registerEventHandler(mEh);
-//    }
 
     private void toast(final String str)
     {
@@ -306,7 +259,6 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
             case R.id.login:
                 if (isQuickLogin)
                 {
-//                    SMSSDK.submitVerificationCode("+86", mPhoneNum, mSms.getText().toString().trim());
                     if (mSuijiMath.equals(mSms.getText().toString().trim()))
                     {
                         toast("短信验证成功");

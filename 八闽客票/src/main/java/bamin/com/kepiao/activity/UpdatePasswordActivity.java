@@ -39,9 +39,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     private LinearLayout mLl_register;
     private EditText mEditText_phoneNum;
     private Button mButton_sendSMS;
-    private int mDeep_gray;
     private int mTitle_bar;
-//    private EventHandler mEh;
     private String mPhoneNum;
     private int[] mI;
     private Runnable mR;
@@ -50,7 +48,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     private TextView mTextView_inputSMS;
     private TextView mTextView_inputPassword;
     private Button mButton_reSend;
-    private boolean isSend;
     private Button mButton_commitSms;
     private EditText mEditText_sms;
     private EditText mEditText_password01;
@@ -68,7 +65,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         initColor();
         initUI();
         setListener();
-//        sms();
     }
 
     private void initIntent() {
@@ -87,7 +83,6 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void initColor() {
-        mDeep_gray = getResources().getColor(R.color.deep_gray);
         mTitle_bar = getResources().getColor(R.color.title_bar);
         mBlack = getResources().getColor(R.color.black);
     }
@@ -232,10 +227,8 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                 if (mI[0] == 0) {
                     mButton_reSend.setEnabled(true);
                     mButton_reSend.setText("获取验证码");
-                    isSend = false;
                     return;
                 } else {
-                    isSend = true;
                 }
                 mButton_reSend.postDelayed(mR, 1000);
             }
@@ -313,6 +306,5 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        SMSSDK.unregisterEventHandler(mEh);
     }
 }
