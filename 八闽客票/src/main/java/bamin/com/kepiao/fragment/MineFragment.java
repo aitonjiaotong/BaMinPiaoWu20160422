@@ -131,6 +131,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Uri uri = Uri.fromFile(pictureFile);
                     Bitmap bitmap = decodeUriAsBitmap(uri);
                     mIc_avatar.setImageBitmap(bitmap);
+                }else{
+                    mIc_avatar.setImageResource(R.mipmap.ic_avatar);
                 }
             } else {
                 if (!isUpdateIcon){

@@ -282,7 +282,6 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 edit.putString("id", mUser.getId() + "");
                                 edit.putString("DeviceId", DeviceId);
                                 edit.putString("image",mUser.getImage());
-                                Log.e("onResponse", "图片地址" +mUser.getImage());
                                 edit.commit();
                                 //友盟统计
                                 MobclickAgent.onProfileSignIn(mPhoneNum);
