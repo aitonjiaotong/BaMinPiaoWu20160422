@@ -147,6 +147,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
      * 向金点通查票
      */
     private void initData() {
+        Log.e("initData", "出发地目的地" + start + "--------"+end);
         mTicketInfoList.clear();
         mCheckEndTicketInfoList.clear();
         mRefrash.setVisibility(View.VISIBLE);

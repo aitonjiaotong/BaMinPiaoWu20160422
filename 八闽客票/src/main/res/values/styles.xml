@@ -11,4 +11,8 @@
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>
         <item name="android:windowExitAnimation">@anim/push_down_out</item>
     </style>
+    <style name="AnimFromSmallToBig">
+        <item name="android:windowEnterAnimation">@anim/magnify_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/big_to_small_fade_out</item>
+    </style>
 </resources>

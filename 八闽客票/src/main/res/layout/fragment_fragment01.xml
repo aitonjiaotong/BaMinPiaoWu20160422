@@ -103,7 +103,7 @@
                     android:text="@string/set_out"
                     android:textSize="@dimen/normalTextSize"/>
 
-                <TextView
+                <TextSwitcher
                     android:id="@+id/tv_set_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,8 +111,7 @@
                     android:layout_weight="1"
                     android:gravity="right|center"
                     android:padding="6dp"
-                    android:text="@string/choose_point_start"
-                    android:textSize="@dimen/myPagerTextSize"/>
+                    />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -141,7 +140,7 @@
                     android:text="@string/arrive"
                     android:textSize="@dimen/normalTextSize"/>
 
-                <TextView
+                <TextSwitcher
                     android:id="@+id/tv_arrive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,8 +148,7 @@
                     android:layout_weight="1"
                     android:gravity="right|center"
                     android:padding="6dp"
-                    android:text="@string/choose_point_end"
-                    android:textSize="@dimen/myPagerTextSize"/>
+                    />
 
                 <ImageView
                     android:layout_width="wrap_content"
