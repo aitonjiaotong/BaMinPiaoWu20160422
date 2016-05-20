@@ -21,6 +21,11 @@ public class IsMobileNOorPassword {
         else return mobiles.matches(telRegex);
     }
 
+    /**
+     * 密码必须大于6位，且由字母及数字组合
+     * @param password
+     * @return
+     */
     public static boolean isPassword(String password){
         String pass = "^(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";
         if (TextUtils.isEmpty(password)) return false;

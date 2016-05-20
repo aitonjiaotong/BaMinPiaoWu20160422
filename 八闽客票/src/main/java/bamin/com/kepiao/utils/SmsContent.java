@@ -29,7 +29,7 @@ public class SmsContent extends ContentObserver {
         Cursor cursor = null;// 光标
         // 读取收件箱中指定号码的短信
         cursor = activity.managedQuery(Uri.parse(SMS_URI_INBOX), new String[]{"_id", "address", "body", "read"}, "address=? and read=?",
-                new String[]{"1069003200004", "0"}, "date desc");
+                new String[]{"10690406746111234", "0"}, "date desc");
         if (cursor != null) {// 如果短信为未读模式
             cursor.moveToFirst();
             if (cursor.moveToFirst()) {
