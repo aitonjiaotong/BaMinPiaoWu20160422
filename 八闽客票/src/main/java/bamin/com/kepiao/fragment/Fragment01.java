@@ -33,6 +33,7 @@ import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +44,7 @@ import bamin.com.kepiao.activity.SelectStationArriveActivity;
 import bamin.com.kepiao.activity.SelectStationSetOutActivity;
 import bamin.com.kepiao.activity.TicketActivity;
 import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.customView.FixedSpeedScroller;
 import bamin.com.kepiao.customView.ViewPagerIndicator;
 import bamin.com.kepiao.models.about_banner.BannerInfo;
 import bamin.com.kepiao.utils.DateCompareUtil;
@@ -139,7 +141,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
             public View makeView() {
                 TextView textView = new TextView(getActivity());
                 textView.setTextSize(18);
-                textView.setGravity(Gravity.RIGHT|Gravity.CENTER);
+                textView.setGravity(Gravity.RIGHT | Gravity.CENTER);
                 return textView;
             }
         });
@@ -186,6 +188,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
      */
     private void initBanner() {
         mViewPager_banner = (ViewPager) mLayout.findViewById(R.id.vp_headerview_pager);
+        setViewPagerScrollSpeed();
         mViewPager_banner.addOnPageChangeListener(new BannerOnPageChangeListener());
         mViewPagerIndicator = (ViewPagerIndicator) mLayout.findViewById(R.id.ViewPagerIndicator);
         if (isFrist) {
@@ -408,6 +411,25 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                     mTv_arrive.setText(mStation[1]);
                     break;
             }
+        }
+    }
+
+    /**
+     * 减慢viewpager滑动动作
+     */
+    private void setViewPagerScrollSpeed() {
+        try {
+            Field mScroller = null;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(mViewPager_banner.getContext());
+            mScroller.set(mViewPager_banner, scroller);
+        } catch (NoSuchFieldException e) {
+
+        } catch (IllegalArgumentException e) {
+
+        } catch (IllegalAccessException e) {
+
         }
     }
 
