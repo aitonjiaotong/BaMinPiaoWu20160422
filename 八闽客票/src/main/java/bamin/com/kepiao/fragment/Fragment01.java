@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -218,6 +220,11 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                 if (!isChoose) {
                     DialogShow.setDialog(getActivity(), "您暂未选择相关站点", "确认");
                 } else {
+                    Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.roat_anim);
+                    animation.setFillAfter(true);
+                    if (animation != null) {
+                        mIv_Exchange.startAnimation(animation);
+                    }
                     String a = mStation[0];
                     mStation[0] = mStation[1];
                     mStation[1] = a;
@@ -402,13 +409,6 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                     break;
             }
         }
-    }
-
-    /**
-     * 从大到小结束动画
-     */
-    private void animFromBigToSmallOUT() {
-        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 
 }
