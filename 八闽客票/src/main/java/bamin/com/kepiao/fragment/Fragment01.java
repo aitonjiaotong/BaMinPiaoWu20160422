@@ -241,8 +241,8 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                     intent.putExtra(ConstantTicket.IntentKey.CURR_YEAR, mYear);
                     intent.putExtra(ConstantTicket.IntentKey.CURR_MONTH, mMonth);
                     intent.putExtra(ConstantTicket.IntentKey.CURR_DAY_OF_MONTH, mDayOfMonth);
-                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_SET_OUT_STATION, mStation[0]);
-                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_ARRIVE_STATION, mStation[1]);
+                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_SET_OUT_STATION, mStation[0].trim());
+                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_ARRIVE_STATION, mStation[1].trim());
                     startActivity(intent);
                     animFromSmallToBigIN();
                 }
