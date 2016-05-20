@@ -89,6 +89,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:id="@+id/ll_choose_set_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,6 +127,7 @@
                 android:background="#C0C0C0"></TextView>
 
             <LinearLayout
+                android:background="@drawable/layout_selector_white_system_gray"
                 android:id="@+id/ll_choose_arrive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,7 +180,7 @@
         android:layout_below="@+id/line"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:background="@drawable/bg_cardview"
+        android:background="@drawable/layout_datapicker"
         android:gravity="center"
         android:orientation="horizontal">
 
