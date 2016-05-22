@@ -160,7 +160,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         loadViewForCode();
-        scrollView = (PullToZoomScrollViewEx) mInflate.findViewById(R.id.scroll_view);
         mPullRootView = scrollView.getPullRootView();
 
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
@@ -330,7 +329,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadViewForCode() {
-        PullToZoomScrollViewEx scrollView = (PullToZoomScrollViewEx) mInflate.findViewById(R.id.scroll_view);
+        scrollView = (PullToZoomScrollViewEx) mInflate.findViewById(R.id.scroll_view);
         View headView = LayoutInflater.from(getActivity()).inflate(R.layout.profile_head_view, null, false);
         View zoomView = LayoutInflater.from(getActivity()).inflate(R.layout.profile_zoom_view, null, false);
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.profile_content_view, null, false);

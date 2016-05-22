@@ -257,7 +257,14 @@ public class Fragment0201 extends Fragment {
                     } else if ("已撤销".equals(state)) {
                         DialogShow.setDialog(getActivity(), "订单已撤销", "确认");
                     } else if ("已取票".equals(state)) {
-                        DialogShow.setDialog(getActivity(), "已取票", "确认");
+                        Intent intent = new Intent();
+                        intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
+                        intent.putExtra("isSure", "isSure");
+                        intent.putExtra("insurePrice",mAccountOrderEntityList.get(i).getInsure());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.setClass(getActivity(), OrderDeatilActivity.class);
+                        startActivity(intent);
+                        animFromSmallToBigIN();
                     }
                     isItemClickED = false;
                 } catch (DocumentException e) {
