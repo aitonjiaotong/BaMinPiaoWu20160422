@@ -124,6 +124,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
             case R.id.imageView_back:
                 finish();
+                animFromBigToSmallOUT();
                 break;
             case R.id.button_zuce:
                 String password01 = mEditText_password01.getText().toString().trim();
@@ -302,9 +303,16 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
 
         }
     }
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        finish();
+        animFromBigToSmallOUT();
     }
 }

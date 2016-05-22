@@ -119,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.imageView_back:
                 finish();
+                animFromBigToSmallOUT();
                 break;
             case R.id.button_zuce:
                 String password01 = mEditText_password01.getText().toString().trim();
@@ -298,9 +299,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * 从大到小结束动画
+     */
+    private void animFromBigToSmallOUT() {
+        overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
+    }
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        SMSSDK.unregisterEventHandler(mEh);
+    public void onBackPressed() {
+        finish();
+        animFromBigToSmallOUT();
     }
 }
