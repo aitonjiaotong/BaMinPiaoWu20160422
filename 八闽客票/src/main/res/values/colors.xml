@@ -9,7 +9,7 @@
     <color name="tabs_select">#faa834</color>
     <color name="tabs_unselect">#181818</color>
     <color name="line_gray">#d0d0d0</color>
-
+    <color name="exit_red">#ff4c20</color>
     <color name="fillin_order_head_bg">#faf0e4</color>
     <color name="fillin_order_pay_gray_bg">#4e4e4e</color>
     <color name="black">#000000</color>
