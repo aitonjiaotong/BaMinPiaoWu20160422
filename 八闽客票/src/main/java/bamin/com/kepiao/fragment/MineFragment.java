@@ -51,6 +51,7 @@ import bamin.com.kepiao.activity.SmsLoginActivity;
 import bamin.com.kepiao.activity.SoftInfo;
 import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
+import bamin.com.kepiao.constant.EverythingConstant;
 import bamin.com.kepiao.models.User;
 import cz.msebera.android.httpclient.Header;
 
@@ -131,14 +132,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Uri uri = Uri.fromFile(pictureFile);
                     Bitmap bitmap = decodeUriAsBitmap(uri);
                     mIc_avatar.setImageBitmap(bitmap);
-                }else{
+                } else {
                     mIc_avatar.setImageResource(R.mipmap.ic_avatar);
                 }
             } else {
-                if (!isUpdateIcon){
+                if (!isUpdateIcon) {
                     UILUtils.displayImageNoAnimNoCache(mImage, mIc_avatar, false);
                 }
-                isUpdateIcon=true;
+                isUpdateIcon = true;
             }
 
         }
@@ -154,6 +155,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mPullRootView.findViewById(R.id.unlogin).setOnClickListener(this);
         mPullRootView.findViewById(R.id.ic_avatar).setOnClickListener(this);
         mPullRootView.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
+        mPullRootView.findViewById(R.id.phone).setOnClickListener(this);
     }
 
     private void initUI() {
@@ -341,6 +343,29 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.phone:
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
+                            EverythingConstant.RequestAndResultCode.PERMISSION_CALL_PHONE);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("提示")
+                            .setMessage("是否直接拨打客服电话400-0593-330")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //用intent启动拨打电话
+                                    Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"4000593330"));
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("否", null)
+                            .create()
+                            .show();
+                }
+                break;
             case R.id.button_zuxiao:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("提醒");
@@ -352,7 +377,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         SharedPreferences.Editor edit = sp.edit();
                         edit.clear();
                         edit.commit();
-                        isUpdateIcon=false;
+                        isUpdateIcon = false;
                         checkLogin();
                     }
                 });

@@ -7,6 +7,7 @@
               android:orientation="vertical">
 
     <RelativeLayout
+        android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/setting"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -23,6 +24,7 @@
             android:src="@mipmap/aboutsoft"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +48,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -62,6 +65,7 @@
             android:src="@mipmap/ic_phone"/>
 
         <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -69,7 +73,19 @@
             android:layout_marginStart="25dp"
             android:layout_toEndOf="@+id/iv_phone"
             android:layout_toRightOf="@+id/iv_phone"
-            android:text="客服电话:400-0593-330"/>
+            android:text="客服电话:"
+            android:id="@+id/textView6"/>
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
+            android:textColor="@color/aiton_basic_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="400-0593-330"
+            android:id="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textView6"
+            android:layout_toEndOf="@+id/textView6"/>
     </RelativeLayout>
 
     <Button

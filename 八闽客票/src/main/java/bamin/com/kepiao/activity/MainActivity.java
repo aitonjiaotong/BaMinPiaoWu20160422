@@ -1,10 +1,15 @@
 package bamin.com.kepiao.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -77,43 +82,46 @@ public class MainActivity extends AppCompatActivity {
             mTabHost.setCurrentTab(1);
         }
     }
+
     private void checkVersionAndHouTaiIsCanUse() {
         String url = EverythingConstant.HOST + "/bmpw/check/live";
         Map<String, String> map = new HashMap<>();
-        map.put("flag","1");
+        map.put("flag", "1");
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                setDialogCkeck("服务器正在升级，暂停服务","确认");
+                setDialogCkeck("服务器正在升级，暂停服务", "确认");
             }
 
             @Override
             public void onResponse(String s) {
                 VersionAndHouTaiIsCanUse versionAndHouTaiIsCanUse = GsonUtils.parseJSON(s, VersionAndHouTaiIsCanUse.class);
                 int ableVersion = versionAndHouTaiIsCanUse.getAbleVersion();
-                if (versionAndHouTaiIsCanUse.isLive()){
-                    if (EverythingConstant.ABLEVERSION <ableVersion){
-                        setDialogCkeck("当前版本不可用，请去应用商店下载最新版本","确认");
-                    }else {
+                if (versionAndHouTaiIsCanUse.isLive()) {
+                    if (EverythingConstant.ABLEVERSION < ableVersion) {
+                        setDialogCkeck("当前版本不可用，请去应用商店下载最新版本", "确认");
+                    } else {
                         checkUpGrade();
                         //        检查是否在其他设备上登录
                         checkIsLoginOnOtherDevice();
                     }
-                }else {
-                    setDialogCkeck(versionAndHouTaiIsCanUse.getMessage(),"确认");
+                } else {
+                    setDialogCkeck(versionAndHouTaiIsCanUse.getMessage(), "确认");
                 }
             }
         });
     }
+
     private void initSp() {
         SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
         mDeviceId = sp.getString("DeviceId", "");
     }
-    private void checkUpGrade()
-    {
+
+    private void checkUpGrade() {
         UpgradeUtils.checkUpgrade(MainActivity.this, ConstantTicket.URL.UP_GRADE);
     }
+
     /**
      * 检查是否在其他设备上登录
      */
@@ -122,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             String url = EverythingConstant.HOST + "/bmpw/account/findLogin_id";
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
-            map.put("flag","1");
+            map.put("flag", "1");
             HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -181,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
     private void animFromBigToSmallOUT() {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
+
     //dialog提示
     private void setDialogCkeck(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
@@ -205,15 +214,57 @@ public class MainActivity extends AppCompatActivity {
      * 双击退出应用
      */
     private long currentTime = 0;
+
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis()-currentTime>1000){
+        if (System.currentTimeMillis() - currentTime > 1000) {
             Toast toast = Toast.makeText(MainActivity.this, "双击退出应用", Toast.LENGTH_SHORT);
             toast.show();
-            currentTime=System.currentTimeMillis();
-        }else{
+            currentTime = System.currentTimeMillis();
+        } else {
             finish();
             animFromBigToSmallOUT();
+        }
+    }
+
+    /**
+     * 权限的处理
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_CALL_PHONE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("提示")
+                        .setMessage("是否直接拨打客服电话400-0593-330")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //用intent启动拨打电话
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4000593330"));
+                                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                    // TODO: Consider calling
+                                    //    ActivityCompat#requestPermissions
+                                    // here to request the missing permissions, and then overriding
+                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                    //                                          int[] grantResults)
+                                    // to handle the case where the user grants the permission. See the documentation
+                                    // for ActivityCompat#requestPermissions for more details.
+                                    return;
+                                }
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("否", null)
+                        .create()
+                        .show();
+            }else{
+
+            }
         }
     }
 }
