@@ -28,8 +28,6 @@ import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
 import com.android.volley.VolleyError;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,9 +37,9 @@ import bamin.com.kepiao.models.User;
 import bamin.com.kepiao.utils.Installation;
 import bamin.com.kepiao.utils.IsMobileNOorPassword;
 import bamin.com.kepiao.utils.SmsContent;
+import bamin.com.kepiao.utils.SubJsonStr;
 
-public class SmsLoginActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class SmsLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mPhone_num_cancle;
     private ImageView mSms_cancle;
@@ -69,8 +67,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
     private String mSuijiMath;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_login);
         findID();
@@ -79,8 +76,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         initAnim();
     }
 
-    private void initUI()
-    {
+    private void initUI() {
         basicColor = getResources().getColor(R.color.title_bar);
         mSystem_gray = getResources().getColor(R.color.black);
         SmsContent smsContent = new SmsContent(SmsLoginActivity.this, new Handler(), mSms);
@@ -89,26 +85,21 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    private void toast(final String str)
-    {
-        runOnUiThread(new Runnable()
-        {
+    private void toast(final String str) {
+        runOnUiThread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 Toast.makeText(SmsLoginActivity.this, str, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
     }
 
-    private void findID()
-    {
+    private void findID() {
         mPhone_num_cancle = (ImageView) findViewById(R.id.phone_num_cancle);
         mSms_cancle = (ImageView) findViewById(R.id.sms_cancle);
         mPhone_num = (EditText) findViewById(R.id.phone_num);
@@ -125,8 +116,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         mEditText_password = (EditText) findViewById(R.id.editText_password);
     }
 
-    private void setListener()
-    {
+    private void setListener() {
         mLogin.setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         mPhone_num.addTextChangedListener(new MyPhoneNumTextWatcher());
@@ -140,8 +130,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.textView_frogetPassword).setOnClickListener(this);
     }
 
-    private void initAnim()
-    {
+    private void initAnim() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;// 获取分辨率宽度
@@ -151,79 +140,62 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         mImageView_tiao01.setImageMatrix(matrix);// 设置动画初始位置
     }
 
-    class MyPhoneNumTextWatcher implements TextWatcher
-    {
+    class MyPhoneNumTextWatcher implements TextWatcher {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count)
-        {
-            if (s.length() > 0)
-            {
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.length() > 0) {
                 mPhone_num_cancle.setVisibility(View.VISIBLE);
 
-            } else
-            {
+            } else {
                 mPhone_num_cancle.setVisibility(View.INVISIBLE);
             }
-            if (s.length() == 11)
-            {
+            if (s.length() == 11) {
                 mSms.requestFocus();
-                if (!isSend)
-                {
+                if (!isSend) {
                     mSendSms.setEnabled(true);
                 }
-            } else
-            {
+            } else {
                 mSendSms.setEnabled(false);
             }
         }
 
         @Override
-        public void afterTextChanged(Editable s)
-        {
+        public void afterTextChanged(Editable s) {
 
         }
     }
 
-    class MySmsTextWatcher implements TextWatcher
-    {
+    class MySmsTextWatcher implements TextWatcher {
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count)
-        {
-            if (s.length() > 0)
-            {
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.length() > 0) {
                 mSms_cancle.setVisibility(View.VISIBLE);
-            } else
-            {
+            } else {
                 mSms_cancle.setVisibility(View.INVISIBLE);
             }
         }
 
         @Override
-        public void afterTextChanged(Editable s)
-        {
+        public void afterTextChanged(Editable s) {
 
         }
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.textView_frogetPassword:
                 intent.setClass(SmsLoginActivity.this, UpdatePasswordActivity.class);
                 startActivity(intent);
@@ -257,23 +229,18 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                 mLinear_accountLogin.setVisibility(View.VISIBLE);
                 break;
             case R.id.login:
-                if (isQuickLogin)
-                {
-                    if (mSuijiMath.equals(mSms.getText().toString().trim()))
-                    {
+                if (isQuickLogin) {
+                    if (mSuijiMath.equals(mSms.getText().toString().trim())) {
                         toast("短信验证成功");
                         //每次存储唯一标识
                         final String DeviceId = Installation.id(SmsLoginActivity.this);
                         //向后台服务推送用户短信验证成功，发送手机号----start----//
                         String url = EverythingConstant.HOST + "/bmpw/front/FrontLogin?phone=" + mPhoneNum + "&login_id=" + DeviceId + "&flag=" + "1";
-                        HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener()
-                        {
-                            public void onErrorResponse(VolleyError volleyError)
-                            {
+                        HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener() {
+                            public void onErrorResponse(VolleyError volleyError) {
                             }
 
-                            public void onResponse(String s)
-                            {
+                            public void onResponse(String s) {
                                 mUser = GsonUtils.parseJSON(s, User.class);
                                 //存储手机号和用户id到本地
                                 SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
@@ -281,7 +248,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 edit.putString("phoneNum", mPhoneNum);
                                 edit.putString("id", mUser.getId() + "");
                                 edit.putString("DeviceId", DeviceId);
-                                edit.putString("image",mUser.getImage());
+                                edit.putString("image", mUser.getImage());
                                 edit.commit();
                                 //友盟统计
                                 MobclickAgent.onProfileSignIn(mPhoneNum);
@@ -289,12 +256,10 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                             }
                         });
                         //向后台服务推送用户短信验证成功，发送手机号----end----//
-                    } else
-                    {
+                    } else {
                         toast("短信验证失败");
                     }
-                } else
-                {
+                } else {
                     final String phone = mEditText_phoneNum.getText().toString().trim();
                     String password = mEditText_password.getText().toString().trim();
                     //每次存储唯一标识
@@ -305,23 +270,18 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                     map.put("login_id", DeviceId);
                     map.put("password", password);
                     map.put("flag", "1");
-                    HTTPUtils.post(SmsLoginActivity.this, url, map, new VolleyListener()
-                    {
+                    HTTPUtils.post(SmsLoginActivity.this, url, map, new VolleyListener() {
                         @Override
-                        public void onErrorResponse(VolleyError volleyError)
-                        {
+                        public void onErrorResponse(VolleyError volleyError) {
 
                         }
 
                         @Override
-                        public void onResponse(String s)
-                        {
-                            if ("".equals(s))
-                            {
+                        public void onResponse(String s) {
+                            if ("".equals(s)) {
                                 toast("用户名或密码错误");
-                            } else
-                            {
-                                Log.e("onResponse", "登录返回值"+s);
+                            } else {
+                                Log.e("onResponse", "登录返回值" + s);
                                 mUser = GsonUtils.parseJSON(s, User.class);
                                 //存储手机号和用户id到本地
                                 SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
@@ -330,8 +290,8 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                 edit.putString("id", mUser.getId() + "");
                                 edit.putString("DeviceId", DeviceId);
                                 Log.e("onResponse ", "DeviceId " + DeviceId);
-                                edit.putString("image",mUser.getImage());
-                                Log.e("onResponse", "图片地址" +mUser.getImage());
+                                edit.putString("image", mUser.getImage());
+                                Log.e("onResponse", "图片地址" + mUser.getImage());
                                 edit.commit();
                                 toast("登录成功");
                                 //友盟统计
@@ -361,29 +321,23 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void sendSMS()
-    {
+    private void sendSMS() {
         mPhoneNum = mPhone_num.getText().toString().trim();
         boolean mobileNO = IsMobileNOorPassword.isMobileNO(mPhoneNum);
-        if (mobileNO)
-        {
+        if (mobileNO) {
             mSendSms.setEnabled(false);
             mI = new int[]{60};
 
-            mR = new Runnable()
-            {
+            mR = new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     mSendSms.setText((mI[0]--) + "秒后重发");
-                    if (mI[0] == 0)
-                    {
+                    if (mI[0] == 0) {
                         mSendSms.setEnabled(true);
                         mSendSms.setText("获取验证码");
                         isSend = false;
                         return;
-                    } else
-                    {
+                    } else {
                         isSend = true;
                     }
                     mSendSms.postDelayed(mR, 1000);
@@ -392,84 +346,63 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
             mSendSms.postDelayed(mR, 0);
             mLogin.setVisibility(View.VISIBLE);
             getSms();
-        } else
-        {
+        } else {
             Toast.makeText(SmsLoginActivity.this, "输入的手机格式有误", Toast.LENGTH_SHORT).show();
             mPhone_num.setText("");
         }
     }
 
-    private void getSms()
-    {
+    private void getSms() {
         mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
-        String url = null;
-        try
-        {
-            url = "http://221.179.180.158:9007/QxtSms/QxtFirewall?OperID=gaosukeyun&OperPass=EEf70kad&SendTime=&ValidTime=&AppendID=1234&DesMobile=" + mPhoneNum + "&Content=" + URLEncoder.encode("【八闽集团】验证码是", "gbk") + mSuijiMath + URLEncoder.encode(".（切勿告知他人，验证码5分钟内有效）", "gbk");
-        } catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        HTTPUtils.get(SmsLoginActivity.this, url, new VolleyListener()
-        {
+        String url = EverythingConstant.HOST + "/aiton-app-webapp/public/sendmessage";
+        Log.e("getSms", "短信连接" + url);
+        Map<String, String> map = new HashMap<>();
+        map.put("phone",mPhoneNum);
+        map.put("code",mSuijiMath+"");
+        HTTPUtils.post(SmsLoginActivity.this,  url,map, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
 
             }
 
             @Override
-            public void onResponse(String s)
-            {
-                String substring = s.substring(17, 19);
-                Log.e("onResponse", "" + substring);
-                if ("03".equals(substring) || "0\"".equals(substring))
-                {
+            public void onResponse(String s) {
+                Log.e("onResponse", "短信返回值" + s);
+                String dislodgeHeadTag = SubJsonStr.dislodgeHeadTag(s);
+                String dislodgeHeadTag1 = SubJsonStr.dislodgeHeadTag(dislodgeHeadTag);
+                if ("03".equals(dislodgeHeadTag1) || "0".equals(dislodgeHeadTag1)) {
                     toast("获取验证码成功");
-                } else if ("02".equals(substring))
-                {
+                } else if ("02".equals(dislodgeHeadTag1)) {
                     toast("IP限制");
-                } else if ("04".equals(substring))
-                {
+                } else if ("04".equals(dislodgeHeadTag1)) {
                     toast("用户名错误");
-                } else if ("05".equals(substring))
-                {
+                } else if ("05".equals(dislodgeHeadTag1)) {
                     toast("密码错误");
-                } else if ("07".equals(substring))
-                {
+                } else if ("07".equals(dislodgeHeadTag1)) {
                     toast("发送时间错误");
-                } else if ("08".equals(substring))
-                {
+                } else if ("08".equals(dislodgeHeadTag1)) {
                     toast("信息内容为黑内容");
-                } else if ("09".equals(substring))
-                {
+                } else if ("09".equals(dislodgeHeadTag1)) {
                     toast("该用户的该内容 受同天内，内容不能重复发 限制");
-                } else if ("10".equals(substring))
-                {
+                } else if ("10".equals(dislodgeHeadTag1)) {
                     toast("扩展号错误");
-                } else if ("97".equals(substring))
-                {
+                } else if ("97".equals(dislodgeHeadTag1)) {
                     toast("短信参数有误");
-                } else if ("11".equals(substring))
-                {
+                } else if ("11".equals(dislodgeHeadTag1)) {
                     toast("余额不足");
-                } else if ("-1".equals(substring))
-                {
+                } else if ("-1".equals(dislodgeHeadTag1)) {
                     toast("程序异常");
                 }
             }
         });
     }
 
-    private void AnimFromRightToLeft()
-    {
+    private void AnimFromRightToLeft() {
         overridePendingTransition(R.anim.fade_in, R.anim.push_left_out);
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             AnimFromRightToLeft();
         }
@@ -478,14 +411,12 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
 
     ;
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
 
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
     }

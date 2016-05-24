@@ -20,8 +20,6 @@ import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
 import com.android.volley.VolleyError;
 import com.umeng.analytics.MobclickAgent;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +28,7 @@ import bamin.com.kepiao.constant.EverythingConstant;
 import bamin.com.kepiao.models.User;
 import bamin.com.kepiao.utils.Installation;
 import bamin.com.kepiao.utils.IsMobileNOorPassword;
+import bamin.com.kepiao.utils.SubJsonStr;
 
 
 public class UpdatePasswordActivity extends AppCompatActivity implements View.OnClickListener {
@@ -239,14 +238,13 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
         getSms();
     }
     private void getSms() {
-        mSuijiMath = (int) (Math.random() * 9000 + 1000)+"";
-        String url = null;
-        try {
-            url = "http://221.179.180.158:9007/QxtSms/QxtFirewall?OperID=gaosukeyun&OperPass=EEf70kad&SendTime=&ValidTime=&AppendID=1234&DesMobile="+mPhoneNum+"&Content="+ URLEncoder.encode("【八闽集团】验证码是", "gbk")+ mSuijiMath +  URLEncoder.encode(".（切勿告知他人，验证码5分钟内有效）","gbk");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        HTTPUtils.get(UpdatePasswordActivity.this, url, new VolleyListener() {
+        mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
+        String url = EverythingConstant.HOST + "/aiton-app-webapp/public/sendmessage";
+        Log.e("getSms", "短信连接" + url);
+        Map<String, String> map = new HashMap<>();
+        map.put("phone",mPhoneNum);
+        map.put("code",mSuijiMath+"");
+        HTTPUtils.post(UpdatePasswordActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
@@ -254,29 +252,30 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onResponse(String s) {
-                String substring = s.substring(17, 19);
-                Log.e("onResponse", "" + substring);
-                if ("03".equals(substring) || "0\"".equals(substring)) {
+                Log.e("onResponse", "短信返回值" + s);
+                String dislodgeHeadTag = SubJsonStr.dislodgeHeadTag(s);
+                String dislodgeHeadTag1 = SubJsonStr.dislodgeHeadTag(dislodgeHeadTag);
+                if ("03".equals(dislodgeHeadTag1) || "0".equals(dislodgeHeadTag1)) {
                     toast("获取验证码成功");
-                } else if ("02".equals(substring)) {
+                } else if ("02".equals(dislodgeHeadTag1)) {
                     toast("IP限制");
-                } else if ("04".equals(substring)) {
+                } else if ("04".equals(dislodgeHeadTag1)) {
                     toast("用户名错误");
-                } else if ("05".equals(substring)) {
+                } else if ("05".equals(dislodgeHeadTag1)) {
                     toast("密码错误");
-                } else if ("07".equals(substring)) {
+                } else if ("07".equals(dislodgeHeadTag1)) {
                     toast("发送时间错误");
-                } else if ("08".equals(substring)) {
+                } else if ("08".equals(dislodgeHeadTag1)) {
                     toast("信息内容为黑内容");
-                } else if ("09".equals(substring)) {
+                } else if ("09".equals(dislodgeHeadTag1)) {
                     toast("该用户的该内容 受同天内，内容不能重复发 限制");
-                } else if ("10".equals(substring)) {
+                } else if ("10".equals(dislodgeHeadTag1)) {
                     toast("扩展号错误");
-                } else if ("97".equals(substring)) {
+                } else if ("97".equals(dislodgeHeadTag1)) {
                     toast("短信参数有误");
-                } else if ("11".equals(substring)) {
+                } else if ("11".equals(dislodgeHeadTag1)) {
                     toast("余额不足");
-                } else if ("-1".equals(substring)) {
+                } else if ("-1".equals(dislodgeHeadTag1)) {
                     toast("程序异常");
                 }
             }
