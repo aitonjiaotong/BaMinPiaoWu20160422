@@ -354,7 +354,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
 
     private void getSms() {
         mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
-        String url = EverythingConstant.HOST + "/aiton-app-webapp/public/sendmessage";
+        String url = "http://120.55.166.203:8010" + "/aiton-app-webapp/public/sendmessage";
         Log.e("getSms", "短信连接" + url);
         Map<String, String> map = new HashMap<>();
         map.put("phone",mPhoneNum);
