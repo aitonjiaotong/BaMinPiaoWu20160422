@@ -42,42 +42,66 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:focusable="false"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
 
         <TextView
             android:textSize="@dimen/normalTextSize"
             android:id="@+id/tv_yesterday"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:background="@drawable/btn_datepicket_select"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/white"
             android:layout_weight="1"
-            android:padding="12dp"
             android:text="前一天"/>
-        <TextView
-            android:textSize="@dimen/normalTextSize"
-            android:id="@+id/tv_today"
+
+        <RelativeLayout
+            android:id="@+id/rela_today"
+            android:background="@drawable/btn_datepicket_select"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:padding="12dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:textColor="@color/white"
-            android:background="@color/title_bar_deep"
-            android:layout_height="wrap_content"
-            android:text=""/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/normalTextSize"
+                    android:id="@+id/tv_today"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView17"
+                    android:layout_toEndOf="@+id/imageView17"/>
+
+                <ImageView
+                    android:src="@mipmap/ic_home_calendar_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView17"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
         <TextView
             android:textSize="@dimen/normalTextSize"
             android:id="@+id/tv_tomorrow"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:gravity="center"
-            android:padding="12dp"
             android:textColor="@color/white"
             android:background="@drawable/btn_datepicket_select"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="后一天"/>
 
     </LinearLayout>

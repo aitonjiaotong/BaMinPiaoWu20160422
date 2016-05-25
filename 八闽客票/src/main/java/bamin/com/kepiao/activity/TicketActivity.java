@@ -291,7 +291,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         mTv_yesterday.setOnClickListener(this);
         mTv_tomorrow.setOnClickListener(this);
         mBack.setOnClickListener(this);
-        mTv_today.setOnClickListener(this);
+        findViewById(R.id.rela_today).setOnClickListener(this);
         mLv_ticket.setOnItemClickListener(this);
         for (int i = 0; i < checkLinear.length; i++) {
             checkLinear[i].setOnClickListener(this);
@@ -456,7 +456,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
                     isNoneCheck();
                 }
                 break;
-            case R.id.tv_today:
+            case R.id.rela_today:
                 //防止双击弹出两个时间选择器
                 isShowDateDialog = !isShowDateDialog;
                 if (isShowDateDialog) {
