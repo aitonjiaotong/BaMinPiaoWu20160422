@@ -356,7 +356,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //用intent启动拨打电话
-                                    Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"4000593330"));
+                                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4000593330"));
                                     startActivity(intent);
                                 }
                             })
@@ -391,9 +391,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.couponInfo_rela:
                 if (!isLogined) {
-                    intent.setClass(getActivity(), SmsLoginActivity.class);
-                    startActivityForResult(intent, 6);
-                    animFromLeftToRight();
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_SMS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //申请WRITE_EXTERNAL_STORAGE权限
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
+                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                        Log.e("onClick", "未获取");
+                    } else {
+                        Log.e("onClick", "已获取");
+                        intent.setClass(getActivity(), SmsLoginActivity.class);
+                        startActivityForResult(intent, 6);
+                        animFromLeftToRight();
+                    }
                 } else {
                     intent.setClass(getActivity(), CouponInfoActivity.class);
                     startActivity(intent);
@@ -407,9 +416,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.used_contact:
                 if (!isLogined) {
-                    intent.setClass(getActivity(), SmsLoginActivity.class);
-                    startActivityForResult(intent, 2);
-                    animFromLeftToRight();
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_SMS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //申请WRITE_EXTERNAL_STORAGE权限
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
+                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                        Log.e("onClick", "未获取");
+                    } else {
+                        intent.setClass(getActivity(), SmsLoginActivity.class);
+                        startActivityForResult(intent, 2);
+                        animFromLeftToRight();
+                    }
                 } else {
                     intent.putExtra("addContact", "MineFragment");
                     intent.setClass(getActivity(), UsedContact.class);
@@ -424,17 +441,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.ic_avatar:
                 if (!isLogined) {
-                    intent.setClass(getActivity(), SmsLoginActivity.class);
-                    startActivityForResult(intent, 5);
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_SMS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //申请WRITE_EXTERNAL_STORAGE权限
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
+                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                        Log.e("onClick", "未获取");
+                    } else {
+                        intent.setClass(getActivity(), SmsLoginActivity.class);
+                        startActivityForResult(intent, 5);
+                    }
                 } else {
                     setPopupWindows();
                 }
                 break;
             case R.id.unlogin:
                 if (!isLogined) {
-                    intent.setClass(getActivity(), SmsLoginActivity.class);
-                    startActivityForResult(intent, 5);
-                    animFromLeftToRight();
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_SMS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //申请WRITE_EXTERNAL_STORAGE权限
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
+                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                        Log.e("onClick", "未获取");
+                    } else {
+                        intent.setClass(getActivity(), SmsLoginActivity.class);
+                        startActivityForResult(intent, 5);
+                        animFromLeftToRight();
+                    }
                 } else {
 
                 }
@@ -444,7 +477,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            0);
+                            EverythingConstant.RequestAndResultCode.PERMISSION_READ_EXTERNAL_STORAGE);
                 } else {
                     doHandlerPhoto(PIC_FROM＿LOCALPHOTO);// 从相册中去获取
                     mPopupWindow.dismiss();
@@ -455,7 +488,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
-                            0);
+                            EverythingConstant.RequestAndResultCode.PERMISSION_CAMERA);
                 } else {
                     doHandlerPhoto(PIC_FROM_CAMERA);// 用户点击了从照相机获取
                     mPopupWindow.dismiss();

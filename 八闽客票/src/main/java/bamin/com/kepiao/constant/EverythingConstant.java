@@ -43,6 +43,10 @@ public class EverythingConstant {
     public static final String GET_ALL_ORDER_LIST = HOST + "/bmpw/cx/order/loadorderbyaccount";
 
     public static final class RequestAndResultCode {
-        public static final int PERMISSION_CALL_PHONE = 0;
+        //0被自动升级占用了
+        public static final int PERMISSION_CALL_PHONE = 1;
+        public static final int PERMISSION_READ_SMS = 2;
+        public static final int PERMISSION_READ_EXTERNAL_STORAGE = 3;
+        public static final int PERMISSION_CAMERA = 4;
     }
 }

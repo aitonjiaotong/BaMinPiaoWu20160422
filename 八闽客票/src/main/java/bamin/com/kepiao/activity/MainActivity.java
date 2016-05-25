@@ -265,6 +265,21 @@ public class MainActivity extends AppCompatActivity {
             }else{
 
             }
+        }else if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SmsLoginActivity.class);
+                startActivityForResult(intent, 6);
+                animFromSmallToBigIN();
+            }else{
+
+            }
         }
+    }
+    /**
+     * 从小到大打开动画
+     */
+    private void animFromSmallToBigIN() {
+        overridePendingTransition(R.anim.magnify_fade_in, R.anim.fade_out);
     }
 }
