@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,7 @@ public class Fragment0201 extends Fragment {
 
             @Override
             public void onResponse(String s) {
+                Log.e("onResponse", "所有订单号" + s);
                 //每查询一次页数要+1
                 orderPageCount++;
                 /**

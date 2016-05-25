@@ -68,7 +68,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 {
     private Handler mHandlerTime = new Handler();
     private double realPayPrice;//真正支付的金额
-    private int lastTime = 1200;//剩余支付时间
+    private int lastTime = 600;//剩余支付时间
     private TextView mTicket_count;
     private String mOrderState;
     private TextView mSurplusTime;

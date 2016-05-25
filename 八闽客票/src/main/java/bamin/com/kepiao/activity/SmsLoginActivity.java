@@ -1,11 +1,15 @@
 package bamin.com.kepiao.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -316,7 +320,14 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                 mSms.setText("");
                 break;
             case R.id.sendSms:
-                sendSMS();
+                if (ContextCompat.checkSelfPermission(SmsLoginActivity.this, Manifest.permission.READ_SMS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //申请WRITE_EXTERNAL_STORAGE权限
+                    ActivityCompat.requestPermissions(SmsLoginActivity.this, new String[]{Manifest.permission.READ_SMS},
+                            EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                } else {
+                    sendSMS();
+                }
                 break;
         }
     }
