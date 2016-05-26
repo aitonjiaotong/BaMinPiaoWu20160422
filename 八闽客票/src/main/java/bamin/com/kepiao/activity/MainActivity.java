@@ -99,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 int ableVersion = versionAndHouTaiIsCanUse.getAbleVersion();
                 if (versionAndHouTaiIsCanUse.isLive()) {
                     if (EverythingConstant.ABLEVERSION < ableVersion) {
-                        setDialogCkeck("当前版本不可用，请去应用商店下载最新版本", "确认");
+                        setDialogCkeckAble("当前版本不可用，请更新到最新版本", "确认");
                     } else {
                         checkUpGrade();
-                        //        检查是否在其他设备上登录
+                        //检查是否在其他设备上登录
                         checkIsLoginOnOtherDevice();
                     }
                 } else {
@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 弹出未登录按钮跳转登录界面并清除登录信息
+     *
      * @param messageTxt
      * @param iSeeTxt
      */
@@ -209,6 +210,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    //dialog提示
+
+    private void setDialogCkeckAble(String messageTxt, String iSeeTxt) {
+        View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
+        TextView message = (TextView) commit_dialog.findViewById(R.id.message);
+        Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
+        message.setText(messageTxt);
+        ISee.setText(iSeeTxt);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog dialog = builder.setView(commit_dialog)
+                .create();
+        dialog.setCancelable(false);
+        dialog.show();
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               UpgradeUtils.checkUpgradeIsAble(MainActivity.this,ConstantTicket.URL.UP_GRADE);
+            }
+        });
+    }
 
     /**
      * 双击退出应用
@@ -229,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 权限的处理
+     *
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -262,20 +284,21 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("否", null)
                         .create()
                         .show();
-            }else{
+            } else {
 
             }
-        }else if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS){
+        } else if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, SmsLoginActivity.class);
                 startActivityForResult(intent, 6);
                 animFromSmallToBigIN();
-            }else{
+            } else {
 
             }
         }
     }
+
     /**
      * 从小到大打开动画
      */

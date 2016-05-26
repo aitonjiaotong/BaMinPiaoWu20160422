@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -424,8 +425,8 @@ public class Fragment0201 extends Fragment {
             TextView textView_endPlace = (TextView) inflate.findViewById(R.id.textView_endPlace);
             TextView textView_startTime = (TextView) inflate.findViewById(R.id.textView_startTime);
             TextView textView_ticketCount = (TextView) inflate.findViewById(R.id.textView_ticketCount);
-            TextView textView_ticketState = (TextView) inflate.findViewById(R.id.textView_ticketState);
             TextView textView_orderPrice = (TextView) inflate.findViewById(R.id.textView_orderPrice);
+            ImageView imageView_ticketState = (ImageView) inflate.findViewById(R.id.imageView_ticketState);
             if (mIsupdata) {
                 textView_startPlace.setText(mQueryOrderList.get(position).getStartSiteName());
                 textView_endPlace.setText(mQueryOrderList.get(position).getEndSiteName());
@@ -435,20 +436,22 @@ public class Fragment0201 extends Fragment {
                  * 修改返回状态字眼
                  */
                 if ("已确认".equals(orderStateList.get(position))) {
-                    textView_ticketState.setText("已支付");
+                    imageView_ticketState.setImageResource(R.mipmap.yizhifu);
                 } else if ("未确认".equals(orderStateList.get(position))) {
                     if (mAccountOrderEntityList.get(position).getStatus()==0){
-                        textView_ticketState.setText("正在出票");
+                        imageView_ticketState.setImageResource(R.mipmap.zhengzaichupiao);
                     }else if (mAccountOrderEntityList.get(position).getStatus()==1){
-                        textView_ticketState.setText("已支付");
+                        imageView_ticketState.setImageResource(R.mipmap.yizhifu);
                     }else if (mAccountOrderEntityList.get(position).getStatus()==3){
-                        textView_ticketState.setText("异常订单");
+                        imageView_ticketState.setImageResource(R.mipmap.yichangdingdan);
                     }
                     else {
-                        textView_ticketState.setText("未支付");
+                        imageView_ticketState.setImageResource(R.mipmap.weizhifu);
                     }
-                } else {
-                    textView_ticketState.setText(orderStateList.get(position));
+                } else if ("已撤销".equals(orderStateList.get(position))){
+                    imageView_ticketState.setImageResource(R.mipmap.yichexiao);
+                } else if ("已取票".equals(orderStateList.get(position))){
+                    imageView_ticketState.setImageResource(R.mipmap.yiqupiao);
                 }
                 textView_orderPrice.setText(mAccountOrderEntityList.get(position).getPrice() + "");
             }
