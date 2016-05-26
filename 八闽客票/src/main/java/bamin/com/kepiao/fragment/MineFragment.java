@@ -53,6 +53,7 @@ import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
 import bamin.com.kepiao.constant.EverythingConstant;
 import bamin.com.kepiao.models.User;
+import bamin.com.kepiao.utils.IsQQorWeiXinAvilible;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -156,6 +157,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mPullRootView.findViewById(R.id.ic_avatar).setOnClickListener(this);
         mPullRootView.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
         mPullRootView.findViewById(R.id.phone).setOnClickListener(this);
+        mPullRootView.findViewById(R.id.qqTalk).setOnClickListener(this);
     }
 
     private void initUI() {
@@ -342,6 +344,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.qqTalk:
+                boolean qqClientAvailable = IsQQorWeiXinAvilible.isQQClientAvailable(getActivity());
+                if (qqClientAvailable) {
+                    String url = "mqqwpa://im/chat?chat_type=wpa&uin=1472638";
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } else {
+                    Toast.makeText(getActivity(), "QQ未安装", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.phone:
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
                         != PackageManager.PERMISSION_GRANTED) {

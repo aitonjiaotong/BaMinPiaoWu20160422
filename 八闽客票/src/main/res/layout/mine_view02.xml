@@ -42,51 +42,76 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="27dp"
             android:layout_marginRight="20dp"
             android:src="@mipmap/ic_me_arrow_right_gray"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:background="@drawable/layout_selector_white_system_gray"
-        android:id="@+id/phone"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-        <ImageView
-            android:id="@+id/iv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="22dp"
-            android:src="@mipmap/ic_phone"/>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:background="@drawable/layout_selector_white_system_gray"
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
 
-        <TextView
-            android:textSize="@dimen/normalTextSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="25dp"
-            android:layout_toEndOf="@+id/iv_phone"
-            android:layout_toRightOf="@+id/iv_phone"
-            android:text="客服电话:"
-            android:id="@+id/textView6"/>
+            <ImageView
+                android:id="@+id/iv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="22dp"
+                android:src="@mipmap/ic_phone"/>
 
-        <TextView
-            android:textSize="@dimen/normalTextSize"
-            android:textColor="@color/aiton_basic_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="400-0593-330"
-            android:id="@+id/textView3"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/textView6"
-            android:layout_toEndOf="@+id/textView6"/>
-    </RelativeLayout>
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_toEndOf="@+id/iv_phone"
+                android:layout_toRightOf="@+id/iv_phone"
+                android:text="客服电话:"
+                android:id="@+id/textView6"/>
+
+            <TextView
+                android:textSize="@dimen/normalTextSize"
+                android:textColor="@color/aiton_basic_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400-0593-330"
+                android:id="@+id/textView3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/textView6"
+                android:layout_toEndOf="@+id/textView6"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/qqTalk"
+            android:background="@drawable/layout_selector_white_system_gray"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@mipmap/qqtalk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView4"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_zuxiao"
