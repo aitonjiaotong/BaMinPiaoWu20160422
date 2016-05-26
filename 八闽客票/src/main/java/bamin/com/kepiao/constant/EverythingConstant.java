@@ -48,5 +48,6 @@ public class EverythingConstant {
         public static final int PERMISSION_READ_SMS = 2;
         public static final int PERMISSION_READ_EXTERNAL_STORAGE = 3;
         public static final int PERMISSION_CAMERA = 4;
+        public static final int PERMISSION_WRITE_EXTERNAL_STORAGE_SSENGJI = 5;
     }
 }

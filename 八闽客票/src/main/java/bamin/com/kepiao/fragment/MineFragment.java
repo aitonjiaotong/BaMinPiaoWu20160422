@@ -2,6 +2,7 @@ package bamin.com.kepiao.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,8 +35,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aiton.administrator.shane_library.shane.upgrade.UpgradeUtils;
 import com.aiton.administrator.shane_library.shane.utils.GsonUtils;
+import com.aiton.administrator.shane_library.shane.utils.HTTPUtils;
 import com.aiton.administrator.shane_library.shane.utils.UILUtils;
+import com.aiton.administrator.shane_library.shane.utils.VersionUtils;
+import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
+import com.android.volley.VolleyError;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -51,8 +57,11 @@ import bamin.com.kepiao.activity.SmsLoginActivity;
 import bamin.com.kepiao.activity.SoftInfo;
 import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
+import bamin.com.kepiao.constant.ConstantTicket;
 import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.models.Upgrade;
 import bamin.com.kepiao.models.User;
+import bamin.com.kepiao.utils.DataCleanManager;
 import bamin.com.kepiao.utils.IsQQorWeiXinAvilible;
 import cz.msebera.android.httpclient.Header;
 
@@ -78,6 +87,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private Button mButton_zuxiao;
     private String mImage;
     private boolean isUpdateIcon = false;
+    private RelativeLayout mRl_mine_evething_clear_diskcache;
+    private TextView mTv_diskcache_num;
+    private Upgrade mUpgrade;
+    private RelativeLayout mRl_check_curr_version;
 
     public MineFragment() {
     }
@@ -103,6 +116,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        //检查apk缓存
+        mTv_diskcache_num.setText(getSize());
         checkLogin();
     }
 
@@ -158,6 +173,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mPullRootView.findViewById(R.id.couponInfo_rela).setOnClickListener(this);
         mPullRootView.findViewById(R.id.phone).setOnClickListener(this);
         mPullRootView.findViewById(R.id.qqTalk).setOnClickListener(this);
+        mRl_mine_evething_clear_diskcache.setOnClickListener(this);
+        mRl_check_curr_version.setOnClickListener(this);
+
     }
 
     private void initUI() {
@@ -174,6 +192,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mInfo = (RelativeLayout) mPullRootView.findViewById(R.id.info);
         mUnLoginInfo = (RelativeLayout) mPullRootView.findViewById(R.id.unLoginInfo);
         mName = (TextView) mPullRootView.findViewById(R.id.name);
+        mTv_diskcache_num = (TextView) mPullRootView.findViewById(R.id.tv_diskcache_num);
+        mRl_mine_evething_clear_diskcache = (RelativeLayout) mPullRootView.findViewById(R.id.rl_mine_evething_clear_diskcache);
+        mRl_check_curr_version = (RelativeLayout) mPullRootView.findViewById(R.id.rl_check_curr_version);
     }
 
     /**
@@ -344,6 +365,43 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
+            case R.id.rl_check_curr_version:
+
+                HTTPUtils.get(getActivity(), ConstantTicket.URL.UP_GRADE, new VolleyListener() {
+                    public void onResponse(String json) {
+                        mUpgrade = GsonUtils.parseJSON(json, Upgrade.class);
+                        int currVersion = VersionUtils.getCurrVersion(getActivity());
+                        if (mUpgrade.getVersion() > currVersion) {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("升级")
+                                    .setMessage(mUpgrade.getFeature())
+                                    .setPositiveButton("升级",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                            != PackageManager.PERMISSION_GRANTED) {
+                                                        //申请WRITE_EXTERNAL_STORAGE权限
+                                                        ActivityCompat.requestPermissions((Activity) getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EverythingConstant.RequestAndResultCode.PERMISSION_WRITE_EXTERNAL_STORAGE_SSENGJI);
+                                                    } else {
+                                                        UpgradeUtils.checkUpgrade(getActivity(), ConstantTicket.URL.UP_GRADE);
+                                                    }
+                                                }
+                                            }).setNegativeButton("取消", null).show();
+                        } else {
+                            Toast.makeText(getActivity(), "当前已是最新版本！", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError arg0) {
+                    }
+                });
+                break;
+            case R.id.rl_mine_evething_clear_diskcache:
+                DataCleanManager.clearAllCache(getActivity());
+                mTv_diskcache_num.setText(getSize());
+                Toast.makeText(getActivity(), "缓存清除完毕!", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.qqTalk:
                 boolean qqClientAvailable = IsQQorWeiXinAvilible.isQQClientAvailable(getActivity());
                 if (qqClientAvailable) {
@@ -510,6 +568,19 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    /**
+     * -------------获取缓存大小-----------------
+     */
+    private String getSize() {
+        String totalCacheSize = null;
+        try {
+            totalCacheSize = DataCleanManager.getTotalCacheSize(getActivity());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalCacheSize;
     }
 
     /**

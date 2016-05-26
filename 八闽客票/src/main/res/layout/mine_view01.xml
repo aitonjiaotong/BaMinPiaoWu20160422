@@ -10,7 +10,7 @@
         android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/used_contact"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
 
         <ImageView
             android:src="@mipmap/ic_me_contact"
@@ -59,7 +59,7 @@
         android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/couponInfo_rela"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
 
         <ImageView
             android:src="@mipmap/ic_market00"
@@ -107,7 +107,7 @@
         android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/Discount"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
 
         <ImageView
             android:src="@mipmap/ic_market01"

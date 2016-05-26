@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_marginTop="10dp"
               android:background="@color/white"
               android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"/>
 
     <RelativeLayout
         android:background="@drawable/layout_selector_white_system_gray"
         android:id="@+id/setting"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -46,10 +50,107 @@
             android:src="@mipmap/ic_me_arrow_right_gray"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_evething_clear_diskcache"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/layout_selector_white_system_gray">
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="21dp"
+            android:src="@mipmap/qingchu"/>
+
+        <TextView
+            android:id="@+id/textView85"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@+id/imageView20"
+            android:layout_toRightOf="@+id/imageView20"
+            android:text="清除缓存"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <TextView
+            android:id="@+id/tv_diskcache_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_me_arrow_right_gray"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_check_curr_version"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/layout_selector_white_system_gray">
+
+        <ImageView
+            android:id="@+id/imageView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="21dp"
+            android:src="@mipmap/gengxin"/>
+
+        <TextView
+            android:id="@+id/tv_curr_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@+id/imageView34"
+            android:layout_toRightOf="@+id/imageView34"
+            android:text="检查更新"
+            android:textSize="@dimen/normalTextSize"/>
+
+        <ImageView
+            android:id="@+id/imageView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_me_arrow_right_gray"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_width"
+        android:background="@color/line_gray"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
 
         <RelativeLayout
             android:layout_weight="1"
