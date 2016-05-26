@@ -55,6 +55,12 @@
             android:layout_weight="1"
             android:text="前一天"/>
 
+        <TextView
+            android:background="@color/white"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView7"/>
+
         <RelativeLayout
             android:id="@+id/rela_today"
             android:background="@drawable/btn_datepicket_select"
@@ -92,6 +98,12 @@
                     android:layout_alignParentStart="true"/>
             </RelativeLayout>
         </RelativeLayout>
+
+        <TextView
+            android:background="@color/white"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="match_parent"
+            android:id="@+id/textView10"/>
 
         <TextView
             android:textSize="@dimen/normalTextSize"
