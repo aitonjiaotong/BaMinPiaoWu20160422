@@ -8,7 +8,8 @@ public class EverythingConstant {
         public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
     //        public static final String HOST = "http://192.168.1.100:8080";//本地服务器
     public static final int ABLEVERSION = 1;//可用版本号
-
+    // 购票剩余时间限制
+    public static final long LEFT_BUY_TICKET_TIME = 3600L * 1000L;
     /**
      * 微信支付相关
      */

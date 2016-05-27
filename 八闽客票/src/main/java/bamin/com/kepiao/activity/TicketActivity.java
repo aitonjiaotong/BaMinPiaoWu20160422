@@ -616,8 +616,8 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
-            if ((longtime - currentTimeMillis) < 900L * 1000L) {
-                DialogShow.setDialog(TicketActivity.this, "距发车时间15分钟内，停止售票", "确认");
+            if ((longtime - currentTimeMillis) < EverythingConstant.LEFT_BUY_TICKET_TIME) {
+                DialogShow.setDialog(TicketActivity.this, "距发车时间一小时内，停止售票", "确认");
             } else {
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }

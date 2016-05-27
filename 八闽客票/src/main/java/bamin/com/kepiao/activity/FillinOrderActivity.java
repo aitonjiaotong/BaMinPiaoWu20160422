@@ -217,7 +217,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 String setoutTime = mTicketInfo.getSetoutTime();
                 long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
                 long currentTimeMillis = System.currentTimeMillis();
-                if ((longtime - currentTimeMillis) < 3600L * 1000L) {
+                if ((longtime - currentTimeMillis) < EverythingConstant.LEFT_BUY_TICKET_TIME) {
                     DialogShow.setDialog(FillinOrderActivity.this, "据发车时间一小时内，停止售票", "确认");
                 } else {
                     if (ticketNumBuy > 0) {
