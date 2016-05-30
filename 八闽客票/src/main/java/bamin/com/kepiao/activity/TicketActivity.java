@@ -616,8 +616,8 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
-            if ((longtime - currentTimeMillis) < EverythingConstant.LEFT_BUY_TICKET_TIME) {
-                DialogShow.setDialog(TicketActivity.this, "距发车时间一小时内，停止售票", "确认");
+            if ((longtime - currentTimeMillis) < ConstantTicket.LEFT_BUY_TICKET_TIME) {
+                DialogShow.setDialog(TicketActivity.this, ConstantTicket.LEFT_BUY_TICKET_MSG, "确认");
             } else {
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }
@@ -708,10 +708,9 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void checkIsLoginOnOtherDevice(final TicketInfo ticketInfo) {
         if (!"".equals(mDeviceId)) {
-            String url = EverythingConstant.HOST + "/bmpw/account/findLogin_id";
+            String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.LOADLOGINID;
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
-            map.put("flag", "1");
             HTTPUtils.post(TicketActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {

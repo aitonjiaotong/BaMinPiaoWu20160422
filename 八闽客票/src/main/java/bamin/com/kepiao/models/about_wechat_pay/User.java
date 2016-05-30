@@ -1,4 +1,4 @@
-package bamin.com.kepiao.models;
+package bamin.com.kepiao.models.about_wechat_pay;
 
 /**
  * Created by Administrator on 2016/2/4.

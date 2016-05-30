@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         initSp();
         //检查服务器是否存活和当前版本是否可用
         checkVersionAndHouTaiIsCanUse();
+        getLeftTime();
         mTabHost = (FragmentTabHost) findViewById(R.id.tabHost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtab);
         for (int i = 0; i < tabsItem.length; i++) {
@@ -127,10 +128,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void checkIsLoginOnOtherDevice() {
         if (!"".equals(mDeviceId)) {
-            String url = EverythingConstant.HOST + "/bmpw/account/findLogin_id";
+            String url = EverythingConstant.HOST_TICKET+EverythingConstant.Url.LOADLOGINID;
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
-            map.put("flag", "1");
             HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -304,5 +304,24 @@ public class MainActivity extends AppCompatActivity {
      */
     private void animFromSmallToBigIN() {
         overridePendingTransition(R.anim.magnify_fade_in, R.anim.fade_out);
+    }
+
+    /**
+     * 获取售票剩余时间
+     */
+    public void getLeftTime() {
+        String url = "";
+        Map<String, String> map = new HashMap<>();
+        HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void onResponse(String s) {
+
+            }
+        });
     }
 }

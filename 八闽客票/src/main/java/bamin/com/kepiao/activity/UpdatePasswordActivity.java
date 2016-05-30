@@ -133,12 +133,11 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                     if (isPassword) {
                         //每次存储唯一标识
                         final String DeviceId = Installation.id(UpdatePasswordActivity.this);
-                        String url = EverythingConstant.HOST + "/bmpw/front/account/updatepassword";
+                        String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.UPDATEPASSWORD;
                         Map<String, String> map = new HashMap<>();
-                        map.put("phone", mPhoneNum);
-                        map.put("login_id", DeviceId);
+                        map.put("phone",mPhoneNum+"");
+                        map.put("login_id",DeviceId+"");
                         map.put("password", password01);
-                        map.put("flag", "1");
                         HTTPUtils.post(UpdatePasswordActivity.this, url, map, new VolleyListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
@@ -147,30 +146,30 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
 
                             @Override
                             public void onResponse(String s) {
-                                if ("".equals(s)) {
-                                    toast("密码修改失败");
-                                } else {
-                                    mUser = GsonUtils.parseJSON(s, User.class);
+                                mUser = GsonUtils.parseJSON(s, User.class);
+                                if (mUser.isSuccess()){
                                     //存储手机号和用户id到本地
                                     SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
                                     SharedPreferences.Editor edit = sp.edit();
                                     edit.putString("phoneNum", mPhoneNum);
-                                    edit.putString("id", mUser.getId() + "");
+                                    edit.putString("id", mUser.getContains().getId()+ "");
                                     edit.putString("DeviceId", DeviceId);
-                                    edit.putString("image",mUser.getImage());
-                                    Log.e("onResponse", "图片地址" + mUser.getImage());
+                                    edit.putString("image", mUser.getContains().getImage());
                                     edit.commit();
-                                    if ("findBackPassword".equals(mFindBackPassword)) {
-                                        toast("修改成功");
-                                    } else {
-                                        toast("登录成功");
-                                    }
+                                    toast("登录成功");
                                     //友盟统计
                                     MobclickAgent.onProfileSignIn(mPhoneNum);
                                     Intent intent = new Intent();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.setClass(UpdatePasswordActivity.this, MainActivity.class);
                                     startActivity(intent);
+                                }else{
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(UpdatePasswordActivity.this, mUser.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -239,7 +238,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     }
     private void getSms() {
         mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
-        String url = "http://120.55.166.203:8010" + "/aiton-app-webapp/public/sendmessage";
+        String url =EverythingConstant.GETSMS;
         Log.e("getSms", "短信连接" + url);
         Map<String, String> map = new HashMap<>();
         map.put("phone",mPhoneNum);

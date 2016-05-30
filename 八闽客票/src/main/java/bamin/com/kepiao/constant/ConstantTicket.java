@@ -8,7 +8,18 @@ public class ConstantTicket
 {
     //    public static final String JDT_TICKET_HOST = "http://www.aiton.com.cn:808/JDTTicket.asmx/";
     public static final String JDT_TICKET_HOST = "http://www.bmcxfj.com:8088/JDTTicket.asmx/";
+    // 购票剩余时间限制
+    public static long LEFT_BUY_TICKET_TIME = 1800L * 1000L;
+    // 购票剩余时间提示语
+    public static String LEFT_BUY_TICKET_MSG = "据发车时间半小时内，停止售票";
 
+    public static void setLeftBuyTicketTime(long leftBuyTicketTime) {
+        LEFT_BUY_TICKET_TIME = leftBuyTicketTime;
+    }
+
+    public static void setLeftBuyTicketMsg(String leftBuyTicketMsg) {
+        LEFT_BUY_TICKET_MSG = leftBuyTicketMsg;
+    }
     public class URL
     {
         //获取所属公司下的

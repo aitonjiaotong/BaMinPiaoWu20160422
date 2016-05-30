@@ -4,12 +4,20 @@ package bamin.com.kepiao.constant;
  * Created by Administrator on 2016/4/7.
  */
 public class EverythingConstant {
-//    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
-        public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
+    //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
+    public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
     //        public static final String HOST = "http://192.168.1.100:8080";//本地服务器
     public static final int ABLEVERSION = 1;//可用版本号
-    // 购票剩余时间限制
-    public static final long LEFT_BUY_TICKET_TIME = 3600L * 1000L;
+    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
+    public static final String GETSMS= "http://120.55.166.203:8010/aiton-app-webapp/public/sendmessage";//发送短信
+
+    public static final class Url {
+        public static final String LOADLOGINID = "/loadloginid";//检查是否在其他设备上登录
+        public static final String LOGIN = "/login";//登录
+        public static final String REGISTEREDBYPASSWORD = "/registeredbypassword";//注册
+        public static final String UPDATEPASSWORD = "/updatepassword";//修改密码和忘记密码
+    }
+
     /**
      * 微信支付相关
      */
