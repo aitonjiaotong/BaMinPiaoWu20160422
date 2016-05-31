@@ -33,6 +33,7 @@ import bamin.com.kepiao.constant.EverythingConstant;
 import bamin.com.kepiao.fragment.Fragment01;
 import bamin.com.kepiao.fragment.Fragment0201;
 import bamin.com.kepiao.fragment.MineFragment;
+import bamin.com.kepiao.models.LeftTimeTicket;
 import bamin.com.kepiao.models.VersionAndHouTaiIsCanUse;
 
 /**
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkVersionAndHouTaiIsCanUse() {
-        String url = EverythingConstant.HOST + "/bmpw/check/live";
+        String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.CHECKLIVE_TICKET;
         Map<String, String> map = new HashMap<>();
         map.put("flag", "1");
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
@@ -310,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
      * 获取售票剩余时间
      */
     public void getLeftTime() {
-        String url = "";
+        String url = EverythingConstant.HOST_TICKET+EverythingConstant.Url.GETLEFTTIME_TICKET;
         Map<String, String> map = new HashMap<>();
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
             @Override
@@ -320,7 +321,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String s) {
-
+                LeftTimeTicket leftTimeTicket = GsonUtils.parseJSON(s, LeftTimeTicket.class);
+                ConstantTicket.setLeftBuyTicketTime(leftTimeTicket.getTime());
+                ConstantTicket.setLeftBuyTicketMsg(leftTimeTicket.getMessage());
             }
         });
     }

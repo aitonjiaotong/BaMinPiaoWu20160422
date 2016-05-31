@@ -4,8 +4,8 @@ package bamin.com.kepiao.constant;
  * Created by Administrator on 2016/4/7.
  */
 public class EverythingConstant {
-    //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
-    public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
+        public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
+//    public static final String HOST = "http://www.bmcxfj.com:8080";//八闽后台服务器HOST地址
     //        public static final String HOST = "http://192.168.1.100:8080";//本地服务器
     public static final int ABLEVERSION = 1;//可用版本号
     public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
@@ -16,6 +16,8 @@ public class EverythingConstant {
         public static final String LOGIN = "/login";//登录
         public static final String REGISTEREDBYPASSWORD = "/registeredbypassword";//注册
         public static final String UPDATEPASSWORD = "/updatepassword";//修改密码和忘记密码
+        public static final String GETLEFTTIME_TICKET = "/pw/message/find";//获取售票剩余时间
+        public static final String CHECKLIVE_TICKET = "/live/cheklive";//检查服务器是否存活
     }
 
     /**

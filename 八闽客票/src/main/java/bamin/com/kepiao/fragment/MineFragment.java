@@ -250,8 +250,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     User user = GsonUtils.parseJSON(new String(responseBody), User.class);
                     SharedPreferences sp = getActivity().getSharedPreferences("isLogin", getActivity().MODE_PRIVATE);
                     SharedPreferences.Editor edit = sp.edit();
-                    edit.putString("image", user.getImage());
-                    Log.e("onResponse", "图片地址" + user.getImage());
+                    edit.putString("image", user.getContains().getImage());
+                    Log.e("onResponse", "图片地址" + user.getContains().getImage());
                     edit.commit();
                 }
 
