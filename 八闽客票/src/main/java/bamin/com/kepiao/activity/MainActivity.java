@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersionAndHouTaiIsCanUse() {
         String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.CHECKLIVE_TICKET;
         Map<String, String> map = new HashMap<>();
-        map.put("flag", "1");
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {

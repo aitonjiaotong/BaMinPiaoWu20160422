@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">八闽客票</string>
-    <string name="title_bar_search">长途客运</string>
+    <string name="app_name">八闽票务</string>
+    <string name="title_bar_search">八闽票务</string>
     <string name="set_out">出发</string>
     <string name="arrive">到达</string>
     <string name="set_out_time">出发时间</string>
