@@ -50,8 +50,7 @@ import java.util.Map;
 import java.util.Set;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_ticket.TicketInfo;
 import bamin.com.kepiao.utils.DateCompareUtil;
 import bamin.com.kepiao.utils.DialogShow;
@@ -133,7 +132,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
         mDeviceId = sp.getString("DeviceId", "");
     }
@@ -153,7 +152,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         mRefrash.setVisibility(View.VISIBLE);
         mLv_ticket.setVisibility(View.GONE);
         mTv_order_logout.setVisibility(View.GONE);
-        String url_web = ConstantTicket.JDT_TICKET_HOST +
+        String url_web = Constant.JDT_TICKET_HOST +
                 "GetSellableScheduleByStartCityName?executeDate=" + mCheckedTime +
                 "&startCityName=" + URLEncoder.encode(start) +
                 "&endSiteNamePart=" + URLEncoder.encode(end);
@@ -199,11 +198,11 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initIntent() {
         Intent intent = getIntent();
-        mYear = intent.getIntExtra(ConstantTicket.IntentKey.CURR_YEAR, -1);
-        mMonth = intent.getIntExtra(ConstantTicket.IntentKey.CURR_MONTH, -1);
-        mDayOfMonth = intent.getIntExtra(ConstantTicket.IntentKey.CURR_DAY_OF_MONTH, -1);
-        start = intent.getStringExtra(ConstantTicket.IntentKey.FINAIL_SET_OUT_STATION);
-        end = intent.getStringExtra(ConstantTicket.IntentKey.FINAIL_ARRIVE_STATION);
+        mYear = intent.getIntExtra(Constant.IntentKey.CURR_YEAR, -1);
+        mMonth = intent.getIntExtra(Constant.IntentKey.CURR_MONTH, -1);
+        mDayOfMonth = intent.getIntExtra(Constant.IntentKey.CURR_DAY_OF_MONTH, -1);
+        start = intent.getStringExtra(Constant.IntentKey.FINAIL_SET_OUT_STATION);
+        end = intent.getStringExtra(Constant.IntentKey.FINAIL_ARRIVE_STATION);
     }
 
     private void initUI() {
@@ -616,8 +615,8 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
         long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
         long currentTimeMillis = System.currentTimeMillis();
         if (isLogin) {
-            if ((longtime - currentTimeMillis) < ConstantTicket.LEFT_BUY_TICKET_TIME) {
-                DialogShow.setDialog(TicketActivity.this, ConstantTicket.LEFT_BUY_TICKET_MSG, "确认");
+            if ((longtime - currentTimeMillis) < Constant.Key.LEFT_BUY_TICKET_TIME) {
+                DialogShow.setDialog(TicketActivity.this, Constant.Key.LEFT_BUY_TICKET_MSG, "确认");
             } else {
                 checkIsLoginOnOtherDevice(mTicketInfoList.get(position));
             }
@@ -631,7 +630,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
         mDeviceId = sp.getString("DeviceId", "");
         mId = sp.getString("id", "");
@@ -708,7 +707,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void checkIsLoginOnOtherDevice(final TicketInfo ticketInfo) {
         if (!"".equals(mDeviceId)) {
-            String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.LOADLOGINID;
+            String url = Constant.Url.LOADLOGINID;
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
             HTTPUtils.post(TicketActivity.this, url, map, new VolleyListener() {
@@ -750,7 +749,7 @@ public class TicketActivity extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 dialog.dismiss();
                 //清除用户登录信息
-                SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor edit = sp.edit();
                 edit.clear();
                 edit.commit();

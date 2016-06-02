@@ -57,8 +57,7 @@ import bamin.com.kepiao.activity.SmsLoginActivity;
 import bamin.com.kepiao.activity.SoftInfo;
 import bamin.com.kepiao.activity.TicketNotice;
 import bamin.com.kepiao.activity.UsedContact;
-import bamin.com.kepiao.constant.ConstantTicket;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.Upgrade;
 import bamin.com.kepiao.models.User;
 import bamin.com.kepiao.utils.DataCleanManager;
@@ -122,7 +121,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void checkLogin() {
-        SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
         mId = sp.getString("id", "");
         mImage = sp.getString("image", "");
@@ -232,7 +231,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         String path = uploadFile.getPath();
         Log.e("postFile", "path" + path);
         File file = new File(path);
-        String actionUrl = "http://120.24.46.15:8080/bmpw/account/updateIcon";
+        String actionUrl = Constant.Url.UPDATEICON;
         if (file.exists() && file.length() > 0) {
             RequestParams params = new RequestParams();
             params.put("account_id", mId);
@@ -248,7 +247,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     Log.e("onSuccess: ", "---> " + new String(responseBody));
                     User user = GsonUtils.parseJSON(new String(responseBody), User.class);
-                    SharedPreferences sp = getActivity().getSharedPreferences("isLogin", getActivity().MODE_PRIVATE);
+                    SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, getActivity().MODE_PRIVATE);
                     SharedPreferences.Editor edit = sp.edit();
                     edit.putString("image", user.getContains().getImage());
                     Log.e("onResponse", "图片地址" + user.getContains().getImage());
@@ -367,7 +366,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.rl_check_curr_version:
 
-                HTTPUtils.get(getActivity(), ConstantTicket.URL.UP_GRADE, new VolleyListener() {
+                HTTPUtils.get(getActivity(), Constant.Url.UP_GRADE, new VolleyListener() {
                     public void onResponse(String json) {
                         mUpgrade = GsonUtils.parseJSON(json, Upgrade.class);
                         int currVersion = VersionUtils.getCurrVersion(getActivity());
@@ -381,9 +380,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                                     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                                             != PackageManager.PERMISSION_GRANTED) {
                                                         //申请WRITE_EXTERNAL_STORAGE权限
-                                                        ActivityCompat.requestPermissions((Activity) getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, EverythingConstant.RequestAndResultCode.PERMISSION_WRITE_EXTERNAL_STORAGE_SSENGJI);
+                                                        ActivityCompat.requestPermissions((Activity) getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.RequestAndResultCode.PERMISSION_WRITE_EXTERNAL_STORAGE_SSENGJI);
                                                     } else {
-                                                        UpgradeUtils.checkUpgrade(getActivity(), ConstantTicket.URL.UP_GRADE);
+                                                        UpgradeUtils.checkUpgrade(getActivity(), Constant.Url.UP_GRADE);
                                                     }
                                                 }
                                             }).setNegativeButton("取消", null).show();
@@ -416,7 +415,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},
-                            EverythingConstant.RequestAndResultCode.PERMISSION_CALL_PHONE);
+                            Constant.RequestAndResultCode.PERMISSION_CALL_PHONE);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("提示")
@@ -441,7 +440,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+                        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor edit = sp.edit();
                         edit.clear();
                         edit.commit();
@@ -464,7 +463,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             != PackageManager.PERMISSION_GRANTED) {
                         //申请WRITE_EXTERNAL_STORAGE权限
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
-                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                                Constant.RequestAndResultCode.PERMISSION_READ_SMS);
                         Log.e("onClick", "未获取");
                     } else {
                         Log.e("onClick", "已获取");
@@ -489,7 +488,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             != PackageManager.PERMISSION_GRANTED) {
                         //申请WRITE_EXTERNAL_STORAGE权限
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
-                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                                Constant.RequestAndResultCode.PERMISSION_READ_SMS);
                         Log.e("onClick", "未获取");
                     } else {
                         intent.setClass(getActivity(), SmsLoginActivity.class);
@@ -514,7 +513,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             != PackageManager.PERMISSION_GRANTED) {
                         //申请WRITE_EXTERNAL_STORAGE权限
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
-                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                                Constant.RequestAndResultCode.PERMISSION_READ_SMS);
                         Log.e("onClick", "未获取");
                     } else {
                         intent.setClass(getActivity(), SmsLoginActivity.class);
@@ -530,7 +529,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             != PackageManager.PERMISSION_GRANTED) {
                         //申请WRITE_EXTERNAL_STORAGE权限
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_SMS},
-                                EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS);
+                                Constant.RequestAndResultCode.PERMISSION_READ_SMS);
                         Log.e("onClick", "未获取");
                     } else {
                         intent.setClass(getActivity(), SmsLoginActivity.class);
@@ -546,7 +545,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            EverythingConstant.RequestAndResultCode.PERMISSION_READ_EXTERNAL_STORAGE);
+                            Constant.RequestAndResultCode.PERMISSION_READ_EXTERNAL_STORAGE);
                 } else {
                     doHandlerPhoto(PIC_FROM＿LOCALPHOTO);// 从相册中去获取
                     mPopupWindow.dismiss();
@@ -557,7 +556,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
-                            EverythingConstant.RequestAndResultCode.PERMISSION_CAMERA);
+                            Constant.RequestAndResultCode.PERMISSION_CAMERA);
                 } else {
                     doHandlerPhoto(PIC_FROM_CAMERA);// 用户点击了从照相机获取
                     mPopupWindow.dismiss();

@@ -9,57 +9,122 @@ import java.util.List;
 public class AccountOrder {
 
     /**
-     * orders : [{"id":136,"date":1457574001000,"bookLogAID":"2016-03-10-3ddc2096-8345-4f17-b8b5-898bf886290d","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":135,"date":1457571087000,"bookLogAID":"2016-03-10-6b7b4092-acc0-4521-ab4f-42db1689b880","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":134,"date":1457571059000,"bookLogAID":"2016-03-10-c1e22807-61f8-480b-8796-ef602ea23bb7","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":133,"date":1457571034000,"bookLogAID":"2016-03-10-7d2f40ad-a0bd-47b9-93f1-4ede9ab255b7","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":132,"date":1457570987000,"bookLogAID":"2016-03-10-e6e5c426-d5ca-4619-a977-fc4c0bbd44f8","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":131,"date":1457570596000,"bookLogAID":"2016-03-10-3826ef81-98a9-4342-9f4c-785eec7ee759","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":117,"date":1457403305000,"bookLogAID":"2016-03-08-90dc104c-2bd6-4c48-af0f-aa1a6c3f31c9","account_id":4,"redEnvelope_id":null,"phone":"15871105320"},{"id":115,"date":1457402156000,"bookLogAID":"2016-03-08-4a330f61-e8e5-4211-ac49-22bdbe9e48e3","account_id":4,"redEnvelope_id":null,"phone":"15871105320"}]
-     * pages : 6
+     * contains : [{"id":1334,"date":1464848696000,"bookLogAID":"2016-06-02-c15dddba-1943-4df1-9cca-c82810189db7","account_id":123,"redEnvelope_id":null,"phone":"null","insure":3,"price":121,"real_pay":null,"status":2,"sum":null,"startSiteName":null,"endSiteName":null,"getTicketCode":null,"identify":null,"bookTime":null,"setoutTime":null,"pay_model":null,"serial":null,"yuliu":null,"carryChild":null}]
+     * num : 1
      */
 
-    private int pages;
+    private int num;
     /**
-     * id : 136
-     * date : 1457574001000
-     * bookLogAID : 2016-03-10-3ddc2096-8345-4f17-b8b5-898bf886290d
-     * account_id : 4
+     * id : 1334
+     * date : 1464848696000
+     * bookLogAID : 2016-06-02-c15dddba-1943-4df1-9cca-c82810189db7
+     * account_id : 123
      * redEnvelope_id : null
-     * phone : 15871105320
+     * phone : null
+     * insure : 3.0
+     * price : 121.0
+     * real_pay : null
+     * status : 2
+     * sum : null
+     * startSiteName : null
+     * endSiteName : null
+     * getTicketCode : null
+     * identify : null
+     * bookTime : null
+     * setoutTime : null
+     * pay_model : null
+     * serial : null
+     * yuliu : null
+     * carryChild : null
      */
 
-    private List<OrdersEntity> orders;
+    private List<ContainsEntity> contains;
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public int getNum() {
+        return num;
     }
 
-    public void setOrders(List<OrdersEntity> orders) {
-        this.orders = orders;
+    public void setNum(int num) {
+        this.num = num;
     }
 
-    public int getPages() {
-        return pages;
+    public List<ContainsEntity> getContains() {
+        return contains;
     }
 
-    public List<OrdersEntity> getOrders() {
-        return orders;
+    public void setContains(List<ContainsEntity> contains) {
+        this.contains = contains;
     }
 
-    public static class OrdersEntity {
+    public static class ContainsEntity {
         private int id;
         private long date;
         private String bookLogAID;
         private int account_id;
-        private int redEnvelope_id;
+        private Object redEnvelope_id;
         private String phone;
-        private int flag;
-        private double insure;//保险金额
-        private double price;//总价
-        private double real_pay;//实际支付
-        private int status;//判断是否正在出票
+        private double insure;
+        private double price;
+        private Object real_pay;
+        private int status;
+        private Object sum;
+        private Object startSiteName;
+        private Object endSiteName;
+        private Object getTicketCode;
+        private Object identify;
+        private Object bookTime;
+        private Object setoutTime;
+        private Object pay_model;
+        private Object serial;
+        private Object yuliu;
+        private Object carryChild;
 
-        public int getStatus() {
-            return status;
+        public int getId() {
+            return id;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public long getDate() {
+            return date;
+        }
+
+        public void setDate(long date) {
+            this.date = date;
+        }
+
+        public String getBookLogAID() {
+            return bookLogAID;
+        }
+
+        public void setBookLogAID(String bookLogAID) {
+            this.bookLogAID = bookLogAID;
+        }
+
+        public int getAccount_id() {
+            return account_id;
+        }
+
+        public void setAccount_id(int account_id) {
+            this.account_id = account_id;
+        }
+
+        public Object getRedEnvelope_id() {
+            return redEnvelope_id;
+        }
+
+        public void setRedEnvelope_id(Object redEnvelope_id) {
+            this.redEnvelope_id = redEnvelope_id;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
         }
 
         public double getInsure() {
@@ -78,68 +143,108 @@ public class AccountOrder {
             this.price = price;
         }
 
-        public double getReal_pay() {
+        public Object getReal_pay() {
             return real_pay;
         }
 
-        public void setReal_pay(double real_pay) {
+        public void setReal_pay(Object real_pay) {
             this.real_pay = real_pay;
         }
 
-        public int getFlag() {
-            return flag;
+        public int getStatus() {
+            return status;
         }
 
-        public void setFlag(int flag) {
-            this.flag = flag;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public Object getSum() {
+            return sum;
         }
 
-        public void setDate(long date) {
-            this.date = date;
+        public void setSum(Object sum) {
+            this.sum = sum;
         }
 
-        public void setBookLogAID(String bookLogAID) {
-            this.bookLogAID = bookLogAID;
+        public Object getStartSiteName() {
+            return startSiteName;
         }
 
-        public void setAccount_id(int account_id) {
-            this.account_id = account_id;
+        public void setStartSiteName(Object startSiteName) {
+            this.startSiteName = startSiteName;
         }
 
-        public void setRedEnvelope_id(int redEnvelope_id) {
-            this.redEnvelope_id = redEnvelope_id;
+        public Object getEndSiteName() {
+            return endSiteName;
         }
 
-        public void setPhone(String phone) {
-            this.phone = phone;
+        public void setEndSiteName(Object endSiteName) {
+            this.endSiteName = endSiteName;
         }
 
-        public int getId() {
-            return id;
+        public Object getGetTicketCode() {
+            return getTicketCode;
         }
 
-        public long getDate() {
-            return date;
+        public void setGetTicketCode(Object getTicketCode) {
+            this.getTicketCode = getTicketCode;
         }
 
-        public String getBookLogAID() {
-            return bookLogAID;
+        public Object getIdentify() {
+            return identify;
         }
 
-        public int getAccount_id() {
-            return account_id;
+        public void setIdentify(Object identify) {
+            this.identify = identify;
         }
 
-        public int getRedEnvelope_id() {
-            return redEnvelope_id;
+        public Object getBookTime() {
+            return bookTime;
         }
 
-        public String getPhone() {
-            return phone;
+        public void setBookTime(Object bookTime) {
+            this.bookTime = bookTime;
+        }
+
+        public Object getSetoutTime() {
+            return setoutTime;
+        }
+
+        public void setSetoutTime(Object setoutTime) {
+            this.setoutTime = setoutTime;
+        }
+
+        public Object getPay_model() {
+            return pay_model;
+        }
+
+        public void setPay_model(Object pay_model) {
+            this.pay_model = pay_model;
+        }
+
+        public Object getSerial() {
+            return serial;
+        }
+
+        public void setSerial(Object serial) {
+            this.serial = serial;
+        }
+
+        public Object getYuliu() {
+            return yuliu;
+        }
+
+        public void setYuliu(Object yuliu) {
+            this.yuliu = yuliu;
+        }
+
+        public Object getCarryChild() {
+            return carryChild;
+        }
+
+        public void setCarryChild(Object carryChild) {
+            this.carryChild = carryChild;
         }
     }
 }

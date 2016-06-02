@@ -36,8 +36,7 @@ import java.util.Map;
 import bamin.com.kepiao.R;
 import bamin.com.kepiao.activity.OrderDeatilActivity;
 import bamin.com.kepiao.activity.PayActivity;
-import bamin.com.kepiao.constant.ConstantTicket;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.customView.CustomerFooter;
 import bamin.com.kepiao.models.about_order.AccountOrder;
 import bamin.com.kepiao.models.about_order.QueryOrder;
@@ -51,7 +50,7 @@ public class Fragment0201 extends Fragment {
     private ListView mOrderListview;
     private String mId;
     private MyAdapter mMyAdapter;
-    private List<AccountOrder.OrdersEntity> mAccountOrderEntityList = new ArrayList<>();
+    private List<AccountOrder.ContainsEntity> mAccountOrderEntityList = new ArrayList<>();
     private List<QueryOrder> mQueryOrderList = new ArrayList<>();
     private List<String> orderStateList = new ArrayList<>();
     private boolean mIsupdata = false;
@@ -80,7 +79,7 @@ public class Fragment0201 extends Fragment {
             /**
              * 获取用户id
              */
-            SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+            SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
             mId = sp.getString("id", "");
             initUI();
 //            clearData();
@@ -97,7 +96,7 @@ public class Fragment0201 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
         listGone();
     }
@@ -114,7 +113,7 @@ public class Fragment0201 extends Fragment {
      */
     //查询所有有订单号
     private void queryAccountIdToOrder() {
-        String url = EverythingConstant.HOST + "/bmpw/front/ladorderbyuser";
+        String url = Constant.HOST_TICKET + "/front/ladorderbyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
         map.put("page", orderPageCount + "");
@@ -144,8 +143,8 @@ public class Fragment0201 extends Fragment {
 //                 * 翻转容器，让最近的排在最前面
 //                 */
 //                Collections.reverse(mAccountOrder.getOrders());
-                mAccountOrderEntityList.addAll(mAccountOrder.getOrders());
-                mPages = mAccountOrder.getPages();
+                mAccountOrderEntityList.addAll(mAccountOrder.getContains());
+                mPages = mAccountOrder.getNum();
                 /**
                  * 暂无订单显示与否
                  */
@@ -154,14 +153,14 @@ public class Fragment0201 extends Fragment {
                      * 将所有订单对象和状态都实例化
                      */
                     mQueryOrderNull = new QueryOrder("1", 1, null, null, null, null, null, 1, false, false, null, null, null, null, null, 1.1, null, null, "正在生成");
-                    for (int i = 0; i < mAccountOrder.getOrders().size(); i++) {
+                    for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
                         mQueryOrderList.add(mQueryOrderNull);
                         orderStateList.add("正在生成");
                     }
                     /**
                      * 查询所有订单号的对象和状态
                      */
-                    for (int i = 0; i < mAccountOrder.getOrders().size(); i++) {
+                    for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
                         queryAllOrderInfo((orderPageCount - 1) * 8 + i);
                         queryAllOrderState((orderPageCount - 1) * 8 + i);
                     }
@@ -180,9 +179,9 @@ public class Fragment0201 extends Fragment {
      * @param i
      */
     private void queryAllOrderState(final int i) {
-        String url_web = ConstantTicket.JDT_TICKET_HOST +
+        String url_web = Constant.JDT_TICKET_HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
-                "&bookLogID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1) * 8).getBookLogAID();
+                "&bookLogID=" + mAccountOrder.getContains().get(i - (orderPageCount - 1) * 8).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 mCustom_view.stopRefresh();
@@ -214,7 +213,7 @@ public class Fragment0201 extends Fragment {
      * @param i
      */
     private void queryOrderState(final int i) {
-        String url_web = ConstantTicket.JDT_TICKET_HOST +
+        String url_web = Constant.JDT_TICKET_HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
                 "&bookLogID=" + mAccountOrderEntityList.get(i).getBookLogAID();
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
@@ -233,7 +232,7 @@ public class Fragment0201 extends Fragment {
                         Intent intent = new Intent();
                         intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                         intent.putExtra("isSure", "isSure");
-                        intent.putExtra("insurePrice",mAccountOrderEntityList.get(i).getInsure());
+                        intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.setClass(getActivity(), OrderDeatilActivity.class);
                         startActivity(intent);
@@ -241,16 +240,16 @@ public class Fragment0201 extends Fragment {
                     } else if ("未确认".equals(state)) {
                         //0是正在出票1是出票成功
                         if (mAccountOrderEntityList.get(i).getStatus() == 0) {
-                            DialogShow.setDialog(getActivity(),"正在出票，请稍后下拉刷新试试","确认");
+                            DialogShow.setDialog(getActivity(), "正在出票，请稍后下拉刷新试试", "确认");
                         } else if (mAccountOrderEntityList.get(i).getStatus() == 1) {
 
-                        }else if (mAccountOrderEntityList.get(i).getStatus() == 3){
+                        } else if (mAccountOrderEntityList.get(i).getStatus() == 3) {
                             DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
-                        }else{
+                        } else {
                             Intent intent = new Intent();
                             intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                             intent.putExtra("realPrice", mAccountOrderEntityList.get(i).getPrice());
-                            intent.putExtra("OrderId", mAccountOrderEntityList.get(i).getId()+"");
+                            intent.putExtra("OrderId", mAccountOrderEntityList.get(i).getId() + "");
                             intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
                             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.setClass(getActivity(), PayActivity.class);
@@ -263,7 +262,7 @@ public class Fragment0201 extends Fragment {
                         Intent intent = new Intent();
                         intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                         intent.putExtra("isSure", "isSure");
-                        intent.putExtra("insurePrice",mAccountOrderEntityList.get(i).getInsure());
+                        intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.setClass(getActivity(), OrderDeatilActivity.class);
                         startActivity(intent);
@@ -282,8 +281,8 @@ public class Fragment0201 extends Fragment {
      * 查询所有订单号的对象
      */
     private void queryAllOrderInfo(final int i) {
-        String url = ConstantTicket.JDT_TICKET_HOST +
-                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getOrders().get(i - (orderPageCount - 1) * 8).getBookLogAID();
+        String url = Constant.JDT_TICKET_HOST +
+                "QueryBookLog?getTicketCodeOrAID=" + mAccountOrder.getContains().get(i - (orderPageCount - 1) * 8).getBookLogAID();
         HTTPUtils.get(getActivity(), url, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -311,25 +310,27 @@ public class Fragment0201 extends Fragment {
             }
         });
     }
+
     private void listGone() {
         /**
          * 防止刷新不一致崩掉
          */
-        if (!orderStateList.contains("正在生成")&&!mQueryOrderList.contains(mQueryOrderNull)){
+        if (!orderStateList.contains("正在生成") && !mQueryOrderList.contains(mQueryOrderNull)) {
 //            isSure = true;
 //            mIsupdata = true;
 //            mCustom_view.stopRefresh();
 //            mCustom_view.stopLoadMore();
 //            mMyAdapter.notifyDataSetChanged();
-        }else{
+        } else {
             mOrderListview.setVisibility(View.GONE);
         }
     }
+
     private void refreashSure() {
         /**
          * 防止刷新不一致崩掉
          */
-        if (!orderStateList.contains("正在生成")&&!mQueryOrderList.contains(mQueryOrderNull)){
+        if (!orderStateList.contains("正在生成") && !mQueryOrderList.contains(mQueryOrderNull)) {
 //            isSure = true;
             mIsupdata = true;
             mCustom_view.stopRefresh();
@@ -385,11 +386,7 @@ public class Fragment0201 extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             isItemClickED = !isItemClickED;
             if (isItemClickED) {
-                if (mAccountOrderEntityList.get(position).getFlag() == 1) {
-                    DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
-                } else {
-                    queryOrderState(position);
-                }
+                queryOrderState(position);
             }
         }
     }
@@ -438,19 +435,18 @@ public class Fragment0201 extends Fragment {
                 if ("已确认".equals(orderStateList.get(position))) {
                     imageView_ticketState.setImageResource(R.mipmap.yizhifu);
                 } else if ("未确认".equals(orderStateList.get(position))) {
-                    if (mAccountOrderEntityList.get(position).getStatus()==0){
+                    if (mAccountOrderEntityList.get(position).getStatus() == 0) {
                         imageView_ticketState.setImageResource(R.mipmap.zhengzaichupiao);
-                    }else if (mAccountOrderEntityList.get(position).getStatus()==1){
+                    } else if (mAccountOrderEntityList.get(position).getStatus() == 1) {
                         imageView_ticketState.setImageResource(R.mipmap.yizhifu);
-                    }else if (mAccountOrderEntityList.get(position).getStatus()==3){
+                    } else if (mAccountOrderEntityList.get(position).getStatus() == 3) {
                         imageView_ticketState.setImageResource(R.mipmap.yichangdingdan);
-                    }
-                    else {
+                    } else {
                         imageView_ticketState.setImageResource(R.mipmap.weizhifu);
                     }
-                } else if ("已撤销".equals(orderStateList.get(position))){
+                } else if ("已撤销".equals(orderStateList.get(position))) {
                     imageView_ticketState.setImageResource(R.mipmap.yichexiao);
-                } else if ("已取票".equals(orderStateList.get(position))){
+                } else if ("已取票".equals(orderStateList.get(position))) {
                     imageView_ticketState.setImageResource(R.mipmap.yiqupiao);
                 }
                 textView_orderPrice.setText(mAccountOrderEntityList.get(position).getPrice() + "");

@@ -26,6 +26,7 @@ import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
 import com.android.volley.VolleyError;
 
 import bamin.com.kepiao.R;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_redpacket.RedPacket;
 
 public class BannerFragment extends Fragment
@@ -78,7 +79,7 @@ public class BannerFragment extends Fragment
             {
                 if (!"".equals(mRedPacketUrl))
                 {
-                    SharedPreferences sp = getActivity().getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+                    SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
                     String account_id = sp.getString("id", "");
                     String isLogin = sp.getString("phoneNum", "");
                     //弹出抢红包对话框

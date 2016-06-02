@@ -28,8 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.fragment.Fragment01;
 import bamin.com.kepiao.fragment.Fragment0201;
 import bamin.com.kepiao.fragment.MineFragment;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkVersionAndHouTaiIsCanUse() {
-        String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.CHECKLIVE_TICKET;
+        String url = Constant.Url.CHECKLIVE_TICKET;
         Map<String, String> map = new HashMap<>();
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
             @Override
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 VersionAndHouTaiIsCanUse versionAndHouTaiIsCanUse = GsonUtils.parseJSON(s, VersionAndHouTaiIsCanUse.class);
                 int ableVersion = versionAndHouTaiIsCanUse.getAbleVersion();
                 if (versionAndHouTaiIsCanUse.isLive()) {
-                    if (EverythingConstant.ABLEVERSION < ableVersion) {
+                    if (Constant.ABLEVERSION < ableVersion) {
                         setDialogCkeckAble("当前版本不可用，请更新到最新版本", "确认");
                     } else {
                         checkUpGrade();
@@ -114,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
         mDeviceId = sp.getString("DeviceId", "");
     }
 
     private void checkUpGrade() {
-        UpgradeUtils.checkUpgrade(MainActivity.this, ConstantTicket.URL.UP_GRADE);
+        UpgradeUtils.checkUpgrade(MainActivity.this, Constant.Url.UP_GRADE);
     }
 
     /**
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void checkIsLoginOnOtherDevice() {
         if (!"".equals(mDeviceId)) {
-            String url = EverythingConstant.HOST_TICKET+EverythingConstant.Url.LOADLOGINID;
+            String url = Constant.Url.LOADLOGINID;
             Map<String, String> map = new HashMap<>();
             map.put("account_id", mId);
             HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.dismiss();
                 //清除用户登录信息
-                SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
                 SharedPreferences.Editor edit = sp.edit();
                 edit.clear();
                 edit.commit();
@@ -226,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               UpgradeUtils.checkUpgradeIsAble(MainActivity.this,ConstantTicket.URL.UP_GRADE);
+               UpgradeUtils.checkUpgradeIsAble(MainActivity.this, Constant.Url.UP_GRADE);
             }
         });
     }
@@ -258,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_CALL_PHONE) {
+        if (requestCode == Constant.RequestAndResultCode.PERMISSION_CALL_PHONE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("提示")
@@ -287,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
 
             }
-        } else if (requestCode == EverythingConstant.RequestAndResultCode.PERMISSION_READ_SMS) {
+        } else if (requestCode == Constant.RequestAndResultCode.PERMISSION_READ_SMS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, SmsLoginActivity.class);
@@ -310,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
      * 获取售票剩余时间
      */
     public void getLeftTime() {
-        String url = EverythingConstant.HOST_TICKET+EverythingConstant.Url.GETLEFTTIME_TICKET;
+        String url = Constant.Url.GETLEFTTIME_TICKET;
         Map<String, String> map = new HashMap<>();
         HTTPUtils.post(MainActivity.this, url, map, new VolleyListener() {
             @Override
@@ -321,8 +320,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(String s) {
                 LeftTimeTicket leftTimeTicket = GsonUtils.parseJSON(s, LeftTimeTicket.class);
-                ConstantTicket.setLeftBuyTicketTime(leftTimeTicket.getTime());
-                ConstantTicket.setLeftBuyTicketMsg(leftTimeTicket.getMessage());
+                Constant.Key.setLeftBuyTicketTime(leftTimeTicket.getTime());
+                Constant.Key.setLeftBuyTicketMsg(leftTimeTicket.getMessage());
             }
         });
     }

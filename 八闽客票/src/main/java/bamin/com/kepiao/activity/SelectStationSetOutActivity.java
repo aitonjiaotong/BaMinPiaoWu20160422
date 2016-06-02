@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_companysubzone.CompanySubZone;
 import bamin.com.kepiao.models.about_companysubzone.SubZone_;
 import bamin.com.kepiao.sql.MySqLite;
@@ -165,12 +165,12 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 Intent data = new Intent();
                 if ("沙县".equals(searchAddrData.get(position)))
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, searchAddrData.get(position));
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, searchAddrData.get(position));
                 } else
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(searchAddrData.get(position)));
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(searchAddrData.get(position)));
                 }
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_SET_OUT_ADDR, data);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
                 finish();
                 animFromBigToSmallOUT();
             }
@@ -179,7 +179,7 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
 
     private void initData()
     {
-        HTTPUtils.get(SelectStationSetOutActivity.this, ConstantTicket.URL.GET_COMPANY_SUBZONE, new VolleyListener()
+        HTTPUtils.get(SelectStationSetOutActivity.this, Constant.Url.GET_COMPANY_SUBZONE, new VolleyListener()
         {
             public void onErrorResponse(VolleyError volleyError)
             {
@@ -221,12 +221,12 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 Intent data = new Intent();
                 if ("沙县".equals(mAddressSetOutData.get(position).getZoneName()))
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, mAddressSetOutData.get(position).getZoneName());
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mAddressSetOutData.get(position).getZoneName());
                 } else
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mAddressSetOutData.get(position).getZoneName()));
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mAddressSetOutData.get(position).getZoneName()));
                 }
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_SET_OUT_ADDR, data);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
 
                 //保存用户选择后的地址到本地，储存为常用地址---start
                 if (!hasCollected(TAB_NAME, "addr_name", mAddressSetOutData.get(position).getZoneName()))
@@ -274,12 +274,12 @@ public class SelectStationSetOutActivity extends AppCompatActivity implements Vi
                 Intent data = new Intent();
                 if ("沙县".equals(mCommonly_used_address_data.get(position)))
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, mCommonly_used_address_data.get(position));
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, mCommonly_used_address_data.get(position));
                 } else
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mCommonly_used_address_data.get(position)));
+                    data.putExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mCommonly_used_address_data.get(position)));
                 }
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_SET_OUT_ADDR, data);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_SET_OUT_ADDR, data);
                 finish();
                 animFromBigToSmallOUT();
             }

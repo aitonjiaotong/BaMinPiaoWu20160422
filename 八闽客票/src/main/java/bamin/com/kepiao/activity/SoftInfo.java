@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.umeng.analytics.MobclickAgent;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 
 public class SoftInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,7 +42,7 @@ public class SoftInfo extends AppCompatActivity implements View.OnClickListener 
         WebSettings settings = mWebViewTicketNotice.getSettings();
         settings.setJavaScriptEnabled(true);
         mWebViewTicketNotice.setWebViewClient(new MyWebViewClient());
-        mWebViewTicketNotice.loadUrl(ConstantTicket.URL.SOFTWARE_INFO);
+        mWebViewTicketNotice.loadUrl(Constant.Url.SOFTWARE_INFO);
     }
 
     private void setListener() {

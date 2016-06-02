@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.User;
 import bamin.com.kepiao.utils.Installation;
 import bamin.com.kepiao.utils.IsMobileNOorPassword;
@@ -133,7 +133,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                     if (isPassword) {
                         //每次存储唯一标识
                         final String DeviceId = Installation.id(UpdatePasswordActivity.this);
-                        String url = EverythingConstant.HOST_TICKET + EverythingConstant.Url.UPDATEPASSWORD;
+                        String url =  Constant.Url.UPDATEPASSWORD;
                         Map<String, String> map = new HashMap<>();
                         map.put("phone",mPhoneNum+"");
                         map.put("login_id",DeviceId+"");
@@ -149,7 +149,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
                                 mUser = GsonUtils.parseJSON(s, User.class);
                                 if (mUser.isSuccess()){
                                     //存储手机号和用户id到本地
-                                    SharedPreferences sp = getSharedPreferences("isLogin", MODE_PRIVATE);
+                                    SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
                                     SharedPreferences.Editor edit = sp.edit();
                                     edit.putString("phoneNum", mPhoneNum);
                                     edit.putString("id", mUser.getContains().getId()+ "");
@@ -238,7 +238,7 @@ public class UpdatePasswordActivity extends AppCompatActivity implements View.On
     }
     private void getSms() {
         mSuijiMath = (int) (Math.random() * 9000 + 1000) + "";
-        String url =EverythingConstant.GETSMS;
+        String url = Constant.GETSMS;
         Log.e("getSms", "短信连接" + url);
         Map<String, String> map = new HashMap<>();
         map.put("phone",mPhoneNum);

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_redpacket.RedPacket;
 import bamin.com.kepiao.utils.DialogShow;
 
@@ -63,7 +63,7 @@ public class CouponInfoActivity extends AppCompatActivity implements View.OnClic
      * 获取用户id
      */
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
     }
 
@@ -90,7 +90,7 @@ public class CouponInfoActivity extends AppCompatActivity implements View.OnClic
         mListView_redBag.setVisibility(View.GONE);
         mTextView_noneRedBag.setVisibility(View.GONE);
         mProgressBar_reFreash.setVisibility(View.VISIBLE);
-        String url = EverythingConstant.HOST + "/bmpw/redenvelope/getredenvelopebyuser";
+        String url = Constant.HOST_TICKET + "/redenvelope/getredenvelopebyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
         HTTPUtils.post(CouponInfoActivity.this, url, map, new VolleyListener() {

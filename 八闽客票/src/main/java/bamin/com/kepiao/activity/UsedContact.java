@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_used_contact.AddContant;
 import bamin.com.kepiao.models.about_used_contact.UsedContactInfo;
 
@@ -60,7 +60,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
     }
 
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
     }
 
@@ -73,7 +73,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
      * 从服务端获取联系人
      */
     private void initData() {
-        String url = ConstantTicket.URL.GET_USED_CONTACT;
+        String url = Constant.Url.GET_USED_CONTACT;
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
         HTTPUtils.post(UsedContact.this, url, map, new VolleyListener() {
@@ -243,7 +243,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
                 }
                 AddContant addContant = new AddContant(theAddContactList);
                 intent.putExtra("theAddContactList", addContant);
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_COMMIT_ORDER,intent);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_COMMIT_ORDER,intent);
                 finish();
                 animFromBigToSmallOUT();
                 break;
@@ -312,7 +312,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
      * 向服务器发请求删除联系人
      */
     private void deleteUsedContact(int position) {
-        String url = ConstantTicket.URL.DELETE_USED_CONTACT;
+        String url = Constant.Url.DELETE_USED_CONTACT;
         Map<String, String> map = new HashMap<>();
         map.put("person_id", mUsedContactInfoList.get(position).getId() + "");
         HTTPUtils.post(UsedContact.this, url, map, new VolleyListener() {

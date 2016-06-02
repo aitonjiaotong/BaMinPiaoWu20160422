@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import bamin.com.kepiao.R;
 import bamin.com.kepiao.activity.MainActivity;
+import bamin.com.kepiao.constant.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +44,7 @@ public class GuideFragment extends Fragment
             mEnter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences sp = getActivity().getSharedPreferences("isfrist", 0);
+                    SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_ISFRIST, 0);
                     SharedPreferences.Editor edit = sp.edit();
                     edit.putBoolean("isfrist", false);
                     edit.commit();

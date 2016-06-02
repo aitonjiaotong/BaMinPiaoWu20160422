@@ -323,6 +323,23 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginStart="17dp"/>
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:src="@mipmap/yinlian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:id="@+id/imageView8"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="18dp"
+                        />
+
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -354,6 +371,14 @@
                         android:button="@drawable/radiobutton"
                         android:layout_height="wrap_content"
                         android:id="@+id/radioButton_weixin"/>
+
+                    <RadioButton
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:button="@drawable/radiobutton"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radioButton_yinlian"/>
                 </RadioGroup>
             </LinearLayout>
         </LinearLayout>

@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 import com.umeng.analytics.MobclickAgent;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 
 /**
  * 优化1.0
@@ -39,8 +39,9 @@ public class TicketNotice extends AppCompatActivity implements View.OnClickListe
         mWebViewTicketNotice = (WebView) findViewById(R.id.webview_ticket_notice);
         WebSettings settings = mWebViewTicketNotice.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setDefaultTextEncodingName("utf-8");//设置默认为utf-8
         mWebViewTicketNotice.setWebViewClient(new WebViewClient());
-        mWebViewTicketNotice.loadUrl(ConstantTicket.URL.TICKET_NOTICE);
+        mWebViewTicketNotice.loadUrl(Constant.Url.TICKET_NOTICE);
     }
 
     private void setListener() {

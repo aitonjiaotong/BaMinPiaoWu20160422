@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.customView.MyGridView;
 import bamin.com.kepiao.models.about_companysubzone.CompanySubZone;
 import bamin.com.kepiao.models.about_companysubzone.SubZone_;
@@ -118,7 +118,7 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
 
     private void initBaseData()
     {
-        HTTPUtils.get(SelectStationArriveActivity.this, ConstantTicket.URL.GET_ZONE_STREE, new VolleyListener()
+        HTTPUtils.get(SelectStationArriveActivity.this, Constant.Url.GET_ZONE_STREE, new VolleyListener()
         {
             @Override
             public void onErrorResponse(VolleyError volleyError)
@@ -228,12 +228,12 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                 Intent intent = new Intent();
                 if ("沙县".equals(mComUsedAddrData.get(position)))
                 {
-                    intent.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, mComUsedAddrData.get(position));
+                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mComUsedAddrData.get(position));
                 } else
                 {
-                    intent.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
+                    intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mComUsedAddrData.get(position)));
                 }
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR, intent);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR, intent);
                 finish();
                 animFromBigToSmallOUT();
             }
@@ -338,12 +338,12 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
                 Intent data = new Intent();
                 if ("沙县".equals(mUserSearchSitesData.get(position)))
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, mUserSearchSitesData.get(position));
+                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, mUserSearchSitesData.get(position));
                 } else
                 {
-                    data.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mUserSearchSitesData.get(position)));
+                    data.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(mUserSearchSitesData.get(position)));
                 }
-                setResult(ConstantTicket.ResultCode.RESULT_CODE_ARRIVE_SEARCH_ADDR, data);
+                setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_SEARCH_ADDR, data);
                 finish();
                 animFromBigToSmallOUT();
             }
@@ -602,12 +602,12 @@ public class SelectStationArriveActivity extends AppCompatActivity implements Vi
             Intent intent = new Intent();
             if ("沙县".equals(parent_list_xianshi_name.get(position).getZoneName()))
             {
-                intent.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, parent_list_xianshi_name.get(position).getZoneName());
+                intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, parent_list_xianshi_name.get(position).getZoneName());
             } else
             {
-                intent.putExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(parent_list_xianshi_name.get(position).getZoneName()));
+                intent.putExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME, GetLastWordUtil.GetRidOfLastWord(parent_list_xianshi_name.get(position).getZoneName()));
             }
-            setResult(ConstantTicket.ResultCode.RESULT_CODE_ARRIVE_ADDR, intent);
+            setResult(Constant.RequestAndResultCode.RESULT_CODE_ARRIVE_ADDR, intent);
             //保存用户选择后的地址到本地，储存为常用地址---start
             finish();
             animFromBigToSmallOUT();

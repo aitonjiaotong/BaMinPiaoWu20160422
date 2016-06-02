@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_order.OrderDetial;
 import bamin.com.kepiao.models.about_order.QueryOrder;
 import bamin.com.kepiao.utils.TimeAndDateFormate;
@@ -83,7 +83,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
      */
     private void queryOrderDetial()
     {
-        String url = ConstantTicket.JDT_TICKET_HOST +
+        String url = Constant.JDT_TICKET_HOST +
                 "QueryTicket?getTicketCodeOrAID=" + mMOrderInfoBookLogAID;
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener()
         {
@@ -177,7 +177,7 @@ public class OrderDeatilActivity extends AppCompatActivity implements View.OnCli
     {
         mOrder_detail_linear.setVisibility(View.GONE);
         mProgressBar_detail_order.setVisibility(View.VISIBLE);
-        String url = ConstantTicket.JDT_TICKET_HOST +
+        String url = Constant.JDT_TICKET_HOST +
                 "QueryBookLog?getTicketCodeOrAID=" + mMOrderInfoBookLogAID;
         HTTPUtils.get(OrderDeatilActivity.this, url, new VolleyListener()
         {

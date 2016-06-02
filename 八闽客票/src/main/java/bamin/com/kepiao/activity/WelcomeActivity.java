@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import bamin.com.kepiao.R;
+import bamin.com.kepiao.constant.Constant;
 
 
 public class WelcomeActivity extends Activity
@@ -19,7 +20,7 @@ public class WelcomeActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        SharedPreferences sp = getSharedPreferences("isfrist", 0);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_ISFRIST, 0);
         final boolean isfrist = sp.getBoolean("isfrist", true);
         hand.postDelayed(new Runnable()
         {

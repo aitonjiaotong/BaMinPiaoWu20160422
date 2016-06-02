@@ -26,7 +26,7 @@ import java.util.Map;
 import bamin.com.kepiao.R;
 import bamin.com.kepiao.activity.MainActivity;
 import bamin.com.kepiao.activity.OrderDeatilActivity;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 
 public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener {
     private String APP_ID = "wx40b57f5f7c117af3";
@@ -108,12 +108,12 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
      * 获取本地存储的outTradeNo与bookLogAID
      */
     public void getSharedPreferencesForCheck() {
-        SharedPreferences sp = getSharedPreferences(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY, Context.MODE_PRIVATE);
-        mWechatPayOutTrandeNo = sp.getString(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY_OUT_TRADE_NO, null);
-        mWechatPayBookLogaId = sp.getString(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY_BOOKLOGAID, null);
-        mWechatPayOrderId = sp.getString(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY_ORDERID, null);
-        mWechatPayRedId = sp.getInt(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY_REDID, -1);
-        mRealPayPrice = sp.getString(EverythingConstant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, null);
+        SharedPreferences sp = getSharedPreferences(Constant.WechatPay.ABOUT_WECHAT_PAY, Context.MODE_PRIVATE);
+        mWechatPayOutTrandeNo = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_OUT_TRADE_NO, null);
+        mWechatPayBookLogaId = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_BOOKLOGAID, null);
+        mWechatPayOrderId = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_ORDERID, null);
+        mWechatPayRedId = sp.getInt(Constant.WechatPay.ABOUT_WECHAT_PAY_REDID, -1);
+        mRealPayPrice = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, null);
         Log.e("onResponse ", "mWechatPayOutTrandeNo " + mWechatPayOutTrandeNo);
         Log.e("onResponse ", "mWechatPayBookLogaId " + mWechatPayBookLogaId);
         Log.e("onResponse ", "mWechatPayOrderId " + mWechatPayOrderId);
@@ -127,7 +127,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
         mChedckOrderResultParams = new HashMap<>();
         Log.e("checkOrderResult ", "checkOrderResultOutTrandeNo " + outTrandeNo);
         mChedckOrderResultParams.put("out_trade_no", outTrandeNo);
-        HTTPUtils.post(WXPayEntryActivity.this, EverythingConstant.WechatPay.CHECKED_WECHAT_ORDER_RESULT_URL, mChedckOrderResultParams, new VolleyListener() {
+        HTTPUtils.post(WXPayEntryActivity.this, Constant.WechatPay.CHECKED_WECHAT_ORDER_RESULT_URL, mChedckOrderResultParams, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
             }
@@ -158,7 +158,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
      */
     private void confrimOrder() {
         mTv_btn_wechat_pay_result.setVisibility(View.VISIBLE);
-        String url01 = EverythingConstant.HOST + "/bmpw/order/completeorder";
+        String url01 = Constant.HOST_TICKET + "/order/completeorder";
         Map<String, String> map = new HashMap<>();
         if (-1 != mWechatPayRedId) {
             map.put("redEnvelope_id", mWechatPayRedId + "");

@@ -43,7 +43,7 @@ import bamin.com.kepiao.R;
 import bamin.com.kepiao.activity.SelectStationArriveActivity;
 import bamin.com.kepiao.activity.SelectStationSetOutActivity;
 import bamin.com.kepiao.activity.TicketActivity;
-import bamin.com.kepiao.constant.ConstantTicket;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.customView.FixedSpeedScroller;
 import bamin.com.kepiao.customView.ViewPagerIndicator;
 import bamin.com.kepiao.models.about_banner.BannerInfo;
@@ -115,7 +115,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
     }
 
     private void initBannerData() {
-        HTTPUtils.get(getActivity(), ConstantTicket.URL.GET_BANNER_IMG, new VolleyListener() {
+        HTTPUtils.get(getActivity(), Constant.Url.GET_BANNER_IMG, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
 
@@ -208,13 +208,13 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
             case R.id.ll_choose_set_out:
                 //跳转出发车站选择界面
                 intent.setClass(getActivity(), SelectStationSetOutActivity.class);
-                startActivityForResult(intent, ConstantTicket.Request.REQUEST_CODE_CHOOSE_SET_OUT);
+                startActivityForResult(intent, Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_SET_OUT);
                 animFromLeftToRight();
                 break;
             case R.id.ll_choose_arrive:
                 //跳转到达车站选择界面
                 intent.setClass(getActivity(), SelectStationArriveActivity.class);
-                startActivityForResult(intent, ConstantTicket.Request.REQUEST_CODE_CHOOSE_ARRIVE);
+                startActivityForResult(intent, Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_ARRIVE);
                 animFromLeftToRight();
                 break;
             case R.id.iv_exchange:
@@ -241,11 +241,11 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                     DialogShow.setDialog(getActivity(), "您暂未选择相关站点", "确认");
                 } else {
                     intent.setClass(getActivity(), TicketActivity.class);
-                    intent.putExtra(ConstantTicket.IntentKey.CURR_YEAR, mYear);
-                    intent.putExtra(ConstantTicket.IntentKey.CURR_MONTH, mMonth);
-                    intent.putExtra(ConstantTicket.IntentKey.CURR_DAY_OF_MONTH, mDayOfMonth);
-                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_SET_OUT_STATION, mStation[0].trim());
-                    intent.putExtra(ConstantTicket.IntentKey.FINAIL_ARRIVE_STATION, mStation[1].trim());
+                    intent.putExtra(Constant.IntentKey.CURR_YEAR, mYear);
+                    intent.putExtra(Constant.IntentKey.CURR_MONTH, mMonth);
+                    intent.putExtra(Constant.IntentKey.CURR_DAY_OF_MONTH, mDayOfMonth);
+                    intent.putExtra(Constant.IntentKey.FINAIL_SET_OUT_STATION, mStation[0].trim());
+                    intent.putExtra(Constant.IntentKey.FINAIL_ARRIVE_STATION, mStation[1].trim());
                     startActivity(intent);
                     animFromSmallToBigIN();
                 }
@@ -266,7 +266,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
         mIv_cliscan_close = (ImageView) inflate.findViewById(R.id.iv_cliscan_close);
         mIv_cliscan_close.setOnClickListener(this);
         mIv_cli_scan_show = (ImageView) inflate.findViewById(R.id.iv_cli_scan_show);
-        UILUtils.displayImageNoAnimNoCache(ConstantTicket.URL.CLI_SCAN, mIv_cli_scan_show, false);
+        UILUtils.displayImageNoAnimNoCache(Constant.Url.CLI_SCAN, mIv_cli_scan_show, false);
         //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
         mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         //设置外部点击无效
@@ -401,13 +401,13 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
         if (data != null) {
             switch (requestCode) {
                 //选择出发地请求码
-                case ConstantTicket.Request.REQUEST_CODE_CHOOSE_SET_OUT:
-                    mStation[0] = data.getStringExtra(ConstantTicket.IntentKey.KEY_SET_OUT_ZONE_NAME);
+                case Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_SET_OUT:
+                    mStation[0] = data.getStringExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME);
                     mTv_setOut.setText(mStation[0]);
                     break;
                 //选择目的地请求码
-                case ConstantTicket.Request.REQUEST_CODE_CHOOSE_ARRIVE:
-                    mStation[1] = data.getStringExtra(ConstantTicket.IntentKey.KEY_ARRIVE_ZONE_NAME);
+                case Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_ARRIVE:
+                    mStation[1] = data.getStringExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME);
                     mTv_arrive.setText(mStation[1]);
                     break;
             }

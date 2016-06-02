@@ -37,8 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.ConstantTicket;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_order.OrderInfo;
 import bamin.com.kepiao.models.about_order.OrderList;
 import bamin.com.kepiao.models.about_ticket.TicketInfo;
@@ -122,7 +121,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
      * 获取用户id
      */
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
         mPhoneNum = sp.getString("phoneNum", "");
     }
@@ -217,8 +216,8 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 String setoutTime = mTicketInfo.getSetoutTime();
                 long longtime = Long.parseLong(setoutTime.substring(6, setoutTime.length() - 2));
                 long currentTimeMillis = System.currentTimeMillis();
-                if ((longtime - currentTimeMillis) < ConstantTicket.LEFT_BUY_TICKET_TIME) {
-                    DialogShow.setDialog(FillinOrderActivity.this, ConstantTicket.LEFT_BUY_TICKET_MSG, "确认");
+                if ((longtime - currentTimeMillis) < Constant.Key.LEFT_BUY_TICKET_TIME) {
+                    DialogShow.setDialog(FillinOrderActivity.this, Constant.Key.LEFT_BUY_TICKET_MSG, "确认");
                 } else {
                     if (ticketNumBuy > 0) {
                         setPopupWindows();
@@ -249,7 +248,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             case R.id.add_passager:
                 intent.putExtra("addContact", "FillinOrderActivity");
                 intent.setClass(FillinOrderActivity.this, UsedContact.class);
-                startActivityForResult(intent, ConstantTicket.Request.REQUEST_CODE_COMMIT_ORDER);
+                startActivityForResult(intent, Constant.RequestAndResultCode.REQUEST_CODE_COMMIT_ORDER);
                 animFromSmallToBigIN();
                 break;
             case R.id.iv_back:
@@ -298,7 +297,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
             passengerNames += "&passengerNames=" + URLEncoder.encode(mTicketPassagerList.get(i).getName());
         }
         passengerInfo = passengerIdentitys + passengerNames;
-        String url_web = ConstantTicket.JDT_TICKET_HOST +
+        String url_web = Constant.JDT_TICKET_HOST +
                 "SellTicket_NoBill_Booking?scheduleCompanyCode=" + "YongAn" +
                 "&executeScheduleID=" + mTicketInfo.getExecuteScheduleID() +
                 "&startSiteID=" + mTicketInfo.getStartSiteID() +
@@ -350,7 +349,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     }
 
     private void commitOrderToAiTon() {
-        String url = EverythingConstant.HOST + "/bmpw/front/addorder";
+        String url = Constant.HOST_TICKET + "/front/addorder";
 
         Map<String, String> map = new HashMap<>();
         map.put("bookLogAID", mOrderInfo.getBookLogAID());
@@ -384,8 +383,8 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== ConstantTicket.Request.REQUEST_CODE_COMMIT_ORDER){
-            if (resultCode== ConstantTicket.ResultCode.RESULT_CODE_COMMIT_ORDER){
+        if (requestCode== Constant.RequestAndResultCode.REQUEST_CODE_COMMIT_ORDER){
+            if (resultCode== Constant.RequestAndResultCode.RESULT_CODE_COMMIT_ORDER){
                 boolean isExit = false;
                 AddContant theAddContact = (AddContant) data.getSerializableExtra("theAddContactList");
                 List<UsedContactInfo> theAddContactList = theAddContact.getTheAddContact();

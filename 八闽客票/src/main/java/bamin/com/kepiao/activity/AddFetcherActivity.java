@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import bamin.com.kepiao.R;
-import bamin.com.kepiao.constant.EverythingConstant;
+import bamin.com.kepiao.constant.Constant;
 import bamin.com.kepiao.models.about_used_contact.UsedContactInfo;
 import bamin.com.kepiao.models.about_used_contact.UsedPersonID;
 import bamin.com.kepiao.utils.DialogShow;
@@ -57,7 +57,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
      * 获取用户id
      */
     private void initSp() {
-        SharedPreferences sp = getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString("id", "");
     }
 
@@ -134,7 +134,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                 boolean mobileNO = IsMobileNOorPassword.isMobileNO(passagerPhoneNum);
                                 if (mobileNO) {
                                     if ("MineFragment".equals(mBianji)) {
-                                        String url = EverythingConstant.HOST + "/bmpw/person/updateperson";
+                                        String url = Constant.Url.UPDATEPERSON;
                                         Map<String, String> map = new HashMap<>();
                                         map.put("id", mTicketPassager.getId() + "");
                                         map.put("name", passagerName);
@@ -153,7 +153,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
                                             }
                                         });
                                     } else {
-                                        String url = EverythingConstant.HOST + "/bmpw/person/addperson";
+                                        String url = Constant.Url.ADDPERSON;
                                         Map<String, String> map = new HashMap<>();
                                         map.put("name", passagerName);
                                         map.put("idcard", personID);
