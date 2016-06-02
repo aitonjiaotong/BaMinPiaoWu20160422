@@ -234,7 +234,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
          * 获取用户id
          */
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
         initIntent();
         findID();
         queryOrderInfo();

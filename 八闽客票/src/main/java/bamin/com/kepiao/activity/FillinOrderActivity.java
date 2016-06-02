@@ -122,7 +122,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
      */
     private void initSp() {
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
         mPhoneNum = sp.getString("phoneNum", "");
     }
 

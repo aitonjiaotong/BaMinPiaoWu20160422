@@ -123,7 +123,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private void checkLogin() {
         SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mPhoneNum = sp.getString("phoneNum", "");
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
         mImage = sp.getString("image", "");
         if ("".equals(mPhoneNum)) {
             isLogined = false;

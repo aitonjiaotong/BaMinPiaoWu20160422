@@ -80,7 +80,7 @@ public class Fragment0201 extends Fragment {
              * 获取用户id
              */
             SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-            mId = sp.getString("id", "");
+            mId = sp.getString(Constant.SP_KEY.ID, "");
             initUI();
 //            clearData();
 //            queryAccountIdToOrder();
@@ -97,7 +97,7 @@ public class Fragment0201 extends Fragment {
     public void onStart() {
         super.onStart();
         SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
         listGone();
     }
 

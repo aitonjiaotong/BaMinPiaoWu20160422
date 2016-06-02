@@ -42,10 +42,6 @@ public class Constant {
         public static final String TICKET_NOTICE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/html/goupiaoxuzhi.html";
         //票务的软件介绍
         public static final String SOFTWARE_INFO = "http://q.eqxiu.com/s/16f5zj5p";
-        //八闽出行_三明绿者卡
-        public static final String EVETHING_LDCARD = "http://q.eqxiu.com/s/B3xTuwQc";
-        //八闽出行_软件介绍
-        public static final String EVETHING_SOFTWARE_INFO = "http://u.eqxiu.com/s/bOwsz5Xr";
         //加载二维码图片地址
         public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
 
@@ -56,14 +52,8 @@ public class Constant {
         public static long LEFT_BUY_TICKET_TIME = 1800L * 1000L;
         // 购票剩余时间提示语
         public static String LEFT_BUY_TICKET_MSG = "据发车时间半小时内，停止售票";
-        public static long getLeftBuyTicketTime() {
-            return LEFT_BUY_TICKET_TIME;
-        }
         public static void setLeftBuyTicketTime(long leftBuyTicketTime) {
             LEFT_BUY_TICKET_TIME = leftBuyTicketTime;
-        }
-        public static String getLeftBuyTicketMsg() {
-            return LEFT_BUY_TICKET_MSG;
         }
         public static void setLeftBuyTicketMsg(String leftBuyTicketMsg) {
             LEFT_BUY_TICKET_MSG = leftBuyTicketMsg;
@@ -73,6 +63,7 @@ public class Constant {
     public static final class SP_KEY{
         public static final String SP_NAME = "isLogin";//sp的名字
         public static final String SP_ISFRIST = "isfrist";//是否第一次进入APP
+        public static final String ID = "id";//用户id
     }
 
     /**

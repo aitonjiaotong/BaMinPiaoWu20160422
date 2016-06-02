@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSp() {
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
         mDeviceId = sp.getString("DeviceId", "");
     }
 

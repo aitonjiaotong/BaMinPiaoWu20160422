@@ -80,7 +80,7 @@ public class BannerFragment extends Fragment
                 if (!"".equals(mRedPacketUrl))
                 {
                     SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-                    String account_id = sp.getString("id", "");
+                    String account_id = sp.getString(Constant.SP_KEY.ID, "");
                     String isLogin = sp.getString("phoneNum", "");
                     //弹出抢红包对话框
                     if (!"".equals(isLogin))

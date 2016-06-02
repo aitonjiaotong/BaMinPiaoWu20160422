@@ -254,7 +254,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                     SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
                                     SharedPreferences.Editor edit = sp.edit();
                                     edit.putString("phoneNum", mPhoneNum);
-                                    edit.putString("id", mUser.getContains().getId()+ "");
+                                    edit.putString(Constant.SP_KEY.ID, mUser.getContains().getId()+ "");
                                     edit.putString("DeviceId", DeviceId);
                                     edit.putString("image", mUser.getContains().getImage());
                                     edit.commit();
@@ -298,7 +298,7 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                                     SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
                                     SharedPreferences.Editor edit = sp.edit();
                                     edit.putString("phoneNum", phone);
-                                    edit.putString("id", mUser.getContains().getId()+ "");
+                                    edit.putString(Constant.SP_KEY.ID, mUser.getContains().getId()+ "");
                                     edit.putString("DeviceId", DeviceId);
                                     edit.putString("image", mUser.getContains().getImage());
                                     edit.commit();

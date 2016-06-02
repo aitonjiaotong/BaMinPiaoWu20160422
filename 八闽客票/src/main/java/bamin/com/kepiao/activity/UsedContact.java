@@ -61,7 +61,7 @@ public class UsedContact extends AppCompatActivity implements View.OnClickListen
 
     private void initSp() {
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
-        mId = sp.getString("id", "");
+        mId = sp.getString(Constant.SP_KEY.ID, "");
     }
 
     private void initItent() {
