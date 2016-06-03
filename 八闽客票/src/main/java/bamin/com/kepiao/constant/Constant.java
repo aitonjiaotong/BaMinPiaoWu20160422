@@ -128,6 +128,6 @@ public class Constant {
         public static final String KEY_ARRIVE_ZONE_NAME = "ArriveZoneName";
         public static final String PAY_ORDERID = "OrderID";//向银联界面传的订单号
         public static final String PAY_PRICE = "price";//向银联界面传的支付金额
-        public static final String PAY_MODEL = "pay_model";//向银联界面传的支付方式
+        public static final String PAY_REDENVELOPE_ID = "redEnvelope_id";//向银联界面传的支付方式
     }
 }

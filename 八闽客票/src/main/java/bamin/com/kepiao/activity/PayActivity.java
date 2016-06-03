@@ -773,9 +773,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     intent.setClass(PayActivity.this, YinLianWebActivity.class);
                     intent.putExtra(Constant.IntentKey.PAY_ORDERID, mOrderId);
                     intent.putExtra(Constant.IntentKey.PAY_PRICE, realPayPrice + "");
-                    intent.putExtra(Constant.IntentKey.PAY_MODEL, payMode);
-                    intent.putExtra("OrderID", orderId);
-                    intent.putExtra("price", realPayPrice + "");
+                    if (mRedBag != null)
+                    {
+                        intent.putExtra(Constant.IntentKey.PAY_REDENVELOPE_ID, mRedBag.getId() + "");
+                    }
                     startActivity(intent);
                 }
                 break;
@@ -818,8 +819,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 兴业银行-->微信支付
      */
-    private void getParams()
-    {
+    private void getParams() {
         mGetWechatOrderParams = new HashMap<>();
         mGetWechatOrderParams.put("out_trade_no", getOutTradeNo());// 商户订单号
         mGetWechatOrderParams.put("body", "车票\n" + TimeAndDateFormate.timeFormate(mQueryOrder.getSetoutTime()) + "\n" + mQueryOrder.getLineName());// 商品描述
@@ -851,27 +851,21 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
      */
     private void getXingYeBlankWechatPayOrderPrepayIdAndSign()
     {
-        if (!mWechatPayAlertDialog.isShowing())
-        {
+        if (!mWechatPayAlertDialog.isShowing()) {
             mWechatPayAlertDialog.show();
         }
-        HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener()
-        {
+        HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
                 findViewById(R.id.pay).setEnabled(true);
             }
 
             @Override
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 mWechatPayAlertDialog.dismiss();
                 XingYeBlankPayInfo xingYeBlankPayInfo = GsonUtils.parseJSON(s, XingYeBlankPayInfo.class);
-                if (xingYeBlankPayInfo != null && xingYeBlankPayInfo.getMap() != null)
-                {
-                    if (xingYeBlankPayInfo.getMap().getStatus().equalsIgnoreCase("0"))
-                    {
+                if (xingYeBlankPayInfo != null && xingYeBlankPayInfo.getMap() != null) {
+                    if (xingYeBlankPayInfo.getMap().getStatus().equalsIgnoreCase("0")) {
                         RequestMsg msg = new RequestMsg();
                         msg.setMoney((double) TransformYuanToFen(realPayPrice));
                         msg.setTokenId(xingYeBlankPayInfo.getMap().getToken_id());
