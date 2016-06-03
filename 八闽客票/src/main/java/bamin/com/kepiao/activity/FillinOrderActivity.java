@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -350,7 +351,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
 
     private void commitOrderToAiTon() {
         String url = Constant.HOST_TICKET + "/front/addorder";
-
+        Log.e("commitOrderToAiTon", "订单号" +mOrderInfo.getBookLogAID());
         Map<String, String> map = new HashMap<>();
         map.put("bookLogAID", mOrderInfo.getBookLogAID());
         map.put("account_id", mId);
