@@ -73,7 +73,7 @@ public class Constant {
         //微信支付相关的APP_ID
         public static final String APP_ID = "wx40b57f5f7c117af3";
         //微信支付:获取后台服务端微信支付预支付订单号
-        public static final String GET_WECHAT_ORDER_INFO_URL = HOST_TICKET + "/wx/wxpay";
+        public static final String GET_WECHAT_ORDER_INFO_URL = HOST_TICKET + "/xy/getprepay";
         //微信支付:获取后台服务端微信支付支付结果  传入参数String out_trade_no(商户订单号)
         public static final String CHECKED_WECHAT_ORDER_RESULT_URL = HOST_TICKET + "/wx/wxcheck";
 

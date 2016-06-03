@@ -20,4 +20,8 @@
     <color name="bg_red">#f85959</color>
     <color name="deep_gray">#c0c0c0</color>
     <color name="tv_black_normal">#000000</color>
+
+
+    <color name="order_success">#34d0b4</color>
+    <color name="order_failure">#ff6a5b</color>
 </resources>

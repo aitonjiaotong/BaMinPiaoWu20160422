@@ -33,7 +33,6 @@ import com.android.volley.VolleyError;
 import com.switfpass.pay.MainApplication;
 import com.switfpass.pay.activity.PayPlugin;
 import com.switfpass.pay.bean.RequestMsg;
-import com.tencent.mm.sdk.constants.Build;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
@@ -67,6 +66,7 @@ import bamin.com.kepiao.utils.TimeAndDateFormate;
  */
 public class PayActivity extends AppCompatActivity implements View.OnClickListener
 {
+    private String TAG = "PayActivity";
     private Handler mHandlerTime = new Handler();
     private double realPayPrice;//真正支付的金额
     private int lastTime = 600;//剩余支付时间
@@ -104,7 +104,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private String mOutTradeNo;
     private String mIsSure;
     private PopupWindow mPopupWindow;
-    private IWXAPI api;
     private String serial;
     /**
      * 接收红包界面发来的广播
@@ -188,6 +187,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private TextView mTextView_insurePrice;
     private double mInsurePrice;
     private RadioButton mRadioButton_yinlian;
+    private IWXAPI api;
 
     /**
      * 支付成功，确认订单
@@ -236,29 +236,15 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-    /**
-     * 微信支付相关-------------start
-     */
-
-    private void regToWx()
-    {
-        api = WXAPIFactory.createWXAPI(PayActivity.this, Constant.WechatPay.APP_ID, true);
-        api.registerApp(Constant.WechatPay.APP_ID);
-    }
-
-    /**
-     * 微信支付相关-------------end
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        regToWx();
+        api = WXAPIFactory.createWXAPI(PayActivity.this, Constant.WechatPay.APP_ID, true);
+        api.registerApp(Constant.WechatPay.APP_ID);
         setContentView(R.layout.activity_pay);
-        /**
-         * 获取用户id
-         */
+        //获取用户id
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
         mId = sp.getString(Constant.SP_KEY.ID, "");
         initIntent();
@@ -749,20 +735,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     pay();
                 } else if ("微信".equals(payMode))
                 {
-                    if (!checkIsSupportedWeachatPay())
+                    if (lastTime > 0)
                     {
-                        Toast.makeText(PayActivity.this, "您暂未安装微信或您的微信版本暂不支持支付功能\n请下载安装最新版本的微信", Toast.LENGTH_SHORT).show();
-                    } else
-                    {
-                        if (lastTime > 0)
+                        if (realPayPrice == 0)
                         {
-                            if (realPayPrice == 0)
-                            {
-                                confrimOrder();
-                            } else
-                            {
-                                wechatPay();
-                            }
+                            confrimOrder();
+                        } else
+                        {
+                            wechatPay();
                         }
                     }
                 } else if ("银联".equals(payMode))
@@ -786,15 +766,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 animFromBigToSmallOUT();
                 break;
         }
-    }
-
-    /**
-     * 检查微信版本是否支付支付或是否安装可支付的微信版本
-     */
-    private boolean checkIsSupportedWeachatPay()
-    {
-        boolean isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
-        return isPaySupported;
     }
 
     /**
@@ -863,6 +834,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             public void onResponse(String s)
             {
                 mWechatPayAlertDialog.dismiss();
+                Log.e(TAG, "onResponse: --向请求签名->>" + s);
+
                 XingYeBlankPayInfo xingYeBlankPayInfo = GsonUtils.parseJSON(s, XingYeBlankPayInfo.class);
                 if (xingYeBlankPayInfo != null && xingYeBlankPayInfo.getMap() != null)
                 {
@@ -872,8 +845,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                         msg.setMoney((double) TransformYuanToFen(realPayPrice));
                         msg.setTokenId(xingYeBlankPayInfo.getMap().getToken_id());
                         msg.setTradeType(MainApplication.WX_APP_TYPE);
-                        msg.setAppId("wx40b57f5f7c117af3");
-
+                        msg.setAppId(Constant.WechatPay.APP_ID);
                         PayPlugin.unifiedAppPay(PayActivity.this, msg);
                     }
                 } else
@@ -1060,6 +1032,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 }
 
+    /*初始化微信支付相关-------------start
+    private void regToWx()
+    {
+        api = WXAPIFactory.createWXAPI(PayActivity.this, Constant.WechatPay.APP_ID, true);
+        api.registerApp(Constant.WechatPay.APP_ID);
+    }
+    初始化微信支付相关-------------end*/
+
      /*----------------构建向服务端获取微信预支付订单的相关参数---End->>纯微信支付方式----------------
     private void setStructureParameters()
     {
@@ -1120,3 +1100,12 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.pay).setEnabled(true);
     }
       ----------------微信支付:通过微信SDK发起微信支付请求---End->>纯微信支付方式----------------*/
+
+
+    /*检查微信版本是否支付支付或是否安装可支付的微信版本---Start->>
+    private boolean checkIsSupportedWeachatPay()
+    {
+        boolean isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
+        return isPaySupported;
+    }
+    检查微信版本是否支付支付或是否安装可支付的微信版本---End->>*/

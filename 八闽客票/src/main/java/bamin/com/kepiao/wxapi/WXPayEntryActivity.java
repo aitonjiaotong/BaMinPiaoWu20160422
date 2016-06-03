@@ -1,5 +1,6 @@
 package bamin.com.kepiao.wxapi;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiton.administrator.shane_library.shane.utils.HTTPUtils;
 import com.aiton.administrator.shane_library.shane.utils.VolleyListener;
@@ -28,8 +29,8 @@ import bamin.com.kepiao.activity.MainActivity;
 import bamin.com.kepiao.activity.OrderDeatilActivity;
 import bamin.com.kepiao.constant.Constant;
 
-public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener {
-    private String APP_ID = "wx40b57f5f7c117af3";
+public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener
+{
     private IWXAPI api;
     private String mWechatPayOutTrandeNo;
     private String mWechatPayBookLogaId;
@@ -37,69 +38,93 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     private String mWechatPayOrderId;
     private int mWechatPayRedId;
     private int mWechatPayResultCode;
-    private TextView mTv_btn_wechat_pay_result;
-    private ImageView mIv_result_img;
-    private TextView mTv_result_show;
     private ImageView mIv_wechat_pay_back;
     private String mRealPayPrice;
-//    private boolean isQianTaiComfrim = false;
+    private ImageView mIv_order_pay_result_img;
+    private RelativeLayout mRl_order_pay_info_bg;
+    private TextView mTv_order_pay_success_title;
+    private TextView mTv_order_pay_success_subtitle;
+    private ProgressDialog mProgressDialog;
+    private TextView mTv_btn_wechat_pay_result;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxpay_entry);
         findViewID();
         setListener();
-        api = WXAPIFactory.createWXAPI(this, APP_ID);
+        initUI();
+        api = WXAPIFactory.createWXAPI(this, Constant.WechatPay.APP_ID);
         api.handleIntent(getIntent(), this);
 
     }
 
-    private void setListener() {
+    private void initUI()
+    {
+        mProgressDialog = new ProgressDialog(WXPayEntryActivity.this);
+        mProgressDialog.setMessage("请稍候,订单信息确认中…");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+        mRl_order_pay_info_bg.setVisibility(View.GONE);
+    }
+
+    private void setListener()
+    {
         mIv_wechat_pay_back.setOnClickListener(this);
         mTv_btn_wechat_pay_result.setOnClickListener(this);
     }
 
-    private void findViewID() {
+    private void findViewID()
+    {
         mIv_wechat_pay_back = (ImageView) findViewById(R.id.iv_wechat_pay_back);
+        mIv_order_pay_result_img = (ImageView) findViewById(R.id.iv_order_pay_result_img);
+        mRl_order_pay_info_bg = (RelativeLayout) findViewById(R.id.rl_order_pay_info_bg);
+        mTv_order_pay_success_title = (TextView) findViewById(R.id.tv_order_pay_success_title);
+        mTv_order_pay_success_subtitle = (TextView) findViewById(R.id.tv_order_pay_success_subtitle);
         mTv_btn_wechat_pay_result = (TextView) findViewById(R.id.tv_btn_wechat_pay_result);
-        mIv_result_img = (ImageView) findViewById(R.id.iv_result_img);
-        mTv_result_show = (TextView) findViewById(R.id.tv_result_show);
     }
 
     @Override
-    public void onReq(BaseReq baseReq) {
+    public void onReq(BaseReq baseReq)
+    {
 
     }
 
     @Override
-    public void onResp(BaseResp resp) {
-        switch (resp.errCode) {
+    public void onResp(BaseResp resp)
+    {
+        switch (resp.errCode)
+        {
             case 0:
                 //调用微信支付结果成功
-                Log.e("onResponse ", "调用微信支付结果成功;errCode " + resp.errCode);
                 getSharedPreferencesForCheck();
-                if (mWechatPayOutTrandeNo != null && !"".equals(mWechatPayOutTrandeNo)) {
+                if (mWechatPayOutTrandeNo != null && !"".equals(mWechatPayOutTrandeNo))
+                {
                     checkOrderResult(mWechatPayOutTrandeNo);
                 }
                 break;
             case -1:
                 //微信支付异常
-                Log.e("onResponse ", "调用微信支付结果失败;errCode " + resp.errCode);
-                mTv_btn_wechat_pay_result.setText("返回");
                 mWechatPayResultCode = -1;
-                mIv_result_img.setImageResource(R.mipmap.wechat_pay_erro);
-                mTv_result_show.setText("—支付异常—");
-                Toast.makeText(WXPayEntryActivity.this, "支付异常,请重试！", Toast.LENGTH_SHORT).show();
+                mProgressDialog.dismiss();
+                mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
+                mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
+                mTv_order_pay_success_title.setText(R.string.order_failure_title);
+                mTv_order_pay_success_subtitle.setText(R.string.order_failure);
+
                 break;
             case -2:
                 //用户主动取消微信支付
-                Log.e("onResponse ", "调用微信支付结果取消;errCode " + resp.errCode);
                 mWechatPayResultCode = -2;
-                mTv_btn_wechat_pay_result.setText("返回");
-                mIv_result_img.setImageResource(R.mipmap.wechat_pay_erro);
-                mTv_result_show.setText("—您已取消微信支付—");
-                Toast.makeText(WXPayEntryActivity.this, "您已取消微信支付", Toast.LENGTH_SHORT).show();
+                mProgressDialog.dismiss();
+                mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
+                mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
+                mTv_order_pay_success_title.setText(R.string.order_cancel_title);
+                mTv_order_pay_success_subtitle.setText(R.string.order_cancel);
                 break;
         }
     }
@@ -107,7 +132,8 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     /**
      * 获取本地存储的outTradeNo与bookLogAID
      */
-    public void getSharedPreferencesForCheck() {
+    public void getSharedPreferencesForCheck()
+    {
         SharedPreferences sp = getSharedPreferences(Constant.WechatPay.ABOUT_WECHAT_PAY, Context.MODE_PRIVATE);
         mWechatPayOutTrandeNo = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_OUT_TRADE_NO, null);
         mWechatPayBookLogaId = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_BOOKLOGAID, null);
@@ -123,30 +149,32 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     /**
      * 微信支付：向后台服务端查询实际的支付结果
      */
-    private void checkOrderResult(String outTrandeNo) {
+    private void checkOrderResult(String outTrandeNo)
+    {
         mChedckOrderResultParams = new HashMap<>();
-        Log.e("checkOrderResult ", "checkOrderResultOutTrandeNo " + outTrandeNo);
         mChedckOrderResultParams.put("out_trade_no", outTrandeNo);
-        HTTPUtils.post(WXPayEntryActivity.this, Constant.WechatPay.CHECKED_WECHAT_ORDER_RESULT_URL, mChedckOrderResultParams, new VolleyListener() {
+        HTTPUtils.post(WXPayEntryActivity.this, Constant.WechatPay.CHECKED_WECHAT_ORDER_RESULT_URL, mChedckOrderResultParams, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
-                Log.e("onResponse ", "向后台服务端查询实际的支付结果 " + s);
-                if ("false".equals(s)) {
+            public void onResponse(String s)
+            {
+                if ("false".equals(s))
+                {
                     mWechatPayResultCode = -1;
-                    mTv_btn_wechat_pay_result.setText("返回");
-                    mIv_result_img.setImageResource(R.mipmap.wechat_pay_erro);
-                    mTv_result_show.setText("—支付失败—");
-                    Toast.makeText(WXPayEntryActivity.this, "支付失败,请重试！", Toast.LENGTH_SHORT).show();
-                } else {
+                    mProgressDialog.dismiss();
+                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
+                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
+                    mTv_order_pay_success_title.setText(R.string.order_failure_title);
+                    mTv_order_pay_success_subtitle.setText(R.string.order_failure);
+                } else
+                {
                     mWechatPayResultCode = 0;
-                    mTv_btn_wechat_pay_result.setEnabled(false);
-                    mTv_btn_wechat_pay_result.setVisibility(View.GONE);
-                    mIv_result_img.setImageResource(R.mipmap.wechat_pay_ok);
-                    mTv_result_show.setText("—支付成功—\n出票中，请稍候……");
                     confrimOrder();
                 }
             }
@@ -156,48 +184,63 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     /**
      * 支付成功，确认订单;向后台发送所用的红包/订单id/实际支付金额
      */
-    private void confrimOrder() {
-        mTv_btn_wechat_pay_result.setVisibility(View.VISIBLE);
+    private void confrimOrder()
+    {
         String url01 = Constant.HOST_TICKET + "/order/completeorder";
         Map<String, String> map = new HashMap<>();
-        if (-1 != mWechatPayRedId) {
+        if (-1 != mWechatPayRedId)
+        {
             map.put("redEnvelope_id", mWechatPayRedId + "");
-        } else {
+        } else
+        {
             map.put("order_id", mWechatPayOrderId);
             map.put("real_pay", mRealPayPrice + "");
         }
-        map.put("pay_model","微信支付");
-        map.put("serial",mWechatPayOutTrandeNo);
-        HTTPUtils.post(WXPayEntryActivity.this, url01, map, new VolleyListener() {
+        map.put("pay_model", "微信支付");
+        map.put("serial", mWechatPayOutTrandeNo);
+        HTTPUtils.post(WXPayEntryActivity.this, url01, map, new VolleyListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            public void onErrorResponse(VolleyError volleyError)
+            {
             }
 
             @Override
-            public void onResponse(String s) {
-//                if (isQianTaiComfrim) {
-                    //0是成功 1是异常
-                    if ("0".equals(s)) {
-                        Log.e("onResponse ", "onResponse 没有延迟的订单确认" + s);
-                        //没有延迟的订单确认
-                        mTv_btn_wechat_pay_result.setEnabled(true);
-                        mTv_btn_wechat_pay_result.setText("点击查看订单详情");
-                        mTv_result_show.setText("—支付成功—\n出票成功!");
-                    } else if ("1".equals(s)) {
-                        mWechatPayResultCode = 1;
-                        mTv_btn_wechat_pay_result.setEnabled(true);
-                        mTv_btn_wechat_pay_result.setText("返回");
-                        mTv_result_show.setText("—支付成功—\n出票出现异常\n" + "请联系客服(400-0593-330)");
-                    } else {
-                        //有延迟的订单确认
-                        mWechatPayResultCode = 2;
-                        mTv_btn_wechat_pay_result.setEnabled(true);
-                        mTv_btn_wechat_pay_result.setText("返回");
-                        mTv_result_show.setText("—支付成功—\n系统出票中，请稍候在订单详情中查询!");
+            public void onResponse(String s)
+            {
+                //0是成功 1是异常
+                if ("0".equals(s))
+                {
+                    //没有延迟的订单确认
+                    mProgressDialog.dismiss();
+                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+                    mTv_order_pay_success_title.setText(R.string.order_success_title);
+                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
 
-                    }
+                } else if ("1".equals(s))
+                {
+                    //异常订单
+                    mWechatPayResultCode = 1;
+                    mProgressDialog.dismiss();
+                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
+                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
+                    mTv_order_pay_success_title.setText(R.string.order_failure_title);
+                    mTv_order_pay_success_subtitle.setText(R.string.order_failure);
+                } else
+                {
+                    //有延迟的订单确认
+                    mWechatPayResultCode = 2;
+                    mProgressDialog.dismiss();
+                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+                    mTv_order_pay_success_title.setText(R.string.order_success_title);
+                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
                 }
-//            }
+            }
         });
 
 
@@ -205,10 +248,13 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
 
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.tv_btn_wechat_pay_result:
-                switch (mWechatPayResultCode) {
+                switch (mWechatPayResultCode)
+                {
                     case 0:
                         Intent intent = new Intent();
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -256,14 +302,16 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
                 }
                 break;
             case R.id.iv_wechat_pay_back:
-                if (mWechatPayResultCode == 0) {
+                if (mWechatPayResultCode == 0)
+                {
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("BookLogAID", mWechatPayBookLogaId);
                     intent.setClass(WXPayEntryActivity.this, OrderDeatilActivity.class);
                     startActivity(intent);
                     animFromBigToSmallOUT();
-                } else {
+                } else
+                {
                     finish();
                 }
                 break;
@@ -273,7 +321,8 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     /**
      * 从大到小结束动画
      */
-    private void animFromBigToSmallOUT() {
+    private void animFromBigToSmallOUT()
+    {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 }
