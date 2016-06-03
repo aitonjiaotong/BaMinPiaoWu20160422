@@ -11,12 +11,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import bamin.com.kepiao.R;
+import bamin.com.kepiao.constant.Constant;
 
 public class YinLianWebActivity extends AppCompatActivity {
 
     private WebView mWebView_yinlian;
     private String mOrderID;
     private String mPrice;
+    private String mPay_model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,9 @@ public class YinLianWebActivity extends AppCompatActivity {
 
     private void getIntentData() {
         Intent intent = getIntent();
-        mOrderID = intent.getStringExtra("OrderID");
-        mPrice = intent.getStringExtra("price");
+        mOrderID = intent.getStringExtra(Constant.IntentKey.PAY_ORDERID);
+        mPrice = intent.getStringExtra(Constant.IntentKey.PAY_PRICE);
+        mPay_model = intent.getStringExtra(Constant.IntentKey.PAY_MODEL);
     }
 
     private void initUI() {

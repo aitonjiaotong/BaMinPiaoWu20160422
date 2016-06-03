@@ -126,5 +126,8 @@ public class Constant {
         public static final String KEY_SET_OUT_ZONE_NAME = "SetOutZoneName";
         //选择目的地址相关的Key
         public static final String KEY_ARRIVE_ZONE_NAME = "ArriveZoneName";
+        public static final String PAY_ORDERID = "OrderID";//向银联界面传的订单号
+        public static final String PAY_PRICE = "price";//向银联界面传的支付金额
+        public static final String PAY_MODEL = "pay_model";//向银联界面传的支付方式
     }
 }
