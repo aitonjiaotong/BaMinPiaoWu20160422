@@ -34,7 +34,6 @@ import com.switfpass.pay.MainApplication;
 import com.switfpass.pay.activity.PayPlugin;
 import com.switfpass.pay.bean.RequestMsg;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 
 import org.dom4j.Document;
@@ -241,8 +240,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        api = WXAPIFactory.createWXAPI(PayActivity.this, Constant.WechatPay.APP_ID, true);
-        api.registerApp(Constant.WechatPay.APP_ID);
         setContentView(R.layout.activity_pay);
         //获取用户id
         SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, Context.MODE_PRIVATE);
@@ -788,8 +785,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
      * 兴业银行-->微信支付
      */
     private void getParams() {
+        mOutTradeNo = getOutTradeNo();
         mGetWechatOrderParams = new HashMap<>();
-        mGetWechatOrderParams.put("out_trade_no", getOutTradeNo());// 商户订单号
+        mGetWechatOrderParams.put("out_trade_no", mOutTradeNo);// 商户订单号
         mGetWechatOrderParams.put("body", "车票\n" + TimeAndDateFormate.timeFormate(mQueryOrder.getSetoutTime()) + "\n" + mQueryOrder.getLineName());// 商品描述
         mGetWechatOrderParams.put("total_fee", TransformYuanToFen(realPayPrice) + "");// 总金额
         mGetWechatOrderParams.put("mch_create_ip", GetIpAddressUtil.getPhoneIp());// 终端IP
@@ -823,6 +821,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             mWechatPayAlertDialog.show();
         }
         HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener() {
+//        HTTPUtils.post(PayActivity.this, "http://192.168.1.108:8080/app/xy/getprepay", mGetWechatOrderParams, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 findViewById(R.id.pay).setEnabled(true);
