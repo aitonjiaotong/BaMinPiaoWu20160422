@@ -9,6 +9,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import bamin.com.kepiao.R;
 import bamin.com.kepiao.constant.Constant;
@@ -60,16 +61,17 @@ public class YinLianWebActivity extends AppCompatActivity {
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView_yinlian.addJavascriptInterface(new Object() {
             @JavascriptInterface
-            public void closeActivity(String value) {
+            public void closeActivity(final String value) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        YinLianWebActivity.this.finish();
+                        Toast.makeText(YinLianWebActivity.this, ""+value, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         }, "javaMethod");
-        mWebView_yinlian.loadUrl("http://192.168.1.112:8080/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id);
+        mWebView_yinlian.loadUrl(Constant.HOST_TICKET+"/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id);
+//        http://120.24.46.15:8080/aiton-tickets-app-webapp/unionpay/frontPay?BMorderId=35&txnAmt=50&redEnvelope_id=
     }
 
     private void findID() {

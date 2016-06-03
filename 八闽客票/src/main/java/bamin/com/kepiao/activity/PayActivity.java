@@ -745,11 +745,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                             wechatPay();
                         }
                     }
-                } else if ("银联".equals(payMode)) {
-                } else if ("银联".equals(payMode))
+                }else if ("银联".equals(payMode))
                 {
-                    Toast.makeText(PayActivity.this, "银联支付暂不支持", Toast.LENGTH_SHORT).show();
-                    String orderId = System.currentTimeMillis() + "";
                     intent.setClass(PayActivity.this, YinLianWebActivity.class);
                     intent.putExtra(Constant.IntentKey.PAY_ORDERID, mOrderId);
                     intent.putExtra(Constant.IntentKey.PAY_PRICE, realPayPrice + "");
