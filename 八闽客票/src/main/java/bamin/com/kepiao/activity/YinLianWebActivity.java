@@ -55,9 +55,9 @@ public class YinLianWebActivity extends AppCompatActivity {
         settings.setLoadWithOverviewMode(true);
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        mWebView_yinlian.addJavascriptInterface(new Object(){
+        mWebView_yinlian.addJavascriptInterface(new Object() {
             @JavascriptInterface
-            public void closeActivity(){
+            public void closeActivity(String value) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -65,8 +65,8 @@ public class YinLianWebActivity extends AppCompatActivity {
                     }
                 });
             }
-        },"javaMethod");
-        mWebView_yinlian.loadUrl("http://192.168.1.112:8080/unionpay/frontPay?orderId="+mOrderID+"&txnAmt=1");
+        }, "javaMethod");
+        mWebView_yinlian.loadUrl("http://192.168.1.112:8080/unionpay/frontPay?orderId="+mOrderID+"&txnAmt="+mPrice);
     }
 
     private void findID() {
