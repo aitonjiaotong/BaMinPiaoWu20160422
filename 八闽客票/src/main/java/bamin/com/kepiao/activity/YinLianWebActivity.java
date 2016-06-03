@@ -11,12 +11,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import bamin.com.kepiao.R;
+import bamin.com.kepiao.constant.Constant;
 
 public class YinLianWebActivity extends AppCompatActivity {
 
     private WebView mWebView_yinlian;
     private String mOrderID;
     private String mPrice;
+    private String mRedenvelope_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,9 @@ public class YinLianWebActivity extends AppCompatActivity {
 
     private void getIntentData() {
         Intent intent = getIntent();
-        mOrderID = intent.getStringExtra("OrderID");
-        mPrice = intent.getStringExtra("price");
+        mOrderID = intent.getStringExtra(Constant.IntentKey.PAY_ORDERID);
+        mPrice = intent.getStringExtra(Constant.IntentKey.PAY_PRICE);
+        mRedenvelope_id= intent.getStringExtra(Constant.IntentKey.PAY_REDENVELOPE_ID);
     }
 
     private void initUI() {
@@ -66,7 +69,7 @@ public class YinLianWebActivity extends AppCompatActivity {
                 });
             }
         }, "javaMethod");
-        mWebView_yinlian.loadUrl("http://192.168.1.112:8080/unionpay/frontPay?orderId="+mOrderID+"&txnAmt="+mPrice);
+        mWebView_yinlian.loadUrl("http://192.168.1.112:8080/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id);
     }
 
     private void findID() {
