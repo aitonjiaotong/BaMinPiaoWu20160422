@@ -45,7 +45,7 @@ public class Constant {
         //加载二维码图片地址
         public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
         //获取支付宝签名
-        public static final String GETSIGN = "/alipay/getsign";
+        public static final String GETSIGN = HOST_TICKET+"/alipay/getsign";
     }
 
     public static final class Key{
