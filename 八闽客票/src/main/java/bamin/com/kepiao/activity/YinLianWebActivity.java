@@ -9,7 +9,6 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import bamin.com.kepiao.R;
 import bamin.com.kepiao.constant.Constant;
@@ -20,6 +19,7 @@ public class YinLianWebActivity extends AppCompatActivity {
     private String mOrderID;
     private String mPrice;
     private String mRedenvelope_id;
+    private String mBookLogAID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class YinLianWebActivity extends AppCompatActivity {
         mOrderID = intent.getStringExtra(Constant.IntentKey.PAY_ORDERID);
         mPrice = intent.getStringExtra(Constant.IntentKey.PAY_PRICE);
         mRedenvelope_id= intent.getStringExtra(Constant.IntentKey.PAY_REDENVELOPE_ID);
+        mBookLogAID = intent.getStringExtra("BookLogAID");
     }
 
     private void initUI() {
@@ -65,16 +66,41 @@ public class YinLianWebActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(YinLianWebActivity.this, ""+value, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(YinLianWebActivity.this, "" + value, Toast.LENGTH_SHORT).show();
+                        //1表示失败  0 表示成功
+                        if ("1".equals(value)) {
+                            startToMainActivity();
+                        } else if ("0".equals(value)) {
+                            Intent intent = new Intent();
+                            intent.putExtra("BookLogAID", mBookLogAID);
+                            intent.setClass(YinLianWebActivity.this, OrderDeatilActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
             }
         }, "javaMethod");
-        mWebView_yinlian.loadUrl(Constant.HOST_TICKET+"/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id);
-//        http://120.24.46.15:8080/aiton-tickets-app-webapp/unionpay/frontPay?BMorderId=35&txnAmt=50&redEnvelope_id=
+//        mWebView_yinlian.loadUrl(Constant.HOST_TICKET+"/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id);
+        mWebView_yinlian.loadUrl(Constant.HOST_TICKET+"/unionpay/frontPay?BMorderId="+mOrderID+"&txnAmt="+mPrice+"&redEnvelope_id="+mRedenvelope_id+"&model=android");
     }
-
+    /**
+     * 跳转主页面
+     */
+    private void startToMainActivity()
+    {
+        Intent intent = new Intent();
+        intent.putExtra("OrderDeatilActivity", "OrderDeatilActivity");
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setClass(YinLianWebActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void findID() {
         mWebView_yinlian = (WebView) findViewById(R.id.webView_yinlian);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startToMainActivity();
     }
 }

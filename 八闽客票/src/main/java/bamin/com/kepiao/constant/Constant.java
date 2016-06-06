@@ -21,11 +21,11 @@ public class Constant {
         public static final String UPDATEPASSWORD = HOST_TICKET + "/updatepassword";//修改密码和忘记密码
         public static final String GETLEFTTIME_TICKET = HOST_TICKET + "/pw/message/find";//获取售票剩余时间
         public static final String CHECKLIVE_TICKET = HOST_TICKET + "/live/cheklive";//检查服务器是否存活
-        public static final String UPDATEICON = HOST_TICKET + "account/updateIcon";//检查服务器是否存活
+        public static final String UPDATEICON = HOST_TICKET + "/account/updateIcon";//检查服务器是否存活
         //获取所属公司下的
-        public static final String GET_COMPANY_SUBZONE = HOST + "/front/loadsetoutzone";
+        public static final String GET_COMPANY_SUBZONE = HOST_TICKET + "/front/loadsetoutzone";
         //获取所属公司下的
-        public static final String GET_ZONE_STREE = HOST + "/front/loadarrivezone";
+        public static final String GET_ZONE_STREE = HOST_TICKET + "/front/loadarrivezone";
         //服务器上Banner的地址
         public static final String GET_BANNER_IMG = HOST_TICKET + "/picture/getpictures";
         //检测软件升级-八闽云服务地址
@@ -44,7 +44,8 @@ public class Constant {
         public static final String SOFTWARE_INFO = "http://q.eqxiu.com/s/16f5zj5p";
         //加载二维码图片地址
         public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
-
+        //获取支付宝签名
+        public static final String GETSIGN = "/alipay/getsign";
     }
 
     public static final class Key{

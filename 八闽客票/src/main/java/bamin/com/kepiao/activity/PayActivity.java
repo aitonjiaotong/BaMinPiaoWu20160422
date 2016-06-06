@@ -41,8 +41,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,6 +52,7 @@ import bamin.com.kepiao.R;
 import bamin.com.kepiao.Zalipay.PayResult;
 import bamin.com.kepiao.Zalipay.SignUtils;
 import bamin.com.kepiao.constant.Constant;
+import bamin.com.kepiao.models.Sign;
 import bamin.com.kepiao.models.about_order.QueryOrder;
 import bamin.com.kepiao.models.about_redpacket.RedPacket;
 import bamin.com.kepiao.models.about_xyblank_pay.XingYeBlankPayInfo;
@@ -199,7 +198,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
          */
         String url01 = Constant.HOST_TICKET + "/order/completeorder";
         Map<String, String> map = new HashMap<>();
-        map.put("order_id", mOrderId);
+        map.put("id", mOrderId);
         map.put("real_pay", realPayPrice + "");
         map.put("pay_model", payMode);
         map.put("serial", serial);
@@ -213,12 +212,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             public void onErrorResponse(VolleyError volleyError)
             {
                 //有延迟的订单确认
+                Log.e("onErrorResponse", "在这里？");
                 setDialog01("订单出现异常，请联系客服", "确认");
             }
 
             @Override
             public void onResponse(String s)
             {
+                Log.e("onResponse", "提交订单返回值" + s);
                 if ("0".equals(s))
                 {
                     //没有延迟的订单确认
@@ -468,28 +469,77 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 confrimOrder();
             } else
             {
-                String orderInfo = getOrderInfo(mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName(), "车票信息", realPayPrice + "");
+//                String orderInfo = getOrderInfo(mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName(), "车票信息", realPayPrice + "");
+//
+//                /**
+//                 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
+//                 */
+//                String sign = sign(orderInfo);
+                getSign();
+//                try
+//                {
+//                    /**
+//                     * 仅需对sign 做URL编码
+//                     */
+//                    sign = URLEncoder.encode(sign, "UTF-8");
+//                } catch (UnsupportedEncodingException e)
+//                {
+//                    e.printStackTrace();
+//                }
+//
+//                /**
+//                 * 完整的符合支付宝参数规范的订单信息
+//                 */
+//                final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
+//                Log.e("pay", "正确签名" + payInfo);
+//                Runnable payRunnable = new Runnable()
+//                {
+//
+//                    @Override
+//                    public void run()
+//                    {
+//                        // 构造PayTask 对象
+//                        PayTask alipay = new PayTask(PayActivity.this);
+//                        // 调用支付接口，获取支付结果
+//                        String result = alipay.pay(payInfo, true);
+//
+//                        Message msg = new Message();
+//                        msg.what = SDK_PAY_FLAG;
+//                        msg.obj = result;
+//                        mHandler.sendMessage(msg);
+//                    }
+//                };
+//
+//                // 必须异步调用
+//                Thread payThread = new Thread(payRunnable);
+//                payThread.start();
+            }
 
-                /**
-                 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
-                 */
-                String sign = sign(orderInfo);
-                try
-                {
-                    /**
-                     * 仅需对sign 做URL编码
-                     */
-                    sign = URLEncoder.encode(sign, "UTF-8");
-                } catch (UnsupportedEncodingException e)
-                {
-                    e.printStackTrace();
-                }
+        } else
+        {
+            setFailDialog01("支付超时，失败", "确认");
+        }
 
-                /**
-                 * 完整的符合支付宝参数规范的订单信息
-                 */
-                final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
+    }
 
+    private void getSign() {
+        String url = Constant.Url.GETSIGN;
+//        String url = "http://192.168.1.108:8080/app/alipay/getsign";
+        Map<String, String> map = new HashMap<>();
+        map.put("out_trade_no",getOutTradeNo());
+        map.put("subject", mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName());
+        map.put("total_fee", realPayPrice + "");
+        HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void onResponse(String s) {
+                Sign sign = GsonUtils.parseJSON(s, Sign.class);
+                final String body = sign.getBody();
+                Log.e("onResponse", "返回值" + body);
                 Runnable payRunnable = new Runnable()
                 {
 
@@ -499,7 +549,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                         // 构造PayTask 对象
                         PayTask alipay = new PayTask(PayActivity.this);
                         // 调用支付接口，获取支付结果
-                        String result = alipay.pay(payInfo, true);
+                        String result = alipay.pay(body, true);
 
                         Message msg = new Message();
                         msg.what = SDK_PAY_FLAG;
@@ -512,12 +562,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 Thread payThread = new Thread(payRunnable);
                 payThread.start();
             }
-
-        } else
-        {
-            setFailDialog01("支付超时，失败", "确认");
-        }
-
+        });
     }
 
     /**
@@ -545,7 +590,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://120.24.46.15:8080/upload_2/return/return" + "\"";
+        orderInfo += "&notify_url=" + "\"" + "http://120.24.46.15:8080/aiton-tickets-app-webapp/alipay/notify" + "\"";
 
         // 服务接口名称， 固定值
         orderInfo += "&service=\"mobile.securitypay.pay\"";
@@ -745,8 +790,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 }else if ("银联".equals(payMode))
                 {
                     intent.setClass(PayActivity.this, YinLianWebActivity.class);
+                    intent.putExtra("BookLogAID",mBookLogAID);
                     intent.putExtra(Constant.IntentKey.PAY_ORDERID, mOrderId);
-                    intent.putExtra(Constant.IntentKey.PAY_PRICE, realPayPrice + "");
+                    intent.putExtra(Constant.IntentKey.PAY_PRICE, (int)(realPayPrice*100) + "");
                     if (mRedBag != null)
                     {
                         intent.putExtra(Constant.IntentKey.PAY_REDENVELOPE_ID, mRedBag.getId() + "");
