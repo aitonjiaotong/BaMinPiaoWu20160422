@@ -31,6 +31,21 @@
             android:gravity="center"
             android:text="温馨提示"/>
 
+        <TextView
+            android:id="@+id/tv_btn_wechat_pay_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:text="完成"
+            android:textColor="@color/white"/>
+
         <ImageView
             android:id="@+id/iv_wechat_pay_back"
             android:layout_width="wrap_content"
@@ -58,7 +73,7 @@
                 android:id="@+id/iv_order_pay_result_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="12dp"
                 android:src="@mipmap/ic_successful"/>
 
             <LinearLayout
@@ -80,28 +95,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginRight="12dp"
                     android:text="@string/order_success"
                     android:textColor="@color/white"/>
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_btn_wechat_pay_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/ll_order_pay_msg"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/layout_selector_white_system_gray"
-            android:paddingBottom="6dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="6dp"
-            android:text="确定"
-            android:textColor="@color/order_success"/>
 
     </RelativeLayout>
 
