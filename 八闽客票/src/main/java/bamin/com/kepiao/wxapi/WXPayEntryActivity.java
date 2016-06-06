@@ -31,6 +31,7 @@ import bamin.com.kepiao.constant.Constant;
 
 public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener
 {
+    private String TAG = "WXPayEntryActivity";
     private IWXAPI api;
     private String mWechatPayOutTrandeNo;
     private String mWechatPayBookLogaId;
@@ -95,6 +96,8 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     @Override
     public void onResp(BaseResp resp)
     {
+        Log.e(TAG, "onResp: --微信支付返回码->>" + resp.errCode);
+
         switch (resp.errCode)
         {
             case 0:
@@ -102,7 +105,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
                 getSharedPreferencesForCheck();
                 if (mWechatPayOutTrandeNo != null && !"".equals(mWechatPayOutTrandeNo))
                 {
-                    checkOrderResult(mWechatPayOutTrandeNo);
+                    confrimOrder();
                 }
                 break;
             case -1:
@@ -140,46 +143,13 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
         mWechatPayOrderId = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_ORDERID, null);
         mWechatPayRedId = sp.getInt(Constant.WechatPay.ABOUT_WECHAT_PAY_REDID, -1);
         mRealPayPrice = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, null);
-        Log.e("onResponse ", "mWechatPayOutTrandeNo " + mWechatPayOutTrandeNo);
-        Log.e("onResponse ", "mWechatPayBookLogaId " + mWechatPayBookLogaId);
-        Log.e("onResponse ", "mWechatPayOrderId " + mWechatPayOrderId);
-        Log.e("onResponse ", "mWechatPayRedId " + mWechatPayRedId);
+        Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayOutTrandeNo->>" + mWechatPayOutTrandeNo);
+        Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayBookLogaId->>" + mWechatPayBookLogaId);
+        Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayOrderId->>" + mWechatPayOrderId);
+        Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayRedId->>" + mWechatPayRedId);
+
     }
 
-    /**
-     * 微信支付：向后台服务端查询实际的支付结果
-     */
-    private void checkOrderResult(String outTrandeNo)
-    {
-        mChedckOrderResultParams = new HashMap<>();
-        mChedckOrderResultParams.put("out_trade_no", outTrandeNo);
-        HTTPUtils.post(WXPayEntryActivity.this, Constant.WechatPay.CHECKED_WECHAT_ORDER_RESULT_URL, mChedckOrderResultParams, new VolleyListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
-            }
-
-            @Override
-            public void onResponse(String s)
-            {
-                if ("false".equals(s))
-                {
-                    mWechatPayResultCode = -1;
-                    mProgressDialog.dismiss();
-                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
-                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
-                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
-                    mTv_order_pay_success_title.setText(R.string.order_failure_title);
-                    mTv_order_pay_success_subtitle.setText(R.string.order_failure);
-                } else
-                {
-                    mWechatPayResultCode = 0;
-                    confrimOrder();
-                }
-            }
-        });
-    }
 
     /**
      * 支付成功，确认订单;向后台发送所用的红包/订单id/实际支付金额
@@ -193,7 +163,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
             map.put("redEnvelope_id", mWechatPayRedId + "");
         } else
         {
-            map.put("order_id", mWechatPayOrderId);
+            map.put("id", mWechatPayOrderId);
             map.put("real_pay", mRealPayPrice + "");
         }
         map.put("pay_model", "微信支付");
@@ -208,6 +178,8 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
             @Override
             public void onResponse(String s)
             {
+                Log.e(TAG, "onResponse: --向后台提交订单确认->>" + s);
+
                 //0是成功 1是异常
                 if ("0".equals(s))
                 {

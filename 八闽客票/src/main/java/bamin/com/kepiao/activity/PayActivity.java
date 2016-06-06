@@ -867,7 +867,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             mWechatPayAlertDialog.show();
         }
         HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener() {
-//        HTTPUtils.post(PayActivity.this, "http://192.168.1.108:8080/app/xy/getprepay", mGetWechatOrderParams, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 findViewById(R.id.pay).setEnabled(true);
