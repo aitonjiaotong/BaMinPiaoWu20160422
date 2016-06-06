@@ -44,7 +44,7 @@ import bamin.com.kepiao.utils.SmsContent;
 import bamin.com.kepiao.utils.SubJsonStr;
 
 public class SmsLoginActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private String  TAG ="SmsLoginActivity";
     private ImageView mPhone_num_cancle;
     private ImageView mSms_cancle;
     private EditText mPhone_num;
@@ -281,9 +281,13 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
                     final String DeviceId = Installation.id(SmsLoginActivity.this);
                     String url =  Constant.Url.LOGIN;
                     Map<String, String> map = new HashMap<>();
-                    map.put("phone",mPhoneNum+"");
+                    map.put("phone",phone+"");
                     map.put("login_id",DeviceId+"");
                     map.put("password", password);
+                    Log.e(TAG, "onClick: --phone->>" + mPhoneNum);
+                    Log.e(TAG, "onClick: --login_id->>" + DeviceId);
+                    Log.e(TAG, "onClick: --password->>" + password);
+
                     HTTPUtils.post(SmsLoginActivity.this, url, map, new VolleyListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
@@ -292,7 +296,9 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
 
                         @Override
                         public void onResponse(String s) {
-                                mUser = GsonUtils.parseJSON(s, User.class);
+                            Log.e(TAG, "onResponse: --密码登录服务端返回值->>" + s);
+
+                            mUser = GsonUtils.parseJSON(s, User.class);
                                 if (mUser.isSuccess()){
                                     //存储手机号和用户id到本地
                                     SharedPreferences sp = getSharedPreferences(Constant.SP_KEY.SP_NAME, MODE_PRIVATE);
@@ -346,6 +352,9 @@ public class SmsLoginActivity extends AppCompatActivity implements View.OnClickL
 
     private void sendSMS() {
         mPhoneNum = mPhone_num.getText().toString().trim();
+
+        Log.e(TAG, "sendSMS: --->>" + mPhoneNum);
+
         boolean mobileNO = IsMobileNOorPassword.isMobileNO(mPhoneNum);
         if (mobileNO) {
             mSendSms.setEnabled(false);
