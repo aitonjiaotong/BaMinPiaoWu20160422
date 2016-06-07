@@ -2,7 +2,9 @@ package bamin.com.kepiao.fragment;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -83,6 +85,8 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
     private PopupWindow mPopupWindow;
     private ImageView mIv_cli_scan_show;
     private String[] mStation = {"请选择出发地", "请选择目的地"};
+    private String mStartSite;
+    private String mEndSite;
 
     public Fragment01() {
         // Required empty public constructor
@@ -92,6 +96,7 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mLayout == null) {
             mLayout = inflater.inflate(R.layout.fragment_fragment01, null);
+            initSP();
             initData();
             initUI();
             setOnClick();
@@ -104,6 +109,11 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
         return mLayout;
     }
 
+    private void initSP() {
+        SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SITE, Context.MODE_PRIVATE);
+        mStation[0] = sp.getString(Constant.SP_KEY.START_SITE, "请选择出发地");
+        mStation[1] = sp.getString(Constant.SP_KEY.END_SITE, "请选择目的地");
+    }
 
     private void initData() {
         //初始化时间
@@ -404,11 +414,19 @@ public class Fragment01 extends Fragment implements View.OnClickListener {
                 case Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_SET_OUT:
                     mStation[0] = data.getStringExtra(Constant.IntentKey.KEY_SET_OUT_ZONE_NAME);
                     mTv_setOut.setText(mStation[0]);
+                    SharedPreferences sp = getActivity().getSharedPreferences(Constant.SP_KEY.SITE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = sp.edit();
+                    edit.putString(Constant.SP_KEY.START_SITE, mStation[0]);
+                    edit.commit();
                     break;
                 //选择目的地请求码
                 case Constant.RequestAndResultCode.REQUEST_CODE_CHOOSE_ARRIVE:
                     mStation[1] = data.getStringExtra(Constant.IntentKey.KEY_ARRIVE_ZONE_NAME);
                     mTv_arrive.setText(mStation[1]);
+                    SharedPreferences sp1 = getActivity().getSharedPreferences(Constant.SP_KEY.SITE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit1 = sp1.edit();
+                    edit1.putString(Constant.SP_KEY.END_SITE, mStation[1]);
+                    edit1.commit();
                     break;
             }
         }

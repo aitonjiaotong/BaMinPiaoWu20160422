@@ -65,6 +65,9 @@ public class Constant {
         public static final String SP_NAME = "isLogin";//sp的名字
         public static final String SP_ISFRIST = "isfrist";//是否第一次进入APP
         public static final String ID = "id";//用户id
+        public static final String SITE = "site";//站点
+        public static final String START_SITE = "start_site";//出发站点
+        public static final String END_SITE = "end_site";//目的站点
     }
 
     /**

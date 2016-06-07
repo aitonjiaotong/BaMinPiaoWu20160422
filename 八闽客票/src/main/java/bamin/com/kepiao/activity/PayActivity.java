@@ -155,6 +155,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     {
                         //支付成功向金点通发送确认订单
                         confrimOrder();
+//                        setDialog01("支付成功", "确认");
                     } else
                     {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
@@ -523,8 +524,8 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void getSign() {
-        String url = Constant.Url.GETSIGN;
-//        String url = "http://192.168.1.108:8080/app/alipay/getsign";
+//        String url = Constant.Url.GETSIGN;
+        String url = "http://192.168.1.108:8080/app/alipay/getsign";
         Map<String, String> map = new HashMap<>();
         map.put("out_trade_no",getOutTradeNo());
         map.put("subject", mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName());
@@ -867,6 +868,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             mWechatPayAlertDialog.show();
         }
         HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener() {
+//        HTTPUtils.post(PayActivity.this, "http://192.168.1.108:8080/app/xy/getprepay", mGetWechatOrderParams, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 findViewById(R.id.pay).setEnabled(true);
