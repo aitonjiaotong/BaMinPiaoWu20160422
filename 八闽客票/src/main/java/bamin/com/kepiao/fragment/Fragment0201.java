@@ -216,6 +216,7 @@ public class Fragment0201 extends Fragment {
         String url_web = Constant.JDT_TICKET_HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
                 "&bookLogID=" + mAccountOrderEntityList.get(i).getBookLogAID();
+        Log.e("queryOrderState", "订单列表ID" + mAccountOrderEntityList.get(i).getId());
         HTTPUtils.get(getActivity(), url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
             }
