@@ -273,34 +273,6 @@
                     android:layout_height="50dp">
 
                     <ImageView
-                        android:src="@mipmap/pay_center_icons_17"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:id="@+id/imageView13"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginStart="18dp"/>
-
-                    <TextView
-                        android:textSize="@dimen/normalTextSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="支付宝支付"
-                        android:id="@+id/textView30"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/imageView13"
-                        android:layout_toEndOf="@+id/imageView13"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginStart="17dp"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <ImageView
                         android:src="@mipmap/weixin_logo"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -320,6 +292,45 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imageView14"
                         android:layout_toEndOf="@+id/imageView14"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="17dp"/>
+
+                    <TextView
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="（推荐）"
+                        android:id="@+id/textView11"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/textView31"
+                        android:layout_toEndOf="@+id/textView31"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:src="@mipmap/pay_center_icons_17"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/imageView13"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginStart="18dp"/>
+
+                    <TextView
+                        android:textSize="@dimen/normalTextSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支付宝支付"
+                        android:id="@+id/textView30"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/imageView13"
+                        android:layout_toEndOf="@+id/imageView13"
                         android:layout_marginLeft="15dp"
                         android:layout_marginStart="17dp"/>
                 </RelativeLayout>
@@ -362,7 +373,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/radiobutton"
-                        android:id="@+id/radioButton_zhifubao"/>
+                        android:id="@+id/radioButton_weixin"/>
 
                     <RadioButton
                         android:layout_gravity="center"
@@ -370,7 +381,8 @@
                         android:layout_width="wrap_content"
                         android:button="@drawable/radiobutton"
                         android:layout_height="wrap_content"
-                        android:id="@+id/radioButton_weixin"/>
+                        android:id="@+id/radioButton_zhifubao"
+                        />
 
                     <RadioButton
                         android:layout_gravity="center"
@@ -401,4 +413,5 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"/>
     </LinearLayout>
+
 </LinearLayout>
