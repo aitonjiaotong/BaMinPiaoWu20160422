@@ -6,7 +6,7 @@ package bamin.com.kepiao.constant;
 public class Constant {
 //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
     public static final String HOST = "http://www.bmcxfj.com:8080/bmpw";//八闽后台服务器HOST地址
-    public static final int ABLEVERSION = 2;//可用版本号
+    public static final int ABLEVERSION = 3;//可用版本号
 //    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
     public static final String HOST_TICKET = "http://120.55.166.203:8020/aiton-tickets-app-webapp";//票务正式服务器
     public static final String GETSMS = "http://120.55.166.203:8010/aiton-app-webapp/public/sendmessage";//发送短信
