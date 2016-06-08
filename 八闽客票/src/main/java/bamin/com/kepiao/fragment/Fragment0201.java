@@ -113,64 +113,69 @@ public class Fragment0201 extends Fragment {
      */
     //查询所有有订单号
     private void queryAccountIdToOrder() {
-        String url = Constant.HOST_TICKET + "/front/ladorderbyuser";
-        Map<String, String> map = new HashMap<>();
-        map.put("account_id", mId);
-        map.put("page", orderPageCount + "");
-        HTTPUtils.post(getActivity(), url, map, new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                mCustom_view.stopRefresh();
-                mCustom_view.stopLoadMore();
-            }
+        if (!"".equals(mId)) {
+            String url = Constant.HOST_TICKET + "/front/ladorderbyuser";
+            Map<String, String> map = new HashMap<>();
+            map.put("account_id", mId);
+            map.put("page", orderPageCount + "");
+            HTTPUtils.post(getActivity(), url, map, new VolleyListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    mCustom_view.stopRefresh();
+                    mCustom_view.stopLoadMore();
+                }
 
-            @Override
-            public void onResponse(String s) {
-                Log.e("onResponse", "所有订单号" + s);
-                //每查询一次页数要+1
-                orderPageCount++;
-                /**
-                 *刷新时先清除，重新获取。
-                 */
+                @Override
+                public void onResponse(String s) {
+                    //每查询一次页数要+1
+                    orderPageCount++;
+                    /**
+                     *刷新时先清除，重新获取。
+                     */
 //                mAccountOrderList.clear();
 //                mQueryOrderList.clear();
 //                orderStateList.clear();
 //                Type type = new TypeToken<ArrayList<AccountOrder>>() {
 //                }.getType();
 //                mAccountOrderList = GsonUtils.parseJSONArray(s, type);
-                mAccountOrder = GsonUtils.parseJSON(s, AccountOrder.class);
+                    mAccountOrder = GsonUtils.parseJSON(s, AccountOrder.class);
 //                /**
 //                 * 翻转容器，让最近的排在最前面
 //                 */
 //                Collections.reverse(mAccountOrder.getOrders());
-                mAccountOrderEntityList.addAll(mAccountOrder.getContains());
-                mPages = mAccountOrder.getNum();
-                /**
-                 * 暂无订单显示与否
-                 */
-                if (mAccountOrderEntityList.size() > 0) {
+                    mAccountOrderEntityList.addAll(mAccountOrder.getContains());
+                    mPages = mAccountOrder.getNum();
                     /**
-                     * 将所有订单对象和状态都实例化
+                     * 暂无订单显示与否
                      */
-                    mQueryOrderNull = new QueryOrder("1", 1, null, null, null, null, null, 1, false, false, null, null, null, null, null, 1.1, null, null, "正在生成");
-                    for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
-                        mQueryOrderList.add(mQueryOrderNull);
-                        orderStateList.add("正在生成");
+                    if (mAccountOrderEntityList.size() > 0) {
+                        /**
+                         * 将所有订单对象和状态都实例化
+                         */
+                        mQueryOrderNull = new QueryOrder("1", 1, null, null, null, null, null, 1, false, false, null, null, null, null, null, 1.1, null, null, "正在生成");
+                        for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
+                            mQueryOrderList.add(mQueryOrderNull);
+                            orderStateList.add("正在生成");
+                        }
+                        /**
+                         * 查询所有订单号的对象和状态
+                         */
+                        for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
+                            queryAllOrderInfo((orderPageCount - 1) * 8 + i);
+                            queryAllOrderState((orderPageCount - 1) * 8 + i);
+                        }
+                    } else {
+                        mCustom_view.stopRefresh();
+                        mCustom_view.stopLoadMore();
+                        mNoneOrder.setVisibility(View.VISIBLE);
                     }
-                    /**
-                     * 查询所有订单号的对象和状态
-                     */
-                    for (int i = 0; i < mAccountOrder.getContains().size(); i++) {
-                        queryAllOrderInfo((orderPageCount - 1) * 8 + i);
-                        queryAllOrderState((orderPageCount - 1) * 8 + i);
-                    }
-                } else {
-                    mCustom_view.stopRefresh();
-                    mCustom_view.stopLoadMore();
-                    mNoneOrder.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+        }else{
+            mCustom_view.stopRefresh();
+            mCustom_view.stopLoadMore();
+            mNoneOrder.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

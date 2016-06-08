@@ -6,7 +6,7 @@ package bamin.com.kepiao.constant;
 public class Constant {
 //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
     public static final String HOST = "http://www.bmcxfj.com:8080/bmpw";//八闽后台服务器HOST地址
-    public static final int ABLEVERSION = 1;//可用版本号
+    public static final int ABLEVERSION = 2;//可用版本号
 //    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
     public static final String HOST_TICKET = "http://120.55.166.203:8020/aiton-tickets-app-webapp";//票务正式服务器
     public static final String GETSMS = "http://120.55.166.203:8010/aiton-app-webapp/public/sendmessage";//发送短信
@@ -28,7 +28,7 @@ public class Constant {
         //服务器上Banner的地址
         public static final String GET_BANNER_IMG = HOST_TICKET + "/picture/getpictures";
         //检测软件升级-八闽云服务地址
-        public static final String UP_GRADE = HOST_TICKET + "/apk/upgradea_piaowu.txt";
+        public static final String UP_GRADE = HOST + "/apk/upgradea_piaowu.txt";
         //获取联系人
         public static final String GET_USED_CONTACT = HOST_TICKET + "/person/findperson";
         //删除联系人
