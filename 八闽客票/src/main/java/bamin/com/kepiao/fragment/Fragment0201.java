@@ -251,7 +251,7 @@ public class Fragment0201 extends Fragment {
 
                         } else if (mAccountOrderEntityList.get(i).getStatus() == 3) {
                             DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
-                        } else {
+                        } else if (mAccountOrderEntityList.get(i).getStatus() == 2){
                             Intent intent = new Intent();
                             intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
                             intent.putExtra("realPrice", mAccountOrderEntityList.get(i).getPrice());
