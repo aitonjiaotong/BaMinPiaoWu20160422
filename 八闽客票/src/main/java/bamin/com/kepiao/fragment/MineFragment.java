@@ -404,7 +404,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.qqTalk:
                 boolean qqClientAvailable = IsQQorWeiXinAvilible.isQQClientAvailable(getActivity());
                 if (qqClientAvailable) {
-                    String url = "mqqwpa://im/chat?chat_type=wpa&uin=270942626";
+                    String url = "mqqwpa://im/chat?chat_type=wpa&uin=3464910568";
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                 } else {
                     Toast.makeText(getActivity(), "QQ未安装", Toast.LENGTH_SHORT).show();

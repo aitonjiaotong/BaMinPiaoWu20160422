@@ -27,8 +27,6 @@ public class Constant {
         public static final String GET_ZONE_STREE = HOST_TICKET + "/front/loadarrivezone";
         //服务器上Banner的地址
         public static final String GET_BANNER_IMG = HOST_TICKET + "/picture/getpictures";
-        //检测软件升级-八闽云服务地址
-        public static final String UP_GRADE = HOST_TICKET + "/apk/upgradea_piaowu.txt";
         //获取联系人
         public static final String GET_USED_CONTACT = HOST_TICKET + "/person/findperson";
         //删除联系人
@@ -37,14 +35,16 @@ public class Constant {
         public static final String UPDATEPERSON = HOST_TICKET + "/person/updateperson";
         //添加联系人
         public static final String ADDPERSON = HOST_TICKET + "/person/addperson";
+        //获取支付宝签名
+        public static final String GETSIGN = HOST_TICKET+"/alipay/getsign";
+        //检测软件升级-八闽云服务地址
+        public static final String UP_GRADE = "http://120.55.166.203:8020/upgrade/upgradea_piaowu.txt";
         //购票须知
         public static final String TICKET_NOTICE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/html/goupiaoxuzhi.html";
         //票务的软件介绍
         public static final String SOFTWARE_INFO = "http://q.eqxiu.com/s/16f5zj5p";
         //加载二维码图片地址
         public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
-        //获取支付宝签名
-        public static final String GETSIGN = HOST_TICKET+"/alipay/getsign";
     }
 
     public static final class Key{
