@@ -9,7 +9,7 @@ public class Constant {
     public static final int ABLEVERSION = 3;//可用版本号
 //    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
     public static final String HOST_TICKET = "http://120.55.166.203:8020/aiton-tickets-app-webapp";//票务正式服务器
-    public static final String GETSMS = "http://120.55.166.203:8010/aiton-app-webapp/public/sendmessage";//发送短信
+    public static final String GETSMS = HOST_TICKET+"/public/sendmessage";//发送短信
     //    public static final String JDT_TICKET_HOST = "http://www.aiton.com.cn:808/JDTTicket.asmx/";
     public static final String JDT_TICKET_HOST = "http://www.bmcxfj.com:8088/JDTTicket.asmx/";
 

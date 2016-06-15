@@ -1006,7 +1006,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     protected void onStop()
     {
         super.onStop();
-        startToMainActivity();
         unregisterReceiver(receiver);
     }
 
