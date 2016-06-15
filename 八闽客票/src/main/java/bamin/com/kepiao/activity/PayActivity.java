@@ -94,6 +94,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private String mIsSure;
     private PopupWindow mPopupWindow;
     private String serial;
+    private boolean isEnterWX = false;
     /**
      * 接收红包界面发来的广播
      */
@@ -145,7 +146,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     if (TextUtils.equals(resultStatus, "9000"))
                     {
                         //支付成功向金点通发送确认订单
-                        confrimOrder();
+                        queryOrderState();
 //                        setDialog01("支付成功", "确认");
                     } else
                     {
@@ -180,6 +181,42 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private IWXAPI api;
 
     /**
+     * 查询单个订单状态
+     */
+    private void queryOrderState() {
+        String url_web = Constant.JDT_TICKET_HOST +
+                "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
+                "&bookLogID=" + mBookLogAID;
+        Log.e("queryOrderState", "订单列表ID" + mBookLogAID);
+        HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
+            public void onErrorResponse(VolleyError volleyError) {
+            }
+
+            public void onResponse(String s) {
+                Log.e("onResponse", "查询单个订单");
+                Document doc = null;
+                try {
+                    doc = DocumentHelper.parseText(s);
+                    Element testElement = doc.getRootElement();
+                    String testxml = testElement.asXML();
+                    String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
+                    String state = result.substring(2, 5);
+                    if ("已确认".equals(state)) {
+                        //没有延迟的订单确认
+                        setSuccessDialog("支付成功", "查看订单");
+                    } else {
+                        //有延迟的订单确认
+                        setDialog01("支付成功，15分钟之内出票", "确认");
+                    }
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                } catch (IndexOutOfBoundsException e) {
+                }
+            }
+        });
+    }
+
+    /**
      * 支付成功，确认订单
      */
     private void confrimOrder()
@@ -204,7 +241,6 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             public void onErrorResponse(VolleyError volleyError)
             {
                 //有延迟的订单确认
-                Log.e("onErrorResponse", "在这里？");
                 setDialog01("订单出现异常，请联系客服", "确认");
             }
 
@@ -223,6 +259,49 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 {
                     //有延迟的订单确认
                     setDialog01("支付成功，15分钟之内出票", "确认");
+                }
+            }
+        });
+    }
+    /**
+     * 支付成功，确认订单
+     */
+    private void confrimOrder0()
+    {
+
+        /**
+         * 向后台发送所用的红包和订单id并由后台确认订单，根据后台传来的返回值进行相关操作
+         */
+        String url01 = Constant.Url.CONFIRMORDER0;
+        Map<String, String> map = new HashMap<>();
+        map.put("id", mOrderId);
+        map.put("real_pay", realPayPrice + "");
+        map.put("pay_model", payMode);
+        map.put("serial", serial);
+        if (mRedBag != null)
+        {
+            map.put("redEnvelope_id", mRedBag.getId() + "");
+        }
+        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError)
+            {
+                //有延迟的订单确认
+                setDialog01("订单出现异常，请联系客服", "确认");
+            }
+
+            @Override
+            public void onResponse(String s)
+            {
+                Log.e("onResponse", "提交订单返回值" + s);
+                if ("0".equals(s))
+                {
+                    //没有延迟的订单确认
+                    setSuccessDialog("支付成功", "查看订单");
+                } else if ("1".equals(s))
+                {
+                    setDialog01("订单出现异常，请联系客服", "确认");
                 }
             }
         });
@@ -459,7 +538,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
             if (realPayPrice == 0)
             {
                 //用了优惠券减到0的情况
-                confrimOrder();
+                confrimOrder0();
             } else
             {
                 getSign();
@@ -478,6 +557,12 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         map.put("out_trade_no",getOutTradeNo());
         map.put("subject", mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName());
         map.put("total_fee", realPayPrice + "");
+        map.put("id", mOrderId);
+        if (mRedBag != null)
+        {
+            map.put("redEnvelope_id", mRedBag.getId() + "");
+        }
+        map.put("real_pay", realPayPrice + "");
         HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
@@ -657,7 +742,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     {
                         if (realPayPrice == 0)
                         {
-                            confrimOrder();
+                            confrimOrder0();
                         } else
                         {
                             wechatPay();
@@ -699,7 +784,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mBuilder = new AlertDialog.Builder(PayActivity.this);
         mWechatPayAlertDialog = mBuilder.setView(mWechat_pay_dialog_layout).create();
         getParams();
-        saveWechatPayOutTradeNo(mOutTradeNo, mBookLogAID, mOrderId, realPayPrice);
+        saveWechatPayOutTradeNo(mOutTradeNo, mBookLogAID, mOrderId, realPayPrice, mInsurePrice);
         getXingYeBlankWechatPayOrderPrepayIdAndSign();
     }
 
@@ -713,12 +798,18 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mGetWechatOrderParams.put("body", "车票\n" + TimeAndDateFormate.timeFormate(mQueryOrder.getSetoutTime()) + "\n" + mQueryOrder.getLineName());// 商品描述
         mGetWechatOrderParams.put("total_fee", TransformYuanToFen(realPayPrice) + "");// 总金额
         mGetWechatOrderParams.put("mch_create_ip", GetIpAddressUtil.getPhoneIp());// 终端IP
+        mGetWechatOrderParams.put("id", mOrderId);
+        if (mRedBag != null)
+        {
+            mGetWechatOrderParams.put("redEnvelope_id", mRedBag.getId() + "");
+        }
+        mGetWechatOrderParams.put("real_pay", realPayPrice + "");
     }
 
     /**
      * 将微信支付的商户订单号保存到本地
      */
-    private void saveWechatPayOutTradeNo(String outTradeNo, String bookLogAID, String orderID, double realPayPrice)
+    private void saveWechatPayOutTradeNo(String outTradeNo, String bookLogAID, String orderID, double realPayPrice,double insurePrice)
     {
         SharedPreferences sp = getSharedPreferences(Constant.WechatPay.ABOUT_WECHAT_PAY, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
@@ -726,6 +817,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_BOOKLOGAID, bookLogAID);
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_ORDERID, orderID);
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, realPayPrice + "");
+        edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_INSUREPRICE, insurePrice + "");
 
         if (mRedBag != null)
         {
@@ -757,6 +849,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 XingYeBlankPayInfo xingYeBlankPayInfo = GsonUtils.parseJSON(s, XingYeBlankPayInfo.class);
                 if (xingYeBlankPayInfo != null && xingYeBlankPayInfo.getMap() != null) {
                     if (xingYeBlankPayInfo.getMap().getStatus().equalsIgnoreCase("0")) {
+                        isEnterWX=false;
                         RequestMsg msg = new RequestMsg();
                         msg.setMoney((double) TransformYuanToFen(realPayPrice));
                         msg.setTokenId(xingYeBlankPayInfo.getMap().getToken_id());
@@ -804,11 +897,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 cancleOrder();
             }
         });
-        doublebuttondialog.findViewById(R.id.button_cancle).setOnClickListener(new View.OnClickListener()
-        {
+        doublebuttondialog.findViewById(R.id.button_cancle).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
@@ -822,21 +913,16 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         String url = Constant.JDT_TICKET_HOST +
                 "SellTicket_NoBill_Cancel?scheduleCompanyCode=" + "YongAn" +
                 "&bookLogAID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url, new VolleyListener()
-        {
+        HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
             }
 
             @Override
-            public void onResponse(String s)
-            {
-                if ("isSure".equals(mIsSure))
-                {
+            public void onResponse(String s) {
+                if ("isSure".equals(mIsSure)) {
                     finish();
-                } else
-                {
+                } else {
                     startToMainActivity();
                 }
                 animFromBigToSmallOUT();
@@ -896,7 +982,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     protected void onStart()
     {
         super.onStart();
-
+        if (isEnterWX){
+            startToMainActivity();
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction("RedBag");
         registerReceiver(receiver, filter);
@@ -918,6 +1006,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     protected void onStop()
     {
         super.onStop();
+        startToMainActivity();
         unregisterReceiver(receiver);
     }
 

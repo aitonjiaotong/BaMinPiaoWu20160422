@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -148,6 +149,7 @@ public class AddFetcherActivity extends Activity implements View.OnClickListener
 
                                             @Override
                                             public void onResponse(String s) {
+                                                Log.e("onResponse", "修改联系人" + s);
                                                 finish();
                                                 animFromLeftToRightOUT();
                                             }

@@ -37,6 +37,8 @@ public class Constant {
         public static final String ADDPERSON = HOST_TICKET + "/person/addperson";
         //获取支付宝签名
         public static final String GETSIGN = HOST_TICKET+"/alipay/getsign";
+        //0元支付
+        public static final String CONFIRMORDER0 = HOST_TICKET+"/order/confirmorder";
         //检测软件升级-八闽云服务地址
         public static final String UP_GRADE = "http://120.55.166.203:8020/upgrade/upgradea_piaowu.txt";
         //购票须知
@@ -90,6 +92,8 @@ public class Constant {
         public static final String ABOUT_WECHAT_PAY_REDID = "RedID";
         //微信支付:保存到本地的实际支付的金额的KEY
         public static final String ABOUT_WECHAT_PAY_REALPAYPRICE = "realPayPrice";
+        // 保险价格
+        public static final String ABOUT_WECHAT_PAY_INSUREPRICE = "insurePrice";
 
     }
 

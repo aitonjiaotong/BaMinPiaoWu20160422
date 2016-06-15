@@ -21,7 +21,11 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import java.util.HashMap;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 import java.util.Map;
 
 import bamin.com.kepiao.R;
@@ -46,6 +50,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     private TextView mTv_order_pay_success_subtitle;
     private ProgressDialog mProgressDialog;
     private TextView mTv_btn_wechat_pay_result;
+    private String insurePrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +99,18 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
         switch (resp.errCode) {
             case 0:
                 //调用微信支付结果成功
+                Log.e("onResp", "微信返回0" + "1");
                 getSharedPreferencesForCheck();
-//                if (mWechatPayOutTrandeNo != null && !"".equals(mWechatPayOutTrandeNo))
-//                {
-                confrimOrder();
-//                }
+                Log.e("onResp", "微信返回0" + "2");
+                if (mWechatPayOutTrandeNo != null && !"".equals(mWechatPayOutTrandeNo)) {
+//                    confrimOrder();
+                    queryOrderState();
+                    Log.e("onResp", "微信返回0" + "3");
+                }
                 break;
             case -1:
                 //微信支付异常
+                Log.e("onResp", "微信返回-1");
                 mWechatPayResultCode = -1;
                 mProgressDialog.dismiss();
                 mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
@@ -112,6 +121,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
 
                 break;
             case -2:
+                Log.e("onResp", "微信返回-2");
                 //用户主动取消微信支付
                 mWechatPayResultCode = -2;
                 mProgressDialog.dismiss();
@@ -134,73 +144,70 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
         mWechatPayOrderId = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_ORDERID, null);
         mWechatPayRedId = sp.getInt(Constant.WechatPay.ABOUT_WECHAT_PAY_REDID, -1);
         mRealPayPrice = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, null);
+        insurePrice = sp.getString(Constant.WechatPay.ABOUT_WECHAT_PAY_INSUREPRICE, null);
         Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayOutTrandeNo->>" + mWechatPayOutTrandeNo);
         Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayBookLogaId->>" + mWechatPayBookLogaId);
         Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayOrderId->>" + mWechatPayOrderId);
         Log.e(TAG, "getSharedPreferencesForCheck: --mWechatPayRedId->>" + mWechatPayRedId);
-
     }
 
 
     /**
      * 支付成功，确认订单;向后台发送所用的红包/订单id/实际支付金额
      */
-    private void confrimOrder() {
-        String url01 = Constant.HOST_TICKET + "/order/completeorder";
-        Map<String, String> map = new HashMap<>();
-        if (-1 != mWechatPayRedId) {
-            map.put("redEnvelope_id", mWechatPayRedId + "");
-        } else {
-            map.put("id", mWechatPayOrderId);
-            map.put("real_pay", mRealPayPrice + "");
-        }
-        map.put("pay_model", "微信支付");
-        map.put("serial", mWechatPayOutTrandeNo);
-        HTTPUtils.post(WXPayEntryActivity.this, url01, map, new VolleyListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-            }
-
-            @Override
-            public void onResponse(String s) {
-                Log.e(TAG, "onResponse: --向后台提交订单确认->>" + s);
-
-                //0是成功 1是异常
-                if ("0".equals(s)) {
-                    //没有延迟的订单确认
-                    mProgressDialog.dismiss();
-                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
-                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
-                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
-                    mTv_order_pay_success_title.setText(R.string.order_success_title);
-                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
-
-                } else if ("1".equals(s)) {
-                    //异常订单
-                    mWechatPayResultCode = 1;
-                    mProgressDialog.dismiss();
-                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
-                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
-                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
-                    mTv_order_pay_success_title.setText(R.string.order_failure_title);
-                    mTv_order_pay_success_subtitle.setText(R.string.order_failure);
-                } else {
-                    //有延迟的订单确认
-                    mWechatPayResultCode = 2;
-                    mProgressDialog.dismiss();
-                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
-                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
-                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
-                    mTv_order_pay_success_title.setText(R.string.order_success_title);
-                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
-                }
-            }
-        });
-
-
-    }
-
-
+//    private void confrimOrder() {
+//        String url01 = Constant.HOST_TICKET + "/order/completeorder";
+//        Map<String, String> map = new HashMap<>();
+//        if (-1 != mWechatPayRedId) {
+//            map.put("redEnvelope_id", mWechatPayRedId + "");
+//        } else {
+//            map.put("id", mWechatPayOrderId);
+//            map.put("real_pay", mRealPayPrice + "");
+//        }
+//        map.put("pay_model", "微信支付");
+//        map.put("serial", mWechatPayOutTrandeNo);
+//        HTTPUtils.post(WXPayEntryActivity.this, url01, map, new VolleyListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//            }
+//
+//            @Override
+//            public void onResponse(String s) {
+//                Log.e(TAG, "onResponse: --向后台提交订单确认->>" + s);
+//                //0是成功 1是异常
+//                if ("0".equals(s)) {
+//                    //没有延迟的订单确认
+//                    mProgressDialog.dismiss();
+//                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+//                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+//                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+//                    mTv_order_pay_success_title.setText(R.string.order_success_title);
+//                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
+//
+//                } else if ("1".equals(s)) {
+//                    //异常订单
+//                    mWechatPayResultCode = 1;
+//                    mProgressDialog.dismiss();
+//                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+//                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_failure);
+//                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_failure);
+//                    mTv_order_pay_success_title.setText(R.string.order_failure_title);
+//                    mTv_order_pay_success_subtitle.setText(R.string.order_failure);
+//                } else {
+//                    //有延迟的订单确认
+//                    mWechatPayResultCode = 2;
+//                    mProgressDialog.dismiss();
+//                    mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+//                    mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+//                    mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+//                    mTv_order_pay_success_title.setText(R.string.order_success_title);
+//                    mTv_order_pay_success_subtitle.setText(R.string.order_success);
+//                }
+//            }
+//        });
+//
+//
+//    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -265,6 +272,62 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
                 }
                 break;
         }
+    }
+
+    /**
+     * 查询单个订单状态
+     */
+    private void queryOrderState() {
+        String url_web = Constant.JDT_TICKET_HOST +
+                "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
+                "&bookLogID=" + mWechatPayBookLogaId;
+        Log.e("queryOrderState", "订单列表ID" + mWechatPayBookLogaId);
+        HTTPUtils.get(WXPayEntryActivity.this, url_web, new VolleyListener() {
+            public void onErrorResponse(VolleyError volleyError) {
+            }
+
+            public void onResponse(String s) {
+                Log.e("onResponse", "查询单个订单");
+                Document doc = null;
+                try {
+                    doc = DocumentHelper.parseText(s);
+                    Element testElement = doc.getRootElement();
+                    String testxml = testElement.asXML();
+                    String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
+                    String state = result.substring(2, 5);
+                    if ("已确认".equals(state)) {
+                        Log.e("onResponse", "已确认");
+                        mProgressDialog.dismiss();
+                        mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                        mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+                        mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+                        mTv_order_pay_success_title.setText(R.string.order_success_title);
+                        mTv_order_pay_success_subtitle.setText(R.string.order_success);
+                        mWechatPayResultCode = 0;
+                    } else {
+                        Log.e("onResponse", "有延迟");
+                        //有延迟的订单确认
+                        mWechatPayResultCode = 2;
+                        mProgressDialog.dismiss();
+                        mRl_order_pay_info_bg.setVisibility(View.VISIBLE);
+                        mIv_order_pay_result_img.setImageResource(R.mipmap.ic_successful);
+                        mRl_order_pay_info_bg.setBackgroundResource(R.color.order_success);
+                        mTv_order_pay_success_title.setText(R.string.order_success_title);
+                        mTv_order_pay_success_subtitle.setText(R.string.order_success);
+                    }
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                } catch (IndexOutOfBoundsException e) {
+                }
+            }
+        });
+    }
+
+    /**
+     * 从小到大打开动画
+     */
+    private void animFromSmallToBigIN() {
+        overridePendingTransition(R.anim.magnify_fade_in, R.anim.fade_out);
     }
 
     /**
