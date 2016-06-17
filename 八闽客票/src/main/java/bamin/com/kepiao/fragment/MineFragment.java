@@ -125,6 +125,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mPhoneNum = sp.getString("phoneNum", "");
         mId = sp.getString(Constant.SP_KEY.ID, "");
         mImage = sp.getString("image", "");
+        Log.e("checkLogin", "图片地址" + mImage);
         if ("".equals(mPhoneNum)) {
             isLogined = false;
 
@@ -147,16 +148,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Uri uri = Uri.fromFile(pictureFile);
                     Bitmap bitmap = decodeUriAsBitmap(uri);
                     mIc_avatar.setImageBitmap(bitmap);
+                    Log.e("checkLogin", "本地图片存在");
                 } else {
+                    Log.e("checkLogin", "本地图片不存在");
                     mIc_avatar.setImageResource(R.mipmap.ic_avatar);
                 }
             } else {
                 if (!isUpdateIcon) {
                     UILUtils.displayImageNoAnimNoCache(mImage, mIc_avatar, false);
+                    Log.e("checkLogin", "图片URL" + mImage);
                 }
                 isUpdateIcon = true;
             }
-
         }
     }
 
@@ -194,6 +197,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mTv_diskcache_num = (TextView) mPullRootView.findViewById(R.id.tv_diskcache_num);
         mRl_mine_evething_clear_diskcache = (RelativeLayout) mPullRootView.findViewById(R.id.rl_mine_evething_clear_diskcache);
         mRl_check_curr_version = (RelativeLayout) mPullRootView.findViewById(R.id.rl_check_curr_version);
+        TextView textView_versionName = (TextView) mPullRootView.findViewById(R.id.textView_versionName);
+        textView_versionName.setText("版本："+VersionUtils.getCurrVersionInfo(getActivity()));
     }
 
     /**

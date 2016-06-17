@@ -130,16 +130,18 @@
             android:text="检查更新"
             android:textSize="@dimen/normalTextSize"/>
 
-        <ImageView
-            android:id="@+id/imageView48"
+
+        <TextView
+            android:textSize="@dimen/normalTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:text=""
+            android:id="@+id/textView_versionName"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_me_arrow_right_gray"/>
+            />
     </RelativeLayout>
 
     <RelativeLayout
