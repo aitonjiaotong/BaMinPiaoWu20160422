@@ -424,7 +424,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                      */
                     String replace = time.replace(".", ",");
                     String[] split = replace.split(",");
-                    lastTime = Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
+                    lastTime = (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]))/2;
                     //设置票订单倒计时
                     setTime();
                 } catch (DocumentException e)
