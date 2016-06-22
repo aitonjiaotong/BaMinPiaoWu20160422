@@ -61,8 +61,7 @@ import bamin.com.kepiao.utils.TimeAndDateFormate;
 /**
  * 优化1.0
  */
-public class PayActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class PayActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "PayActivity";
     private Handler mHandlerTime = new Handler();
     private double realPayPrice;//真正支付的金额
@@ -98,20 +97,16 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 接收红包界面发来的广播
      */
-    private BroadcastReceiver receiver = new BroadcastReceiver()
-    {
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent)
-        {
+        public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            switch (action)
-            {
+            switch (action) {
                 case "RedBag":
                     mRedBag = (RedPacket) intent.getSerializableExtra("RedBag");
                     double amount = mRedBag.getAmount();
                     realPayPrice = mPrice - amount;
-                    if (realPayPrice < 0)
-                    {
+                    if (realPayPrice < 0) {
                         realPayPrice = 0;
                     }
                     mTicket_price.setText("¥" + realPayPrice + "=" + mPrice + "-" + amount);
@@ -123,14 +118,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 支付宝支付动作完成后的回调
      */
-    private Handler mHandler = new Handler()
-    {
-        public void handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
-                case SDK_PAY_FLAG:
-                {
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
                     PayResult payResult = new PayResult((String) msg.obj);
                     /**
                      * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
@@ -143,20 +134,16 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     serial = split1[1];
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-                    if (TextUtils.equals(resultStatus, "9000"))
-                    {
+                    if (TextUtils.equals(resultStatus, "9000")) {
                         //支付成功向金点通发送确认订单
                         queryOrderState();
 //                        setDialog01("支付成功", "确认");
-                    } else
-                    {
+                    } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-                        if (TextUtils.equals(resultStatus, "8000"))
-                        {
+                        if (TextUtils.equals(resultStatus, "8000")) {
                             setFailDialog("支付结果确认中", "确认");
-                        } else
-                        {
+                        } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
 //                            cancleOrder();
                             setFailDialog("支付失败", "确认");
@@ -164,8 +151,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                     }
                     break;
                 }
-                case SDK_CHECK_FLAG:
-                {
+                case SDK_CHECK_FLAG: {
                     Toast.makeText(PayActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -219,8 +205,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 支付成功，确认订单
      */
-    private void confrimOrder()
-    {
+    private void confrimOrder() {
 
         /**
          * 向后台发送所用的红包和订单id并由后台确认订单，根据后台传来的返回值进行相关操作
@@ -231,43 +216,36 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         map.put("real_pay", realPayPrice + "");
         map.put("pay_model", payMode);
         map.put("serial", serial);
-        if (mRedBag != null)
-        {
+        if (mRedBag != null) {
             map.put("redEnvelope_id", mRedBag.getId() + "");
         }
-        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener()
-        {
+        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
                 //有延迟的订单确认
                 setDialog01("订单出现异常，请联系客服", "确认");
             }
 
             @Override
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 Log.e("onResponse", "提交订单返回值" + s);
-                if ("0".equals(s))
-                {
+                if ("0".equals(s)) {
                     //没有延迟的订单确认
                     setSuccessDialog("支付成功", "查看订单");
-                } else if ("1".equals(s))
-                {
+                } else if ("1".equals(s)) {
                     setDialog01("订单出现异常，请联系客服", "确认");
-                } else
-                {
+                } else {
                     //有延迟的订单确认
                     setDialog01("支付成功，15分钟之内出票", "确认");
                 }
             }
         });
     }
+
     /**
      * 支付成功，确认订单
      */
-    private void confrimOrder0()
-    {
+    private void confrimOrder0() {
 
         /**
          * 向后台发送所用的红包和订单id并由后台确认订单，根据后台传来的返回值进行相关操作
@@ -278,29 +256,23 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         map.put("real_pay", realPayPrice + "");
         map.put("pay_model", payMode);
         map.put("serial", serial);
-        if (mRedBag != null)
-        {
+        if (mRedBag != null) {
             map.put("redEnvelope_id", mRedBag.getId() + "");
         }
-        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener()
-        {
+        HTTPUtils.post(PayActivity.this, url01, map, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
                 //有延迟的订单确认
                 setDialog01("订单出现异常，请联系客服", "确认");
             }
 
             @Override
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 Log.e("onResponse", "提交订单返回值" + s);
-                if ("0".equals(s))
-                {
+                if ("0".equals(s)) {
                     //没有延迟的订单确认
                     setSuccessDialog("支付成功", "查看订单");
-                } else if ("1".equals(s))
-                {
+                } else if ("1".equals(s)) {
                     setDialog01("订单出现异常，请联系客服", "确认");
                 }
             }
@@ -309,8 +281,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
         //获取用户id
@@ -327,28 +298,23 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 查询优惠券信息
      */
-    private void queryRedBag()
-    {
+    private void queryRedBag() {
         String url = Constant.HOST_TICKET + "/redenvelope/getnumofredenvelopebyuser";
         Map<String, String> map = new HashMap<>();
         map.put("account_id", mId);
-        HTTPUtils.post(PayActivity.this, url, map, new VolleyListener()
-        {
+        HTTPUtils.post(PayActivity.this, url, map, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
             }
 
             @Override
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 mTextView_redBagCount.setText(s + "张");
             }
         });
     }
 
-    private void findID()
-    {
+    private void findID() {
         mTicket_price = (TextView) findViewById(R.id.ticket_price);
         mPay_mode = (RadioGroup) findViewById(R.id.pay_mode);
         mRadioButton_zhifubao = (RadioButton) findViewById(R.id.radioButton_zhifubao);
@@ -365,30 +331,24 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 查询订单信息
      */
-    private void queryOrderInfo()
-    {
+    private void queryOrderInfo() {
         String url = Constant.JDT_TICKET_HOST + "QueryBookLog?getTicketCodeOrAID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url, new VolleyListener()
-        {
+        HTTPUtils.get(PayActivity.this, url, new VolleyListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError)
-            {
+            public void onErrorResponse(VolleyError volleyError) {
             }
 
             @Override
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 Document doc = null;
-                try
-                {
+                try {
                     doc = DocumentHelper.parseText(s);
                     Element testElement = doc.getRootElement();
                     String testxml = testElement.asXML();
                     String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     mQueryOrder = GsonUtils.parseJSON(result, QueryOrder.class);
                     initUI();
-                } catch (DocumentException e)
-                {
+                } catch (DocumentException e) {
                     e.printStackTrace();
                 }
             }
@@ -398,22 +358,17 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 查询并更新时间
      */
-    private void queryTime()
-    {
+    private void queryTime() {
         String url_web = Constant.JDT_TICKET_HOST +
                 "SellTicket_Other_NoBill_GetBookStateAndMinuteToConfirm?scheduleCompanyCode=" + "YongAn" + "" +
                 "&bookLogID=" + mBookLogAID;
-        HTTPUtils.get(PayActivity.this, url_web, new VolleyListener()
-        {
-            public void onErrorResponse(VolleyError volleyError)
-            {
+        HTTPUtils.get(PayActivity.this, url_web, new VolleyListener() {
+            public void onErrorResponse(VolleyError volleyError) {
             }
 
-            public void onResponse(String s)
-            {
+            public void onResponse(String s) {
                 Document doc = null;
-                try
-                {
+                try {
                     doc = DocumentHelper.parseText(s);
                     Element testElement = doc.getRootElement();
                     String testxml = testElement.asXML();
@@ -424,11 +379,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                      */
                     String replace = time.replace(".", ",");
                     String[] split = replace.split(",");
-                    lastTime = (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]))/2;
+                    lastTime = (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]) * 6) - 60 * 5;
                     //设置票订单倒计时
                     setTime();
-                } catch (DocumentException e)
-                {
+                } catch (DocumentException e) {
                     e.printStackTrace();
                 }
             }
@@ -438,17 +392,13 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 票订单支付倒计时
      */
-    private void setTime()
-    {
+    private void setTime() {
 
-        mR = new Runnable()
-        {
+        mR = new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 mSurplusTime.setText(TimeFormat(lastTime));
-                if (lastTime == 0)
-                {
+                if (lastTime == 0) {
                     return;
                 }
                 lastTime--;
@@ -459,8 +409,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //将秒数转换成时间格式
-    private String TimeFormat(int progress)
-    {
+    private String TimeFormat(int progress) {
         int min = progress / 60;
         int sec = progress % 60;
         //设置整数的输出格式：  %02d  d代表int  2代码位数    0代表位数不够时前面补0
@@ -468,8 +417,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         return time;
     }
 
-    private void initIntent()
-    {
+    private void initIntent() {
         Intent intent = getIntent();
         mBookLogAID = intent.getStringExtra("BookLogAID");
         Log.e("initIntent ", "initIntent mBookLogAID" + mBookLogAID);
@@ -480,8 +428,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mInsurePrice = intent.getDoubleExtra("insurePrice", 0);
     }
 
-    private void setListener()
-    {
+    private void setListener() {
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.pay).setOnClickListener(this);
         mPay_mode.setOnCheckedChangeListener(new MyOnCheckChangeListener());
@@ -489,28 +436,22 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.textView_order_cancle).setOnClickListener(this);
     }
 
-    class MyOnCheckChangeListener implements RadioGroup.OnCheckedChangeListener
-    {
+    class MyOnCheckChangeListener implements RadioGroup.OnCheckedChangeListener {
 
         @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId)
-        {
-            if (mRadioButton_zhifubao.isChecked())
-            {
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (mRadioButton_zhifubao.isChecked()) {
                 Log.e("onCheckedChanged", "支付宝");
                 payMode = "支付宝";
-            } else if (mRadioButton_weixin.isChecked())
-            {
+            } else if (mRadioButton_weixin.isChecked()) {
                 payMode = "微信";
-            } else if (mRadioButton_yinlian.isChecked())
-            {
+            } else if (mRadioButton_yinlian.isChecked()) {
                 payMode = "银联";
             }
         }
     }
 
-    private void initUI()
-    {
+    private void initUI() {
         mTicket_count.setText(mQueryOrder.getFullTicket() + "");
         realPayPrice = mPrice;
         mTicket_price.setText("¥" + realPayPrice);
@@ -531,21 +472,16 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * call alipay sdk pay. 调用SDK支付
      */
-    public void pay()
-    {
-        if (lastTime > 0)
-        {
-            if (realPayPrice == 0)
-            {
+    public void pay() {
+        if (lastTime > 0) {
+            if (realPayPrice == 0) {
                 //用了优惠券减到0的情况
                 confrimOrder0();
-            } else
-            {
+            } else {
                 getSign();
             }
 
-        } else
-        {
+        } else {
             setFailDialog01("支付超时，失败", "确认");
         }
 
@@ -554,12 +490,11 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     private void getSign() {
         String url = Constant.Url.GETSIGN;
         Map<String, String> map = new HashMap<>();
-        map.put("out_trade_no",getOutTradeNo());
+        map.put("out_trade_no", getOutTradeNo());
         map.put("subject", mQueryOrder.getStartSiteName() + "-" + mQueryOrder.getEndSiteName());
         map.put("total_fee", realPayPrice + "");
         map.put("id", mOrderId);
-        if (mRedBag != null)
-        {
+        if (mRedBag != null) {
             map.put("redEnvelope_id", mRedBag.getId() + "");
         }
         map.put("real_pay", realPayPrice + "");
@@ -574,12 +509,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 Sign sign = GsonUtils.parseJSON(s, Sign.class);
                 final String body = sign.getBody();
                 Log.e("onResponse", "返回值" + body);
-                Runnable payRunnable = new Runnable()
-                {
+                Runnable payRunnable = new Runnable() {
 
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         // 构造PayTask 对象
                         PayTask alipay = new PayTask(PayActivity.this);
                         // 调用支付接口，获取支付结果
@@ -603,8 +536,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
      */
-    private String getOutTradeNo()
-    {
+    private String getOutTradeNo() {
         SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss", Locale.getDefault());
         Date date = new Date();
         String key = format.format(date);
@@ -616,8 +548,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //支付成功dialog提示
-    private void setSuccessDialog(String messageTxt, String iSeeTxt)
-    {
+    private void setSuccessDialog(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
@@ -627,11 +558,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
-        {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
                 Intent intent = new Intent();
                 intent.putExtra("BookLogAID", mBookLogAID);
@@ -643,8 +572,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //支付失败dialog提示
-    private void setFailDialog01(String messageTxt, String iSeeTxt)
-    {
+    private void setFailDialog01(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
@@ -654,17 +582,13 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
-        {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
-                if ("isSure".equals(mIsSure))
-                {
+                if ("isSure".equals(mIsSure)) {
                     finish();
-                } else
-                {
+                } else {
                     startToMainActivity();
                 }
                 animFromBigToSmallOUT();
@@ -673,8 +597,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //支付成功并提示
-    private void setDialog01(String messageTxt, String iSeeTxt)
-    {
+    private void setDialog01(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
@@ -684,11 +607,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
-        {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
                 startToMainActivity();
             }
@@ -696,8 +617,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     //支付失败dialog提示
-    private void setFailDialog(String messageTxt, String iSeeTxt)
-    {
+    private void setFailDialog(String messageTxt, String iSeeTxt) {
         View commit_dialog = getLayoutInflater().inflate(R.layout.commit_dialog, null);
         TextView message = (TextView) commit_dialog.findViewById(R.id.message);
         Button ISee = (Button) commit_dialog.findViewById(R.id.ISee);
@@ -707,22 +627,18 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         final AlertDialog dialog = builder.setView(commit_dialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
-        {
+        commit_dialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.textView_order_cancle:
                 setDialog("确认取消订单吗？");
                 break;
@@ -733,40 +649,34 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 animFromLeftToRightIN();
                 break;
             case R.id.pay:
-                if ("支付宝".equals(payMode))
-                {
-                    pay();
-                } else if ("微信".equals(payMode))
-                {
-                    if (lastTime > 0)
-                    {
-                        if (realPayPrice == 0)
-                        {
-                            confrimOrder0();
-                        } else
-                        {
+                if (lastTime > 0) {
+                    if (realPayPrice == 0) {
+                        //用了优惠券减到0的情况
+                        confrimOrder0();
+                    } else {
+                        if ("支付宝".equals(payMode)) {
+                            getSign();
+                        } else if ("微信".equals(payMode)) {
                             wechatPay();
+                        } else if ("银联".equals(payMode)) {
+                            intent.setClass(PayActivity.this, YinLianWebActivity.class);
+                            intent.putExtra("BookLogAID", mBookLogAID);
+                            intent.putExtra(Constant.IntentKey.PAY_ORDERID, mOrderId);
+                            intent.putExtra(Constant.IntentKey.PAY_PRICE, (int) (realPayPrice * 100) + "");
+                            if (mRedBag != null) {
+                                intent.putExtra(Constant.IntentKey.PAY_REDENVELOPE_ID, mRedBag.getId() + "");
+                            }
+                            startActivity(intent);
                         }
                     }
-                }else if ("银联".equals(payMode))
-                {
-                    intent.setClass(PayActivity.this, YinLianWebActivity.class);
-                    intent.putExtra("BookLogAID",mBookLogAID);
-                    intent.putExtra(Constant.IntentKey.PAY_ORDERID, mOrderId);
-                    intent.putExtra(Constant.IntentKey.PAY_PRICE, (int)(realPayPrice*100) + "");
-                    if (mRedBag != null)
-                    {
-                        intent.putExtra(Constant.IntentKey.PAY_REDENVELOPE_ID, mRedBag.getId() + "");
-                    }
-                    startActivity(intent);
+                } else {
+                    setFailDialog01("支付超时，失败", "确认");
                 }
                 break;
             case R.id.iv_back:
-                if ("isSure".equals(mIsSure))
-                {
+                if ("isSure".equals(mIsSure)) {
                     finish();
-                } else
-                {
+                } else {
                     startToMainActivity();
                 }
                 animFromBigToSmallOUT();
@@ -777,8 +687,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 微信支付
      */
-    private void wechatPay()
-    {
+    private void wechatPay() {
         findViewById(R.id.pay).setEnabled(false);
         mWechat_pay_dialog_layout = getLayoutInflater().inflate(R.layout.wechat_pay_dialog, null);
         mBuilder = new AlertDialog.Builder(PayActivity.this);
@@ -799,8 +708,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         mGetWechatOrderParams.put("total_fee", TransformYuanToFen(realPayPrice) + "");// 总金额
         mGetWechatOrderParams.put("mch_create_ip", GetIpAddressUtil.getPhoneIp());// 终端IP
         mGetWechatOrderParams.put("id", mOrderId);
-        if (mRedBag != null)
-        {
+        if (mRedBag != null) {
             mGetWechatOrderParams.put("redEnvelope_id", mRedBag.getId() + "");
         }
         mGetWechatOrderParams.put("real_pay", realPayPrice + "");
@@ -809,8 +717,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 将微信支付的商户订单号保存到本地
      */
-    private void saveWechatPayOutTradeNo(String outTradeNo, String bookLogAID, String orderID, double realPayPrice,double insurePrice)
-    {
+    private void saveWechatPayOutTradeNo(String outTradeNo, String bookLogAID, String orderID, double realPayPrice, double insurePrice) {
         SharedPreferences sp = getSharedPreferences(Constant.WechatPay.ABOUT_WECHAT_PAY, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_OUT_TRADE_NO, outTradeNo);
@@ -819,8 +726,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_REALPAYPRICE, realPayPrice + "");
         edit.putString(Constant.WechatPay.ABOUT_WECHAT_PAY_INSUREPRICE, insurePrice + "");
 
-        if (mRedBag != null)
-        {
+        if (mRedBag != null) {
             edit.putInt(Constant.WechatPay.ABOUT_WECHAT_PAY_REDID, mRedBag.getId());
         }
         edit.commit();
@@ -829,13 +735,12 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 兴业银行-->微信支付:获取服务端的预支付订单及签名…等信息,并向兴业银行-->微信支付调起支付
      */
-    private void getXingYeBlankWechatPayOrderPrepayIdAndSign()
-    {
+    private void getXingYeBlankWechatPayOrderPrepayIdAndSign() {
         if (!mWechatPayAlertDialog.isShowing()) {
             mWechatPayAlertDialog.show();
         }
         HTTPUtils.post(PayActivity.this, Constant.WechatPay.GET_WECHAT_ORDER_INFO_URL, mGetWechatOrderParams, new VolleyListener() {
-//        HTTPUtils.post(PayActivity.this, "http://192.168.1.108:8080/app/xy/getprepay", mGetWechatOrderParams, new VolleyListener() {
+            //        HTTPUtils.post(PayActivity.this, "http://192.168.1.108:8080/app/xy/getprepay", mGetWechatOrderParams, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 findViewById(R.id.pay).setEnabled(true);
@@ -849,7 +754,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 XingYeBlankPayInfo xingYeBlankPayInfo = GsonUtils.parseJSON(s, XingYeBlankPayInfo.class);
                 if (xingYeBlankPayInfo != null && xingYeBlankPayInfo.getMap() != null) {
                     if (xingYeBlankPayInfo.getMap().getStatus().equalsIgnoreCase("0")) {
-                        isEnterWX=false;
+                        isEnterWX = false;
                         RequestMsg msg = new RequestMsg();
                         msg.setMoney((double) TransformYuanToFen(realPayPrice));
                         msg.setTokenId(xingYeBlankPayInfo.getMap().getToken_id());
@@ -857,8 +762,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                         msg.setAppId(Constant.WechatPay.APP_ID);
                         PayPlugin.unifiedAppPay(PayActivity.this, msg);
                     }
-                } else
-                {
+                } else {
                     //获取预签名失败
                 }
             }
@@ -868,8 +772,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 人民币单位转换 元--->>分
      */
-    private int TransformYuanToFen(double primevalPrice)
-    {
+    private int TransformYuanToFen(double primevalPrice) {
         int v = (int) (primevalPrice * 100);
         return v;
     }
@@ -879,8 +782,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
      *
      * @param messageTxt
      */
-    private void setDialog(String messageTxt)
-    {
+    private void setDialog(String messageTxt) {
         View doublebuttondialog = getLayoutInflater().inflate(R.layout.doublebuttondialog, null);
         TextView message = (TextView) doublebuttondialog.findViewById(R.id.message);
         message.setText(messageTxt);
@@ -888,11 +790,9 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         final AlertDialog dialog = builder.setView(doublebuttondialog).create();
         dialog.setCancelable(false);
         dialog.show();
-        doublebuttondialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener()
-        {
+        doublebuttondialog.findViewById(R.id.ISee).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 dialog.dismiss();
                 cancleOrder();
             }
@@ -908,8 +808,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 支付失败，取消订单
      */
-    private void cancleOrder()
-    {
+    private void cancleOrder() {
         String url = Constant.JDT_TICKET_HOST +
                 "SellTicket_NoBill_Cancel?scheduleCompanyCode=" + "YongAn" +
                 "&bookLogAID=" + mBookLogAID;
@@ -933,22 +832,17 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 从大到小结束动画
      */
-    private void animFromBigToSmallOUT()
-    {
+    private void animFromBigToSmallOUT() {
         overridePendingTransition(R.anim.fade_in, R.anim.big_to_small_fade_out);
     }
 
     //重写back方法
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            if ("isSure".equals(mIsSure))
-            {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ("isSure".equals(mIsSure)) {
                 finish();
-            } else
-            {
+            } else {
                 startToMainActivity();
             }
             animFromBigToSmallOUT();
@@ -960,8 +854,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 跳转主页面
      */
-    private void startToMainActivity()
-    {
+    private void startToMainActivity() {
         Intent intent = new Intent();
         intent.putExtra("OrderDeatilActivity", "OrderDeatilActivity");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -973,16 +866,14 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
     /**
      * 从左往右打开动画
      */
-    private void animFromLeftToRightIN()
-    {
+    private void animFromLeftToRightIN() {
         overridePendingTransition(R.anim.push_right_in, R.anim.fade_out);
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
-        if (isEnterWX){
+        if (isEnterWX) {
             startToMainActivity();
         }
         IntentFilter filter = new IntentFilter();
@@ -990,28 +881,24 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         registerReceiver(receiver, filter);
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
 
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
         unregisterReceiver(receiver);
     }
 
     //弹出等待popupwindows，防止误操作
-    private void setPopupWindows()
-    {
+    private void setPopupWindows() {
         View inflate = getLayoutInflater().inflate(R.layout.popupmenu01, null);
         //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
         mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -1021,12 +908,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.7f;
         getWindow().setAttributes(lp);
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener()
-        {
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
             @Override
-            public void onDismiss()
-            {
+            public void onDismiss() {
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
                 lp.alpha = 1f;
                 getWindow().setAttributes(lp);

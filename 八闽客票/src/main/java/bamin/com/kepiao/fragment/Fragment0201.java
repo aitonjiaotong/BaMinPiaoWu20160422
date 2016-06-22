@@ -171,7 +171,7 @@ public class Fragment0201 extends Fragment {
                     }
                 }
             });
-        }else{
+        } else {
             mCustom_view.stopRefresh();
             mCustom_view.stopLoadMore();
             mNoneOrder.setVisibility(View.VISIBLE);
@@ -201,8 +201,25 @@ public class Fragment0201 extends Fragment {
                     String testxml = testElement.asXML();
                     String result = testxml.substring(testxml.indexOf(">") + 1, testxml.lastIndexOf("<"));
                     String state = result.substring(2, 5);
-                    orderStateList.remove(i);
-                    orderStateList.add(i, state);
+                    if ("未确认".equals(state)) {
+                        String time = result.substring(6, result.length());
+                        /**
+                         * 将字符截成数组
+                         */
+                        String replace = time.replace(".", ",");
+                        String[] split = replace.split(",");
+                        int lastTime = (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1])*6)-60*5;
+                        if (lastTime>0){
+                            orderStateList.remove(i);
+                            orderStateList.add(i, state);
+                        }else {
+                            orderStateList.remove(i);
+                            orderStateList.add(i, "已撤销");
+                        }
+                    } else {
+                        orderStateList.remove(i);
+                        orderStateList.add(i, state);
+                    }
                     refreashSure();
                 } catch (DocumentException e) {
                     e.printStackTrace();
@@ -251,16 +268,28 @@ public class Fragment0201 extends Fragment {
 
                         } else if (mAccountOrderEntityList.get(i).getStatus() == 3) {
                             DialogShow.setDialog(getActivity(), "订单出现异常，请联系客服", "确认");
-                        } else if (mAccountOrderEntityList.get(i).getStatus() == 2){
-                            Intent intent = new Intent();
-                            intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
-                            intent.putExtra("realPrice", mAccountOrderEntityList.get(i).getPrice());
-                            intent.putExtra("OrderId", mAccountOrderEntityList.get(i).getId() + "");
-                            intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
-                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            intent.setClass(getActivity(), PayActivity.class);
-                            startActivity(intent);
-                            animFromSmallToBigIN();
+                        } else if (mAccountOrderEntityList.get(i).getStatus() == 2) {
+                            String time = result.substring(6, result.length());
+                            /**
+                             * 将字符截成数组
+                             */
+                            String replace = time.replace(".", ",");
+                            String[] split = replace.split(",");
+                            int lastTime = (Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]) * 6) - 60 * 5;
+                            Log.e("onResponse ", "剩余时间" + lastTime);
+                            if (lastTime > 0) {
+                                Intent intent = new Intent();
+                                intent.putExtra("BookLogAID", mAccountOrderEntityList.get(i).getBookLogAID());
+                                intent.putExtra("realPrice", mAccountOrderEntityList.get(i).getPrice());
+                                intent.putExtra("OrderId", mAccountOrderEntityList.get(i).getId() + "");
+                                intent.putExtra("insurePrice", mAccountOrderEntityList.get(i).getInsure());
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.setClass(getActivity(), PayActivity.class);
+                                startActivity(intent);
+                                animFromSmallToBigIN();
+                            } else {
+                                DialogShow.setDialog(getActivity(), "支付时间已过", "确认");
+                            }
                         }
                     } else if ("已撤销".equals(state)) {
                         DialogShow.setDialog(getActivity(), "订单已撤销", "确认");
