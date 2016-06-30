@@ -25,7 +25,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':lib_shane')
     compile project(':library')
-    compile project(':SMSSDK')
     compile project(':library_refreash')
     compile files('libs/zxing.jar')
     compile files('libs/libammsdk.jar')
