@@ -1,21 +1,20 @@
 package bamin.com.kepiao.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +58,6 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private ListView4ScrollView mPassager_list;
     private List<UsedContactInfo> mTicketPassagerList = new ArrayList<>();
     private OrderInfo mOrderInfo;
-    private PopupWindow mPopupWindow;
     private CheckBox mCheckBox_baoxian;
     private TextView mTextView_insure;
     private String mPhoneNum;
@@ -83,6 +81,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
     private TextView mSeatNum;
     private TextView mTicket_time;
     private TextView mSetoutTime;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -268,25 +267,38 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
 
     //弹出等待popupwindows，防止误操作
     private void setPopupWindows() {
-        View inflate = getLayoutInflater().inflate(R.layout.popupmenu01, null);
-        //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
-        mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        //设置外部点击无效
-        mPopupWindow.setOutsideTouchable(false);
-        //设置背景变暗
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = 0.7f;
-        getWindow().setAttributes(lp);
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("提交订单……");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+        mProgressDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public void onDismiss() {
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.alpha = 1f;
-                getWindow().setAttributes(lp);
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                    mProgressDialog.dismiss();
+                }
+                return false;
             }
         });
-        mPopupWindow.showAtLocation(inflate, Gravity.CENTER, 0, 0);
+//        View inflate = getLayoutInflater().inflate(R.layout.popupmenu01, null);
+//        //最后一个参数为true，点击PopupWindow消失,宽必须为match，不然肯呢个会导致布局显示不完全
+//        mPopupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+//        //设置外部点击无效
+//        mPopupWindow.setOutsideTouchable(false);
+//        //设置背景变暗
+//        WindowManager.LayoutParams lp = getWindow().getAttributes();
+//        lp.alpha = 0.7f;
+//        getWindow().setAttributes(lp);
+//        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//
+//            @Override
+//            public void onDismiss() {
+//                WindowManager.LayoutParams lp = getWindow().getAttributes();
+//                lp.alpha = 1f;
+//                getWindow().setAttributes(lp);
+//            }
+//        });
+//        mPopupWindow.showAtLocation(inflate, Gravity.CENTER, 0, 0);
     }
 
     private void orderCommit() {
@@ -312,7 +324,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.get(FillinOrderActivity.this, url_web, new VolleyListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(FillinOrderActivity.this, "票务系统连接中", Toast.LENGTH_SHORT).show();
-                mPopupWindow.dismiss();
+                mProgressDialog.dismiss();
             }
 
             public void onResponse(String s) {
@@ -331,7 +343,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                             } else {
                                 Toast.makeText(FillinOrderActivity.this, mOrderInfo.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            mPopupWindow.dismiss();
+                            mProgressDialog.dismiss();
                         } else {
                             /**
                              * 传订单号到艾通服务器
@@ -340,7 +352,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                         }
                     } else {
                         Toast.makeText(FillinOrderActivity.this, "提交订单失败", Toast.LENGTH_SHORT).show();
-                        mPopupWindow.dismiss();
+                        mProgressDialog.dismiss();
                     }
                 } catch (DocumentException e) {
                     e.printStackTrace();
@@ -362,7 +374,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
         HTTPUtils.post(FillinOrderActivity.this, url, map, new VolleyListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                mPopupWindow.dismiss();
+                mProgressDialog.dismiss();
             }
 
             @Override
@@ -376,7 +388,7 @@ public class FillinOrderActivity extends Activity implements View.OnClickListene
                 intent.putExtra("insurePrice", insurePrice);
                 startActivity(intent);
                 animFromSmallToBigIN();
-                mPopupWindow.dismiss();
+                mProgressDialog.dismiss();
             }
         });
     }
