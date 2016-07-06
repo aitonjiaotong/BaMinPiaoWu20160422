@@ -36,14 +36,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <!-- 支付宝相关activity -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind">
+            android:screenOrientation="behind"
+            >
         </activity>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
@@ -55,30 +57,36 @@
         <!-- 支付宝相关activity -->
         <activity
             android:name=".activity.SmsLoginActivity"
-            android:label="@string/title_activity_sms_login">
+            android:label="@string/title_activity_sms_login"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.AddFetcherActivity"
-            android:label="@string/title_activity_add_fetcher">
+            android:label="@string/title_activity_add_fetcher"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.CouponInfoActivity"
-            android:label="@string/title_activity_coupon_info">
+            android:label="@string/title_activity_coupon_info"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.FillinOrderActivity"
             android:label="@string/title_activity_fillin_order"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.OrderDeatilActivity"
-            android:label="@string/title_activity_order_deatil">
+            android:label="@string/title_activity_order_deatil"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.PayActivity"
             android:exported="true"
             android:label="@string/title_activity_pay"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -87,39 +95,49 @@
                 <data android:scheme="wxa67cb8a1e90e486a"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity">
+        <activity android:name=".activity.RegisterActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.SelectStationArriveActivity"
             android:label="@string/title_activity_select_station_arrive"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.SelectStationSetOutActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SoftInfo"
-            android:label="@string/title_activity_soft_info">
+            android:label="@string/title_activity_soft_info"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.TicketActivity"/>
+        <activity android:name=".activity.TicketActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.TicketNotice"
-            android:label="@string/title_activity_ticket_notice">
+            android:label="@string/title_activity_ticket_notice"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.UpdatePasswordActivity">
+        <activity android:name=".activity.UpdatePasswordActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.UsedContact"
-            android:label="@string/title_activity_used_contact">
+            android:label="@string/title_activity_used_contact"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.WelcomeActivity"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -128,9 +146,11 @@
         </activity>
         <activity
             android:name=".activity.GuideActivity"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.YinLianWebActivity">
+        <activity android:name=".activity.YinLianWebActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 
