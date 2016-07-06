@@ -40,7 +40,8 @@ public class Constant {
         //0元支付
         public static final String CONFIRMORDER0 = HOST_TICKET+"/order/confirmorder";
         //检测软件升级-八闽云服务地址
-        public static final String UP_GRADE = "http://120.55.166.203:8020/upgrade/upgradea_piaowu.txt";
+//        public static final String UP_GRADE = "http://120.55.166.203:8020/upgrade/upgradea_piaowu.txt";
+        public static final String UP_GRADE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/bmzc/upgradea_piaowu.txt";
         //购票须知
         public static final String TICKET_NOTICE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/html/goupiaoxuzhi.html";
         //票务的软件介绍
