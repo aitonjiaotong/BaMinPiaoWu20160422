@@ -4,12 +4,12 @@ package bamin.com.kepiao.constant;
  * Created by Administrator on 2016/4/7.
  */
 public class Constant {
-//    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
+    //    public static final String HOST = "http://www.aiton.com.cn:8080";//艾通后台服务器HOST地址
     public static final String HOST = "http://www.bmcxfj.com:8080/bmpw";//八闽后台服务器HOST地址
     public static final int ABLEVERSION = 3;//可用版本号
-//    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
+    //    public static final String HOST_TICKET = "http://120.24.46.15:8080/aiton-tickets-app-webapp";//票务测试
     public static final String HOST_TICKET = "http://120.55.166.203:8020/aiton-tickets-app-webapp";//票务正式服务器
-    public static final String GETSMS = HOST_TICKET+"/public/sendmessage";//发送短信
+    public static final String GETSMS = HOST_TICKET + "/public/sendmessage";//发送短信
     //    public static final String JDT_TICKET_HOST = "http://www.aiton.com.cn:808/JDTTicket.asmx/";
     public static final String JDT_TICKET_HOST = "http://www.bmcxfj.com:8088/JDTTicket.asmx/";
 
@@ -36,11 +36,10 @@ public class Constant {
         //添加联系人
         public static final String ADDPERSON = HOST_TICKET + "/person/addperson";
         //获取支付宝签名
-        public static final String GETSIGN = HOST_TICKET+"/alipay/getsign";
+        public static final String GETSIGN = HOST_TICKET + "/alipay/getsign";
         //0元支付
-        public static final String CONFIRMORDER0 = HOST_TICKET+"/order/confirmorder";
+        public static final String CONFIRMORDER0 = HOST_TICKET + "/order/confirmorder";
         //检测软件升级-八闽云服务地址
-//        public static final String UP_GRADE = "http://120.55.166.203:8020/upgrade/upgradea_piaowu.txt";
         public static final String UP_GRADE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/bmzc/upgradea_piaowu.txt";
         //购票须知
         public static final String TICKET_NOTICE = "http://bmcx.oss-cn-shanghai.aliyuncs.com/html/goupiaoxuzhi.html";
@@ -50,20 +49,22 @@ public class Constant {
         public static final String CLI_SCAN = "http://bmcx.oss-cn-shanghai.aliyuncs.com/cliscan/android/bmcx_piaowu.png";
     }
 
-    public static final class Key{
+    public static final class Key {
         // 购票剩余时间限制
         public static long LEFT_BUY_TICKET_TIME = 1800L * 1000L;
         // 购票剩余时间提示语
         public static String LEFT_BUY_TICKET_MSG = "据发车时间半小时内，停止售票";
+
         public static void setLeftBuyTicketTime(long leftBuyTicketTime) {
             LEFT_BUY_TICKET_TIME = leftBuyTicketTime;
         }
+
         public static void setLeftBuyTicketMsg(String leftBuyTicketMsg) {
             LEFT_BUY_TICKET_MSG = leftBuyTicketMsg;
         }
     }
 
-    public static final class SP_KEY{
+    public static final class SP_KEY {
         public static final String SP_NAME = "isLogin";//sp的名字
         public static final String SP_ISFRIST = "isfrist";//是否第一次进入APP
         public static final String ID = "id";//用户id
@@ -80,7 +81,6 @@ public class Constant {
         public static final String APP_ID = "wx40b57f5f7c117af3";
         //微信支付:获取后台服务端微信支付预支付订单号
         public static final String GET_WECHAT_ORDER_INFO_URL = HOST_TICKET + "/xy/getprepay";
-
         //微信支付:保存商户订单号到SharedPreferences的dataName
         public static final String ABOUT_WECHAT_PAY = "WechatPayOutTradeNo";
         //微信支付:保存商户订单号到SharedPreferences的KEY
@@ -119,6 +119,7 @@ public class Constant {
         public static final int RESULT_CODE_ARRIVE_COMMONLY_USED_ADDR = 14;
         public static final int RESULT_CODE_COMMIT_ORDER = 15;
     }
+
     /**
      * Intent传值的KEY
      */
