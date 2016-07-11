@@ -63,8 +63,8 @@ public class Fragment0201 extends Fragment {
     private TextView mNoneOrder;
     private boolean isItemClickED = false;
     //是否安全刷新
-    private boolean isSure = false;
     private QueryOrder mQueryOrderNull;
+    private boolean isListItemClick = true;
 
     public Fragment0201() {
         // Required empty public constructor
@@ -113,6 +113,8 @@ public class Fragment0201 extends Fragment {
      */
     //查询所有有订单号
     private void queryAccountIdToOrder() {
+        isListItemClick = false;
+        Log.e("queryAccountIdToOrder ", "item是否可点击"+isListItemClick);
         if (!"".equals(mId)) {
             String url = Constant.HOST_TICKET + "/front/ladorderbyuser";
             Map<String, String> map = new HashMap<>();
@@ -372,6 +374,7 @@ public class Fragment0201 extends Fragment {
             mCustom_view.stopLoadMore();
             mMyAdapter.notifyDataSetChanged();
             mOrderListview.setVisibility(View.VISIBLE);
+            isListItemClick = true ;
         }
     }
 
@@ -434,6 +437,16 @@ public class Fragment0201 extends Fragment {
     }
 
     class MyAdapter extends BaseAdapter {
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return isListItemClick;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return isListItemClick;
+        }
 
         @Override
         public int getCount() {
